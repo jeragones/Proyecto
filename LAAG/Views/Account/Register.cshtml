@@ -1,11 +1,11 @@
-﻿@model LAAG.Models.RegisterModel
+﻿@model MvcApplication1.Models.RegisterModel
 @{
-    ViewBag.Title = "Registrarse";
+    ViewBag.Title = "Register";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Cree una cuenta nueva.</h2>
+    <h2>Create a new account.</h2>
 </hgroup>
 
 @using (Html.BeginForm()) {
@@ -13,7 +13,7 @@
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Formulario de registro</legend>
+        <legend>Registration Form</legend>
         <ol>
             <li>
                 @Html.LabelFor(m => m.UserName)
@@ -28,7 +28,7 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
-        <input type="submit" value="Registrarse" />
+        <input type="submit" value="Register" />
     </fieldset>
 }
 
