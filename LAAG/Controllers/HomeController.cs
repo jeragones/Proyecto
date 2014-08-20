@@ -14,7 +14,7 @@ namespace LAAG.Controllers
 
             return View();
         }
-
+        
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
@@ -22,6 +22,13 @@ namespace LAAG.Controllers
             return View();
         }
 
+        public ActionResult blankPage()
+        {
+            ViewBag.Message = "Hola";
+
+            return View();
+        }
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
