@@ -1,31 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Blank Page";
+ViewBag.Title = "Blank Page";
 }
-
-<div id="wrapper">
-    <h1>@ViewBag.Message</h1>
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Daniel Berrocal
-                    </h1>
-                    <ul class="nav navbar-nav side-nav">
-                        <li class="active">
-                            <i class="fa fa-fw fa-dashboard"></i>
-                            @Html.ActionLink("Inicio", "Index", "Home")
-                        </li>
-                        <li>
-                            <i class="fa fa-fw fa-file"></i>
-                            @Html.ActionLink("Blank Page", "blankPage", "Home")
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+<h1>@ViewBag.Message</h1>
+    <h1 class="page-header">
+        Daniel Berrocal <small>Subheading</small>
+</h1>

@@ -40,7 +40,6 @@ namespace LAAG.Controllers
                 DataDataContext db = new DataDataContext();
                 if (db.IsValidUser(model.UserName, model.Password))
                 {
-                    Response.Write("<script language=javascript>alert('GG');</script>");
                     return RedirectToLocal(returnUrl);
                 }
             }
