@@ -35,10 +35,29 @@
                     <a class="navbar-brand" href="/Home/Index">Lab. Análisis Agronómicos</a>
                 </div>
                 <!-- Top Menu Items -->
+                
                 <ul class="nav navbar-right top-nav">
-                    <li>
-                        <a href="@Url.Action("Login", "Account")"><i class="fa fa-fw fa-dashboard"></i>Iniciar Sesión</a>
-                    </li>
+                    @if(!Request.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="@Url.Action("Login", "Account")"><i class="fa fa-user"></i> Iniciar Sesión</a>
+                        </li>
+                    }
+                    else 
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Jorge Rojas <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#"><i class="fa fa-fw fa-user"></i>Perfil</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#"><i class="fa fa-fw fa-power-off"></i>Cerrar Sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -56,7 +75,7 @@
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav side-nav">
                             <li class="active">    
-                                <a href="@Url.Action("blankPage", "Home")"><i class="fa fa-fw fa-file"></i>Inicio</a>
+                                <a href="@Url.Action("Index", "Home")"><i class="fa fa-fw fa-file"></i>Inicio</a>
                             </li>
                             <li>
                                 <a href="@Url.Action("blankPage", "Home")"><i class="fa fa-fw fa-file"></i>Blank Page</a>

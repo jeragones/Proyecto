@@ -4,160 +4,77 @@
     ViewBag.Title = "Log in";
 }
 
-<div class="container">
-    <div class="row colored">
-        <div id="contentdiv" class="contcustom">
-            <span class="fa fa-spinner bigicon"></span>
-            <h2>Login</h2>
-            <div>
-                <input id="username" type="text" placeholder="username" onkeypress="check_values();">
-                <input id="password" type="password" placeholder="password" onkeypress="check_values();">
-                <button id="button1" class="btn btn-default wide hidden"><span class="fa fa-check med"></span></button>
-                <span id="lock1" class="fa fa-lock medhidden redborder"></span>
-            </div>
+
+<section id="loginForm">    
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="wrapper">
+            <form class="form-signin">
+                <h2 class="form-signin-heading">Iniciar Sesión</h2>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "usuario", @required = "required" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "contraseña", @required = "required" })
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @value = "remember-me" }) Recordar mi contraseña
+                    </label>
+                </div>
+                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Iniciar" />
+            </form>
         </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-
-
-    function check_values() {
-        if ($("#username").val().length != 0 && $("#password").val().length != 0) {
-            $("#button1").removeClass("hidden").animate({ left: '250px' });;
-            $("#lock1").addClass("hidden").animate({ left: '250px' });;
-        }
     }
-
-
-</script>
-<style>
-    .redborder {
-        border: 2px solid #f96145;
-        border-radius: 2px;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .visible {
-        display: normal;
-    }
-
-    .colored {
-        background-color: #F0EEEE;
-    }
-
-    .row {
-        padding: 20px 0px;
-    }
-
-    .bigicon {
-        font-size: 97px;
-        color: #f96145;
-    }
-
-    .contcustom {
-        text-align: center;
-        width: 300px;
-        border-radius: 0.5rem;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 10px auto;
-        background-color: white;
-        padding: 20px;
-    }
-
-    input {
-        width: 100%;
-        margin-bottom: 17px;
-        padding: 15px;
-        background-color: #ECF4F4;
-        border-radius: 2px;
-        border: none;
-    }
-
-    h2 {
-        margin-bottom: 20px;
-        font-weight: bold;
-        color: #ABABAB;
-    }
-
-    .btn {
-        border-radius: 2px;
-        padding: 10px;
-    }
-
-    .med {
-        font-size: 27px;
-        color: white;
-    }
-
-    .medhidden {
-        font-size: 27px;
-        color: #f96145;
-        padding: 10px;
-        width: 100%;
-    }
-
-    .wide {
-        background-color: #8EB7E4;
-        width: 100%;
-        -webkit-border-top-right-radius: 0;
-        -webkit-border-bottom-right-radius: 0;
-        -moz-border-radius-topright: 0;
-        -moz-border-radius-bottomright: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-</style>
-
-<!--
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
 </section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
-    
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
--->
+
+<style>
+    #loginForm {
+        max-width: 300px;
+        margin:auto;
+        height:76vh;
+    }
+    
+    .wrapper {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    .btn {
+        background: -webkit-gradient(radial, 472 1000, 0, 122 86, 1000, from(#2CBD9D), to(#3D403D));
+    }
+
+    .form-signin {
+        padding: 15px 35px 45px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .checkbox {
+        font-weight: normal;
+    }
+
+    .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="password"] {
+        margin-bottom: 20px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
