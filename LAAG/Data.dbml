@@ -1,5 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AGRONOMICOSDB" Class="DataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=AGRONOMICOSDB.mssql.somee.com;Initial Catalog=AGRONOMICOSDB;Persist Security Info=True;User ID=nspinozam_SQLLogin_1;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AGRONOMICOSDBConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SIRZEE-65761;Initial Catalog=AGRONOMICOSDB;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AGRONOMICOSDBConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Analisis" Member="Analisis">
+    <Type Name="Analisis">
+      <Column Name="IdAnalisis" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Categoria" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UsuarioCreacion" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioActualizacion" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaActualizacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Analisis_Muestra_analisis" Member="Muestra_analisis" ThisKey="IdAnalisis" OtherKey="IdAnalisis" Type="Muestra_analisis" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Telefono" Member="Telefono">
+    <Type Name="Telefono">
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Numero" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Persona_Telefono" Member="Persona" ThisKey="IdPersona" OtherKey="ID_Persona" Type="Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Factura" Member="Factura">
+    <Type Name="Factura">
+      <Column Name="IdFactura" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Costo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioCreacion" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioActualizacion" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaActualizacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Factura_Muestra_analisis" Member="Muestra_analisis" ThisKey="IdFactura" OtherKey="IdFactura" Type="Muestra_analisis" />
+      <Association Name="Persona_Factura" Member="Persona" ThisKey="IdCliente" OtherKey="ID_Persona" Type="Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Muestra" Member="Muestra">
+    <Type Name="Muestra">
+      <Column Name="Codigo" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Campo" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Canton" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Distrito" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioCracion" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioActualizacion" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaActualizacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Muestra_Muestra_analisis" Member="Muestra_analisis" ThisKey="Codigo" OtherKey="Codigo" Type="Muestra_analisis" />
+      <Association Name="Persona_Muestra" Member="Persona" ThisKey="IdCliente" OtherKey="ID_Persona" Type="Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Muestra_analisis" Member="Muestra_analisis">
+    <Type Name="Muestra_analisis">
+      <Column Name="IdMuestraAnalisis" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Costo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Codigo" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IdFactura" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdAnalisis" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioCreacion" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioActualizacion" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaActualizacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Muestra_analisis_Resultado_analisis" Member="Resultado_analisis" ThisKey="IdMuestraAnalisis" OtherKey="IdMuestraAnalisis" Type="Resultado_analisis" />
+      <Association Name="Analisis_Muestra_analisis" Member="Analisis" ThisKey="IdAnalisis" OtherKey="IdAnalisis" Type="Analisis" IsForeignKey="true" />
+      <Association Name="Factura_Muestra_analisis" Member="Factura" ThisKey="IdFactura" OtherKey="IdFactura" Type="Factura" IsForeignKey="true" />
+      <Association Name="Muestra_Muestra_analisis" Member="Muestra" ThisKey="Codigo" OtherKey="Codigo" Type="Muestra" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Persona" Member="Persona">
     <Type Name="Persona">
       <Column Name="ID_Persona" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -16,13 +86,49 @@
       <Column Name="Tipo" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="NombreUsuario" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
       <Association Name="Persona_Telefono" Member="Telefono" ThisKey="ID_Persona" OtherKey="IdPersona" Type="Telefono" />
+      <Association Name="Persona_Factura" Member="Factura" ThisKey="ID_Persona" OtherKey="IdCliente" Type="Factura" />
+      <Association Name="Persona_Muestra" Member="Muestra" ThisKey="ID_Persona" OtherKey="IdCliente" Type="Muestra" />
+      <Association Name="Persona_Reporte" Member="Reporte" ThisKey="ID_Persona" OtherKey="IdCliente" Type="Reporte" />
     </Type>
   </Table>
-  <Table Name="dbo.Telefono" Member="Telefono">
-    <Type Name="Telefono">
-      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Numero" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Persona_Telefono" Member="Persona" ThisKey="IdPersona" OtherKey="ID_Persona" Type="Persona" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+  <Table Name="dbo.Reporte" Member="Reporte">
+    <Type Name="Reporte">
+      <Column Name="IdReporte" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Metodologia" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Reporte_Resultado_analisis" Member="Resultado_analisis" ThisKey="IdReporte" OtherKey="IdReporte" Type="Resultado_analisis" />
+      <Association Name="Persona_Reporte" Member="Persona" ThisKey="IdCliente" OtherKey="ID_Persona" Type="Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Resultado_analisis" Member="Resultado_analisis">
+    <Type Name="Resultado_analisis">
+      <Column Name="IdResultadoAnalisis" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdMuestraAnalisis" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdReporte" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioCreacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioActualizacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FechaActualizacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Resultado_analisis_Resultado_elemento" Member="Resultado_elemento" ThisKey="IdResultadoAnalisis" OtherKey="IdResultadoAnalisis" Type="Resultado_elemento" />
+      <Association Name="Muestra_analisis_Resultado_analisis" Member="Muestra_analisis" ThisKey="IdMuestraAnalisis" OtherKey="IdMuestraAnalisis" Type="Muestra_analisis" IsForeignKey="true" />
+      <Association Name="Reporte_Resultado_analisis" Member="Reporte" ThisKey="IdReporte" OtherKey="IdReporte" Type="Reporte" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Resultado_elemento" Member="Resultado_elemento">
+    <Type Name="Resultado_elemento">
+      <Column Name="IdResultadoElemento" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Resultado" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="IdResultadoAnalisis" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioCreacion" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCracion" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioModificacion" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaModificacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Resultado_analisis_Resultado_elemento" Member="Resultado_analisis" ThisKey="IdResultadoAnalisis" OtherKey="IdResultadoAnalisis" Type="Resultado_analisis" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -23,6 +23,7 @@ namespace LAAG.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session["CurrentSession"] = null;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -35,11 +36,13 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            Session["CurrentSession"] = null;
             if (ModelState.IsValid)
             {
                 DataDataContext db = new DataDataContext();
                 if (db.IsValidUser(model.UserName, model.Password))
                 {
+                    Session["CurrentSession"] = model.UserName;
                     return RedirectToLocal(returnUrl);
                 }
             }
@@ -57,8 +60,8 @@ namespace LAAG.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
-            return RedirectToAction("Index", "Home");
+            Session["CurrentSession"] = null;
+            return RedirectToAction("Login()", "Account");
         }
 
         //

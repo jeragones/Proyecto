@@ -8,9 +8,10 @@ namespace LAAG.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
-            return View();
+            return canSee();
         }
         
         public ActionResult About()
@@ -20,11 +21,12 @@ namespace LAAG.Controllers
             return View();
         }
 
+
+
         public ActionResult blankPage()
         {
             ViewBag.Message = "Hola";
-
-            return View();
+            return canSee();
         }
         
         public ActionResult Login()
@@ -33,5 +35,18 @@ namespace LAAG.Controllers
 
             return View();
         }
+
+        public ActionResult canSee() 
+        {
+            if (Session["CurrentSession"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
     }
 }
