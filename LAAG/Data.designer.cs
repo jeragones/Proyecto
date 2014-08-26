@@ -59,17 +59,22 @@ namespace LAAG
     partial void DeleteResultado_elemento(Resultado_elemento instance);
     #endregion
 
-
-        public bool IsValidUser(string userName, string passWord)
+   
+        public IQueryable<Persona> IsValidUser(string userName, string passWord)
         {
             DataDataContext myDB = new DataDataContext();
+
             var userResults = from u in myDB.Persona
                               where u.NombreUsuario == userName
-                              && u.Clave == passWord
+                              && u.Clave == passWord && u.Estado==0
                               select u;
-            return Enumerable.Count(userResults) > 0;
+            return userResults;
         }
 
+       /* public int[] getId_Tipo() { 
+            var userResults = from u in myDB.Persona
+                              where u.nom
+        }*/
 
 		public DataDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AGRONOMICOSDBConnectionString2"].ConnectionString, mappingSource)

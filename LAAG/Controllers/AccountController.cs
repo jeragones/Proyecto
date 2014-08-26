@@ -40,11 +40,14 @@ namespace LAAG.Controllers
             if (ModelState.IsValid)
             {
                 DataDataContext db = new DataDataContext();
-                if (db.IsValidUser(model.UserName, model.Password))
+                IQueryable<Persona> persona = db.IsValidUser(model.UserName, model.Password);
+                if (persona!=null)
                 {
-                    Session["CurrentSession"] = model.UserName;
-                    Session["CurrentType"] = 2;
-                    return RedirectToLocal(returnUrl);
+                    foreach(var a in persona){
+                        Session["CurrentSession"] = a;
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 }
             }
 
