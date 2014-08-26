@@ -43,6 +43,7 @@ namespace LAAG.Controllers
                 if (db.IsValidUser(model.UserName, model.Password))
                 {
                     Session["CurrentSession"] = model.UserName;
+                    Session["CurrentType"] = 2;
                     return RedirectToLocal(returnUrl);
                 }
             }

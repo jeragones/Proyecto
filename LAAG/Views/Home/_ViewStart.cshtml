@@ -1,0 +1,18 @@
+﻿@{
+    int Type = 2;
+    try{
+        Type = Convert.ToInt32(Session["CurrentType"].ToString());
+    }
+    catch(FormatException e) { }
+    if (Type==0)//SuperAdministrador
+    {
+        Layout = "~/Views/Shared/_Layout_SuAdmin.cshtml";
+    }
+    else if (Type == 1)//Administrador == Trabajador del laboratorio.
+    {
+        Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    }
+    else { // Cliente 
+        Layout = "~/Views/Shared/_Layout_Cliente.cshtml";
+    }
+}
