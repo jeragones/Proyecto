@@ -72,20 +72,35 @@ namespace LAAG.Models
 
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "Nombre de usuario")]
-        public string UserName { get; set; }
+
+        [Display(Name = "Tipo")]
+        public string Tipo { get; set; }
+
 
         [Required]
-        [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Contraseña")]
-        public string Password { get; set; }
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
-        public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "Apellidos")]
+        public string Apellidos { get; set; }
+
+
+        [Display(Name = "Correo")]
+        public string Correo { get; set; }
+
+        [Required]
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
+
+       
+        [Display(Name = "Telefono")]
+        public string Telefono { get; set; }
+
+        
+        [Display(Name = "Telefono2")]
+        public string Telefono2 { get; set; }
+
     }
 
     public class ExternalLogin

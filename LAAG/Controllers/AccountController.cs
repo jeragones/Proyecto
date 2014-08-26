@@ -83,12 +83,28 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
+                DataDataContext db = new DataDataContext();
                 // Intento de registrar al usuario
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
+                    //return RedirectToAction("Index", "Home");
+                    String n = model.Nombre;
+                    Persona p = new Persona();
+                    p.Nombre = model.Nombre;
+                    String[] ape = model.Apellidos.Split(' ');
+                    p.Apellido1 = ape[0];
+                    p.Apellido2 = ape[1];
+                    p.Correo = model.Correo;
+                    p.Clave = "12345";
+                    p.Estado = 1;
+                    p.Tipo = 1;
+                    p.NombreUsuario = model.Usuario;
+
+                    db.Personas.InsertOnSubmit(p);
+                    db.SubmitChanges();
+
                 }
                 catch (MembershipCreateUserException e)
                 {
