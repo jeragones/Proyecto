@@ -206,6 +206,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\plugins\morris.css" />
     <Content Include="Content\css\sb-admin.css" />
+    <Content Include="Content\custom\index.css" />
     <Content Include="Content\font-awesome-4.1.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.1.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
@@ -251,8 +252,13 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\LAAG.pubxml" />
+    <Content Include="Images\imgBromatologic.png" />
+    <Content Include="Images\imgFoliar.png" />
+    <Content Include="Images\imgGround.png" />
+    <Content Include="Images\imgOther.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\plugins\flot\excanvas.min.js" />
     <Content Include="Scripts\plugins\flot\flot-data.js" />
