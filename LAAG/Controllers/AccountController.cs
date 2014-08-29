@@ -40,10 +40,14 @@ namespace LAAG.Controllers
             if (ModelState.IsValid)
             {
                 DataDataContext db = new DataDataContext();
-                if (db.IsValidUser(model.UserName, model.Password))
+                IQueryable<Persona> persona = db.IsValidUser(model.UserName, model.Password);
+                if (persona!=null)
                 {
-                    Session["CurrentSession"] = model.UserName;
-                    return RedirectToLocal(returnUrl);
+                    foreach(var a in persona){
+                        Session["CurrentSession"] = a;
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 }
             }
 
@@ -95,7 +99,10 @@ namespace LAAG.Controllers
                     p.Nombre = model.Nombre;
                     String[] ape = model.Apellidos.Split(' ');
                     p.Apellido1 = ape[0];
-                    p.Apellido2 = ape[1];
+                    if (ape.Length > 1) 
+                    {
+                        p.Apellido2 = ape[1];
+                    }
                     p.Correo = model.Correo;
                     p.Clave = "12345";
                     p.Estado = 1;
