@@ -253,9 +253,9 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\LAAG.pubxml" />
     <Content Include="Images\imgBromatologic.png" />
-    <Content Include="Images\imgFoliar.png" />
-    <Content Include="Images\imgGround.png" />
     <Content Include="Images\imgOther.png" />
+    <Content Include="Images\imgGround.png" />
+    <Content Include="Images\imgFoliar.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom\index.js" />
@@ -309,7 +309,6 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\blankPage.cshtml" />

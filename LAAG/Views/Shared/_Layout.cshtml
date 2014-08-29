@@ -70,30 +70,6 @@
                         </li>
                     }
                 </ul>
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li class="active">
-                            <a href="@Url.Action("Index", "Home")"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("blankPage", "Home")"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                        </li>
-                    </ul>
-                </div>
-
-                    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                    <div class="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul class="nav navbar-nav side-nav">
-                            <li class="active">    
-                                <a href="@Url.Action("Index", "Home")"><i class="fa fa-fw fa-file"></i>Inicio</a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("blankPage", "Home")"><i class="fa fa-fw fa-file"></i>Blank Page</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
             </nav>
             <div id="page-wrapper">
                 @RenderSection("featured", required: false)
