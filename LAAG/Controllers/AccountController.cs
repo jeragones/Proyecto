@@ -69,6 +69,25 @@ namespace LAAG.Controllers
         }
 
         //
+        // GET: /Account/Users
+
+        [AllowAnonymous]
+        public ActionResult Users()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/ListaUsuarios
+
+        [AllowAnonymous]
+        public ActionResult ListaUsuarios()
+        {
+            ViewBag.perrito = "<h1>Ternero</h1>";
+            return View();
+        }
+
+        //
         // GET: /Account/Register
 
         [AllowAnonymous]

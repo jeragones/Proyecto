@@ -308,6 +308,7 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout_SuAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_Cliente.cshtml" />
+    <Content Include="Views\Account\ListaUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
