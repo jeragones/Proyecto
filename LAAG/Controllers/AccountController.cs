@@ -17,6 +17,9 @@ namespace LAAG.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        DataDataContext db = new DataDataContext();
+
         //
         // GET: /Account/Login
 
@@ -68,22 +71,23 @@ namespace LAAG.Controllers
             return RedirectToAction("Login()", "Account");
         }
 
+
         //
         // GET: /Account/Users
 
         [AllowAnonymous]
-        public ActionResult Users()
+        public ActionResult Result()
         {
-            return View();
+            var users = from x in db.Personas select x;
+            return View("Result",users);
         }
 
         //
         // GET: /Account/ListaUsuarios
 
         [AllowAnonymous]
-        public ActionResult ListaUsuarios()
+        public ActionResult Search()
         {
-            ViewBag.perrito = "<h1>Ternero</h1>";
             return View();
         }
 
@@ -106,7 +110,7 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
-                DataDataContext db = new DataDataContext();
+                
                 // Intento de registrar al usuario
                 try
                 {

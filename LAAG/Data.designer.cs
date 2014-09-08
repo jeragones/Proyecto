@@ -30,62 +30,54 @@ namespace LAAG
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAnalisi(Analisi instance);
-    partial void UpdateAnalisi(Analisi instance);
-    partial void DeleteAnalisi(Analisi instance);
-    partial void InsertTelefono(Telefono instance);
-    partial void UpdateTelefono(Telefono instance);
-    partial void DeleteTelefono(Telefono instance);
-    partial void InsertFactura(Factura instance);
-    partial void UpdateFactura(Factura instance);
-    partial void DeleteFactura(Factura instance);
-    partial void InsertMuestra(Muestra instance);
-    partial void UpdateMuestra(Muestra instance);
-    partial void DeleteMuestra(Muestra instance);
-    partial void InsertMuestra_analisi(Muestra_analisi instance);
-    partial void UpdateMuestra_analisi(Muestra_analisi instance);
-    partial void DeleteMuestra_analisi(Muestra_analisi instance);
-    partial void InsertPersona(Persona instance);
-    partial void UpdatePersona(Persona instance);
-    partial void DeletePersona(Persona instance);
-    partial void InsertReporte(Reporte instance);
-    partial void UpdateReporte(Reporte instance);
-    partial void DeleteReporte(Reporte instance);
-    partial void InsertResultado_analisi(Resultado_analisi instance);
-    partial void UpdateResultado_analisi(Resultado_analisi instance);
-    partial void DeleteResultado_analisi(Resultado_analisi instance);
     partial void InsertResultado_elemento(Resultado_elemento instance);
     partial void UpdateResultado_elemento(Resultado_elemento instance);
     partial void DeleteResultado_elemento(Resultado_elemento instance);
+    partial void InsertResultado_analisi(Resultado_analisi instance);
+    partial void UpdateResultado_analisi(Resultado_analisi instance);
+    partial void DeleteResultado_analisi(Resultado_analisi instance);
+    partial void InsertReporte(Reporte instance);
+    partial void UpdateReporte(Reporte instance);
+    partial void DeleteReporte(Reporte instance);
+    partial void InsertPersona(Persona instance);
+    partial void UpdatePersona(Persona instance);
+    partial void DeletePersona(Persona instance);
+    partial void InsertMuestra_analisi(Muestra_analisi instance);
+    partial void UpdateMuestra_analisi(Muestra_analisi instance);
+    partial void DeleteMuestra_analisi(Muestra_analisi instance);
+    partial void InsertMuestra(Muestra instance);
+    partial void UpdateMuestra(Muestra instance);
+    partial void DeleteMuestra(Muestra instance);
+    partial void InsertFactura(Factura instance);
+    partial void UpdateFactura(Factura instance);
+    partial void DeleteFactura(Factura instance);
+    partial void InsertAnalisi(Analisi instance);
+    partial void UpdateAnalisi(Analisi instance);
+    partial void DeleteAnalisi(Analisi instance);
     #endregion
+
+    public IQueryable<Persona> IsValidUser(string userName, string passWord)
+    {
+        DataDataContext myDB = new DataDataContext();
+        var userResults = from u in myDB.Personas
+                          where u.NombreUsuario == userName
+                          && u.Clave == passWord && u.Estado == 0
+                          select u;
+        return userResults;
+    }
+
+		public DataDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AGRONOMICOSDBConnectionString2"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public DataDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-
-   
-        public IQueryable<Persona> IsValidUser(string userName, string passWord)
-        {
-            DataDataContext myDB = new DataDataContext();
-            var userResults = from u in myDB.Personas
-                              where u.NombreUsuario == userName
-                              && u.Clave == passWord && u.Estado==0
-                              select u;
-            return userResults;
-        }
-
-       /* public int[] getId_Tipo() { 
-            var userResults = from u in myDB.Persona
-                              where u.nom
-        }*/
-
-        public DataDataContext() :
-            base(global::System.Configuration.ConfigurationManager.ConnectionStrings["AGRONOMICOSDBConnectionString2"].ConnectionString, mappingSource)
-        {
-            OnCreated();
-        }
+		
 		public DataDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
@@ -104,59 +96,11 @@ namespace LAAG
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Analisi> Analisis
+		public System.Data.Linq.Table<Resultado_elemento> Resultado_elementos
 		{
 			get
 			{
-				return this.GetTable<Analisi>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Telefono> Telefonos
-		{
-			get
-			{
-				return this.GetTable<Telefono>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Factura> Facturas
-		{
-			get
-			{
-				return this.GetTable<Factura>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Muestra> Muestras
-		{
-			get
-			{
-				return this.GetTable<Muestra>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Muestra_analisi> Muestra_analisis
-		{
-			get
-			{
-				return this.GetTable<Muestra_analisi>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Persona> Personas
-		{
-			get
-			{
-				return this.GetTable<Persona>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Reporte> Reportes
-		{
-			get
-			{
-				return this.GetTable<Reporte>();
+				return this.GetTable<Resultado_elemento>();
 			}
 		}
 		
@@ -168,88 +112,128 @@ namespace LAAG
 			}
 		}
 		
-		public System.Data.Linq.Table<Resultado_elemento> Resultado_elementos
+		public System.Data.Linq.Table<Reporte> Reportes
 		{
 			get
 			{
-				return this.GetTable<Resultado_elemento>();
+				return this.GetTable<Reporte>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Persona> Personas
+		{
+			get
+			{
+				return this.GetTable<Persona>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Muestra_analisi> Muestra_analisis
+		{
+			get
+			{
+				return this.GetTable<Muestra_analisi>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Muestra> Muestras
+		{
+			get
+			{
+				return this.GetTable<Muestra>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Factura> Facturas
+		{
+			get
+			{
+				return this.GetTable<Factura>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Analisi> Analisis
+		{
+			get
+			{
+				return this.GetTable<Analisi>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Analisis")]
-	public partial class Analisi : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Resultado_elemento")]
+	public partial class Resultado_elemento : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdAnalisis;
+		private int _IdResultadoElemento;
 		
 		private string _Nombre;
 		
-		private string _Categoria;
+		private string _Resultado;
 		
-		private string _Descripcion;
+		private int _IdResultadoAnalisis;
 		
 		private string _UsuarioCreacion;
 		
-		private System.DateTime _FechaCreacion;
+		private System.DateTime _FechaCracion;
 		
-		private string _UsuarioActualizacion;
+		private string _UsuarioModificacion;
 		
-		private System.Nullable<System.DateTime> _FechaActualizacion;
+		private System.Nullable<System.DateTime> _FechaModificacion;
 		
-		private EntitySet<Muestra_analisi> _Muestra_analisis;
+		private EntityRef<Resultado_analisi> _Resultado_analisi;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdAnalisisChanging(int value);
-    partial void OnIdAnalisisChanged();
+    partial void OnIdResultadoElementoChanging(int value);
+    partial void OnIdResultadoElementoChanged();
     partial void OnNombreChanging(string value);
     partial void OnNombreChanged();
-    partial void OnCategoriaChanging(string value);
-    partial void OnCategoriaChanged();
-    partial void OnDescripcionChanging(string value);
-    partial void OnDescripcionChanged();
+    partial void OnResultadoChanging(string value);
+    partial void OnResultadoChanged();
+    partial void OnIdResultadoAnalisisChanging(int value);
+    partial void OnIdResultadoAnalisisChanged();
     partial void OnUsuarioCreacionChanging(string value);
     partial void OnUsuarioCreacionChanged();
-    partial void OnFechaCreacionChanging(System.DateTime value);
-    partial void OnFechaCreacionChanged();
-    partial void OnUsuarioActualizacionChanging(string value);
-    partial void OnUsuarioActualizacionChanged();
-    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaActualizacionChanged();
+    partial void OnFechaCracionChanging(System.DateTime value);
+    partial void OnFechaCracionChanged();
+    partial void OnUsuarioModificacionChanging(string value);
+    partial void OnUsuarioModificacionChanged();
+    partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaModificacionChanged();
     #endregion
 		
-		public Analisi()
+		public Resultado_elemento()
 		{
-			this._Muestra_analisis = new EntitySet<Muestra_analisi>(new Action<Muestra_analisi>(this.attach_Muestra_analisis), new Action<Muestra_analisi>(this.detach_Muestra_analisis));
+			this._Resultado_analisi = default(EntityRef<Resultado_analisi>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdAnalisis
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoElemento", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdResultadoElemento
 		{
 			get
 			{
-				return this._IdAnalisis;
+				return this._IdResultadoElemento;
 			}
 			set
 			{
-				if ((this._IdAnalisis != value))
+				if ((this._IdResultadoElemento != value))
 				{
-					this.OnIdAnalisisChanging(value);
+					this.OnIdResultadoElementoChanging(value);
 					this.SendPropertyChanging();
-					this._IdAnalisis = value;
-					this.SendPropertyChanged("IdAnalisis");
-					this.OnIdAnalisisChanged();
+					this._IdResultadoElemento = value;
+					this.SendPropertyChanged("IdResultadoElemento");
+					this.OnIdResultadoElementoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
 		public string Nombre
 		{
 			get
@@ -269,48 +253,333 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Categoria
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Resultado", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Resultado
 		{
 			get
 			{
-				return this._Categoria;
+				return this._Resultado;
 			}
 			set
 			{
-				if ((this._Categoria != value))
+				if ((this._Resultado != value))
 				{
-					this.OnCategoriaChanging(value);
+					this.OnResultadoChanging(value);
 					this.SendPropertyChanging();
-					this._Categoria = value;
-					this.SendPropertyChanged("Categoria");
-					this.OnCategoriaChanged();
+					this._Resultado = value;
+					this.SendPropertyChanged("Resultado");
+					this.OnResultadoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
-		public string Descripcion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoAnalisis", DbType="Int NOT NULL")]
+		public int IdResultadoAnalisis
 		{
 			get
 			{
-				return this._Descripcion;
+				return this._IdResultadoAnalisis;
 			}
 			set
 			{
-				if ((this._Descripcion != value))
+				if ((this._IdResultadoAnalisis != value))
 				{
-					this.OnDescripcionChanging(value);
+					if (this._Resultado_analisi.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdResultadoAnalisisChanging(value);
 					this.SendPropertyChanging();
-					this._Descripcion = value;
-					this.SendPropertyChanged("Descripcion");
-					this.OnDescripcionChanged();
+					this._IdResultadoAnalisis = value;
+					this.SendPropertyChanged("IdResultadoAnalisis");
+					this.OnIdResultadoAnalisisChanged();
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string UsuarioCreacion
+		{
+			get
+			{
+				return this._UsuarioCreacion;
+			}
+			set
+			{
+				if ((this._UsuarioCreacion != value))
+				{
+					this.OnUsuarioCreacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioCreacion = value;
+					this.SendPropertyChanged("UsuarioCreacion");
+					this.OnUsuarioCreacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCracion", DbType="Date NOT NULL")]
+		public System.DateTime FechaCracion
+		{
+			get
+			{
+				return this._FechaCracion;
+			}
+			set
+			{
+				if ((this._FechaCracion != value))
+				{
+					this.OnFechaCracionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaCracion = value;
+					this.SendPropertyChanged("FechaCracion");
+					this.OnFechaCracionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioModificacion", DbType="VarChar(20)")]
+		public string UsuarioModificacion
+		{
+			get
+			{
+				return this._UsuarioModificacion;
+			}
+			set
+			{
+				if ((this._UsuarioModificacion != value))
+				{
+					this.OnUsuarioModificacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioModificacion = value;
+					this.SendPropertyChanged("UsuarioModificacion");
+					this.OnUsuarioModificacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this.OnFechaModificacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaModificacion = value;
+					this.SendPropertyChanged("FechaModificacion");
+					this.OnFechaModificacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resultado_analisi_Resultado_elemento", Storage="_Resultado_analisi", ThisKey="IdResultadoAnalisis", OtherKey="IdResultadoAnalisis", IsForeignKey=true)]
+		public Resultado_analisi Resultado_analisi
+		{
+			get
+			{
+				return this._Resultado_analisi.Entity;
+			}
+			set
+			{
+				Resultado_analisi previousValue = this._Resultado_analisi.Entity;
+				if (((previousValue != value) 
+							|| (this._Resultado_analisi.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Resultado_analisi.Entity = null;
+						previousValue.Resultado_elementos.Remove(this);
+					}
+					this._Resultado_analisi.Entity = value;
+					if ((value != null))
+					{
+						value.Resultado_elementos.Add(this);
+						this._IdResultadoAnalisis = value.IdResultadoAnalisis;
+					}
+					else
+					{
+						this._IdResultadoAnalisis = default(int);
+					}
+					this.SendPropertyChanged("Resultado_analisi");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Resultado_analisis")]
+	public partial class Resultado_analisi : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdResultadoAnalisis;
+		
+		private int _IdMuestraAnalisis;
+		
+		private int _IdReporte;
+		
+		private byte _Estado;
+		
+		private int _UsuarioCreacion;
+		
+		private System.DateTime _FechaCreacion;
+		
+		private System.Nullable<int> _UsuarioActualizacion;
+		
+		private System.Nullable<System.DateTime> _FechaActualizacion;
+		
+		private EntitySet<Resultado_elemento> _Resultado_elementos;
+		
+		private EntityRef<Reporte> _Reporte;
+		
+		private EntityRef<Muestra_analisi> _Muestra_analisi;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdResultadoAnalisisChanging(int value);
+    partial void OnIdResultadoAnalisisChanged();
+    partial void OnIdMuestraAnalisisChanging(int value);
+    partial void OnIdMuestraAnalisisChanged();
+    partial void OnIdReporteChanging(int value);
+    partial void OnIdReporteChanged();
+    partial void OnEstadoChanging(byte value);
+    partial void OnEstadoChanged();
+    partial void OnUsuarioCreacionChanging(int value);
+    partial void OnUsuarioCreacionChanged();
+    partial void OnFechaCreacionChanging(System.DateTime value);
+    partial void OnFechaCreacionChanged();
+    partial void OnUsuarioActualizacionChanging(System.Nullable<int> value);
+    partial void OnUsuarioActualizacionChanged();
+    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaActualizacionChanged();
+    #endregion
+		
+		public Resultado_analisi()
+		{
+			this._Resultado_elementos = new EntitySet<Resultado_elemento>(new Action<Resultado_elemento>(this.attach_Resultado_elementos), new Action<Resultado_elemento>(this.detach_Resultado_elementos));
+			this._Reporte = default(EntityRef<Reporte>);
+			this._Muestra_analisi = default(EntityRef<Muestra_analisi>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdResultadoAnalisis
+		{
+			get
+			{
+				return this._IdResultadoAnalisis;
+			}
+			set
+			{
+				if ((this._IdResultadoAnalisis != value))
+				{
+					this.OnIdResultadoAnalisisChanging(value);
+					this.SendPropertyChanging();
+					this._IdResultadoAnalisis = value;
+					this.SendPropertyChanged("IdResultadoAnalisis");
+					this.OnIdResultadoAnalisisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMuestraAnalisis", DbType="Int NOT NULL")]
+		public int IdMuestraAnalisis
+		{
+			get
+			{
+				return this._IdMuestraAnalisis;
+			}
+			set
+			{
+				if ((this._IdMuestraAnalisis != value))
+				{
+					if (this._Muestra_analisi.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdMuestraAnalisisChanging(value);
+					this.SendPropertyChanging();
+					this._IdMuestraAnalisis = value;
+					this.SendPropertyChanged("IdMuestraAnalisis");
+					this.OnIdMuestraAnalisisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdReporte", DbType="Int NOT NULL")]
+		public int IdReporte
+		{
+			get
+			{
+				return this._IdReporte;
+			}
+			set
+			{
+				if ((this._IdReporte != value))
+				{
+					if (this._Reporte.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdReporteChanging(value);
+					this.SendPropertyChanging();
+					this._IdReporte = value;
+					this.SendPropertyChanged("IdReporte");
+					this.OnIdReporteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
+		public byte Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this.OnEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._Estado = value;
+					this.SendPropertyChanged("Estado");
+					this.OnEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="Int NOT NULL")]
+		public int UsuarioCreacion
 		{
 			get
 			{
@@ -349,8 +618,8 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(20)")]
-		public string UsuarioActualizacion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="Int")]
+		public System.Nullable<int> UsuarioActualizacion
 		{
 			get
 			{
@@ -389,154 +658,83 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Analisi_Muestra_analisi", Storage="_Muestra_analisis", ThisKey="IdAnalisis", OtherKey="IdAnalisis")]
-		public EntitySet<Muestra_analisi> Muestra_analisis
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resultado_analisi_Resultado_elemento", Storage="_Resultado_elementos", ThisKey="IdResultadoAnalisis", OtherKey="IdResultadoAnalisis")]
+		public EntitySet<Resultado_elemento> Resultado_elementos
 		{
 			get
 			{
-				return this._Muestra_analisis;
+				return this._Resultado_elementos;
 			}
 			set
 			{
-				this._Muestra_analisis.Assign(value);
+				this._Resultado_elementos.Assign(value);
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Muestra_analisis(Muestra_analisi entity)
-		{
-			this.SendPropertyChanging();
-			entity.Analisi = this;
-		}
-		
-		private void detach_Muestra_analisis(Muestra_analisi entity)
-		{
-			this.SendPropertyChanging();
-			entity.Analisi = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Telefono")]
-	public partial class Telefono : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdPersona;
-		
-		private string _Numero;
-		
-		private EntityRef<Persona> _Persona;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdPersonaChanging(int value);
-    partial void OnIdPersonaChanged();
-    partial void OnNumeroChanging(string value);
-    partial void OnNumeroChanged();
-    #endregion
-		
-		public Telefono()
-		{
-			this._Persona = default(EntityRef<Persona>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPersona", DbType="Int NOT NULL")]
-		public int IdPersona
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reporte_Resultado_analisi", Storage="_Reporte", ThisKey="IdReporte", OtherKey="IdReporte", IsForeignKey=true)]
+		public Reporte Reporte
 		{
 			get
 			{
-				return this._IdPersona;
+				return this._Reporte.Entity;
 			}
 			set
 			{
-				if ((this._IdPersona != value))
-				{
-					if (this._Persona.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdPersonaChanging(value);
-					this.SendPropertyChanging();
-					this._IdPersona = value;
-					this.SendPropertyChanged("IdPersona");
-					this.OnIdPersonaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Numero", DbType="VarChar(8) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Numero
-		{
-			get
-			{
-				return this._Numero;
-			}
-			set
-			{
-				if ((this._Numero != value))
-				{
-					this.OnNumeroChanging(value);
-					this.SendPropertyChanging();
-					this._Numero = value;
-					this.SendPropertyChanged("Numero");
-					this.OnNumeroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Telefono", Storage="_Persona", ThisKey="IdPersona", OtherKey="ID_Persona", IsForeignKey=true)]
-		public Persona Persona
-		{
-			get
-			{
-				return this._Persona.Entity;
-			}
-			set
-			{
-				Persona previousValue = this._Persona.Entity;
+				Reporte previousValue = this._Reporte.Entity;
 				if (((previousValue != value) 
-							|| (this._Persona.HasLoadedOrAssignedValue == false)))
+							|| (this._Reporte.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Persona.Entity = null;
-						previousValue.Telefonos.Remove(this);
+						this._Reporte.Entity = null;
+						previousValue.Resultado_analisis.Remove(this);
 					}
-					this._Persona.Entity = value;
+					this._Reporte.Entity = value;
 					if ((value != null))
 					{
-						value.Telefonos.Add(this);
-						this._IdPersona = value.ID_Persona;
+						value.Resultado_analisis.Add(this);
+						this._IdReporte = value.IdReporte;
 					}
 					else
 					{
-						this._IdPersona = default(int);
+						this._IdReporte = default(int);
 					}
-					this.SendPropertyChanged("Persona");
+					this.SendPropertyChanged("Reporte");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_analisi_Resultado_analisi", Storage="_Muestra_analisi", ThisKey="IdMuestraAnalisis", OtherKey="IdMuestraAnalisis", IsForeignKey=true)]
+		public Muestra_analisi Muestra_analisi
+		{
+			get
+			{
+				return this._Muestra_analisi.Entity;
+			}
+			set
+			{
+				Muestra_analisi previousValue = this._Muestra_analisi.Entity;
+				if (((previousValue != value) 
+							|| (this._Muestra_analisi.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Muestra_analisi.Entity = null;
+						previousValue.Resultado_analisis.Remove(this);
+					}
+					this._Muestra_analisi.Entity = value;
+					if ((value != null))
+					{
+						value.Resultado_analisis.Add(this);
+						this._IdMuestraAnalisis = value.IdMuestraAnalisis;
+					}
+					else
+					{
+						this._IdMuestraAnalisis = default(int);
+					}
+					this.SendPropertyChanged("Muestra_analisi");
 				}
 			}
 		}
@@ -560,31 +758,39 @@ namespace LAAG
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Resultado_elementos(Resultado_elemento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resultado_analisi = this;
+		}
+		
+		private void detach_Resultado_elementos(Resultado_elemento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resultado_analisi = null;
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Factura")]
-	public partial class Factura : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reporte")]
+	public partial class Reporte : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdFactura;
+		private int _IdReporte;
 		
-		private System.DateTime _Fecha;
+		private System.Nullable<System.DateTime> _Fecha;
 		
-		private int _Costo;
+		private string _Metodologia;
+		
+		private string _Observaciones;
+		
+		private int _IdUsuario;
 		
 		private int _IdCliente;
 		
-		private string _UsuarioCreacion;
-		
-		private System.DateTime _FechaCreacion;
-		
-		private string _UsuarioActualizacion;
-		
-		private System.Nullable<System.DateTime> _FechaActualizacion;
-		
-		private EntitySet<Muestra_analisi> _Muestra_analisis;
+		private EntitySet<Resultado_analisi> _Resultado_analisis;
 		
 		private EntityRef<Persona> _Persona;
 		
@@ -592,53 +798,49 @@ namespace LAAG
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdFacturaChanging(int value);
-    partial void OnIdFacturaChanged();
-    partial void OnFechaChanging(System.DateTime value);
+    partial void OnIdReporteChanging(int value);
+    partial void OnIdReporteChanged();
+    partial void OnFechaChanging(System.Nullable<System.DateTime> value);
     partial void OnFechaChanged();
-    partial void OnCostoChanging(int value);
-    partial void OnCostoChanged();
+    partial void OnMetodologiaChanging(string value);
+    partial void OnMetodologiaChanged();
+    partial void OnObservacionesChanging(string value);
+    partial void OnObservacionesChanged();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
     partial void OnIdClienteChanging(int value);
     partial void OnIdClienteChanged();
-    partial void OnUsuarioCreacionChanging(string value);
-    partial void OnUsuarioCreacionChanged();
-    partial void OnFechaCreacionChanging(System.DateTime value);
-    partial void OnFechaCreacionChanged();
-    partial void OnUsuarioActualizacionChanging(string value);
-    partial void OnUsuarioActualizacionChanged();
-    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaActualizacionChanged();
     #endregion
 		
-		public Factura()
+		public Reporte()
 		{
-			this._Muestra_analisis = new EntitySet<Muestra_analisi>(new Action<Muestra_analisi>(this.attach_Muestra_analisis), new Action<Muestra_analisi>(this.detach_Muestra_analisis));
+			this._Resultado_analisis = new EntitySet<Resultado_analisi>(new Action<Resultado_analisi>(this.attach_Resultado_analisis), new Action<Resultado_analisi>(this.detach_Resultado_analisis));
 			this._Persona = default(EntityRef<Persona>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFactura", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdFactura
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdReporte", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdReporte
 		{
 			get
 			{
-				return this._IdFactura;
+				return this._IdReporte;
 			}
 			set
 			{
-				if ((this._IdFactura != value))
+				if ((this._IdReporte != value))
 				{
-					this.OnIdFacturaChanging(value);
+					this.OnIdReporteChanging(value);
 					this.SendPropertyChanging();
-					this._IdFactura = value;
-					this.SendPropertyChanged("IdFactura");
-					this.OnIdFacturaChanged();
+					this._IdReporte = value;
+					this.SendPropertyChanged("IdReporte");
+					this.OnIdReporteChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
-		public System.DateTime Fecha
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date")]
+		public System.Nullable<System.DateTime> Fecha
 		{
 			get
 			{
@@ -657,22 +859,62 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Costo", DbType="Int NOT NULL")]
-		public int Costo
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Metodologia", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string Metodologia
 		{
 			get
 			{
-				return this._Costo;
+				return this._Metodologia;
 			}
 			set
 			{
-				if ((this._Costo != value))
+				if ((this._Metodologia != value))
 				{
-					this.OnCostoChanging(value);
+					this.OnMetodologiaChanging(value);
 					this.SendPropertyChanging();
-					this._Costo = value;
-					this.SendPropertyChanged("Costo");
-					this.OnCostoChanged();
+					this._Metodologia = value;
+					this.SendPropertyChanged("Metodologia");
+					this.OnMetodologiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string Observaciones
+		{
+			get
+			{
+				return this._Observaciones;
+			}
+			set
+			{
+				if ((this._Observaciones != value))
+				{
+					this.OnObservacionesChanging(value);
+					this.SendPropertyChanging();
+					this._Observaciones = value;
+					this.SendPropertyChanged("Observaciones");
+					this.OnObservacionesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this.OnIdUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
 				}
 			}
 		}
@@ -701,100 +943,20 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string UsuarioCreacion
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reporte_Resultado_analisi", Storage="_Resultado_analisis", ThisKey="IdReporte", OtherKey="IdReporte")]
+		public EntitySet<Resultado_analisi> Resultado_analisis
 		{
 			get
 			{
-				return this._UsuarioCreacion;
+				return this._Resultado_analisis;
 			}
 			set
 			{
-				if ((this._UsuarioCreacion != value))
-				{
-					this.OnUsuarioCreacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioCreacion = value;
-					this.SendPropertyChanged("UsuarioCreacion");
-					this.OnUsuarioCreacionChanged();
-				}
+				this._Resultado_analisis.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="Date NOT NULL")]
-		public System.DateTime FechaCreacion
-		{
-			get
-			{
-				return this._FechaCreacion;
-			}
-			set
-			{
-				if ((this._FechaCreacion != value))
-				{
-					this.OnFechaCreacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaCreacion = value;
-					this.SendPropertyChanged("FechaCreacion");
-					this.OnFechaCreacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(20)")]
-		public string UsuarioActualizacion
-		{
-			get
-			{
-				return this._UsuarioActualizacion;
-			}
-			set
-			{
-				if ((this._UsuarioActualizacion != value))
-				{
-					this.OnUsuarioActualizacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioActualizacion = value;
-					this.SendPropertyChanged("UsuarioActualizacion");
-					this.OnUsuarioActualizacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaActualizacion", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaActualizacion
-		{
-			get
-			{
-				return this._FechaActualizacion;
-			}
-			set
-			{
-				if ((this._FechaActualizacion != value))
-				{
-					this.OnFechaActualizacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaActualizacion = value;
-					this.SendPropertyChanged("FechaActualizacion");
-					this.OnFechaActualizacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Factura_Muestra_analisi", Storage="_Muestra_analisis", ThisKey="IdFactura", OtherKey="IdFactura")]
-		public EntitySet<Muestra_analisi> Muestra_analisis
-		{
-			get
-			{
-				return this._Muestra_analisis;
-			}
-			set
-			{
-				this._Muestra_analisis.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Factura", Storage="_Persona", ThisKey="IdCliente", OtherKey="ID_Persona", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Reporte", Storage="_Persona", ThisKey="IdCliente", OtherKey="ID_Persona", IsForeignKey=true)]
 		public Persona Persona
 		{
 			get
@@ -811,12 +973,12 @@ namespace LAAG
 					if ((previousValue != null))
 					{
 						this._Persona.Entity = null;
-						previousValue.Facturas.Remove(this);
+						previousValue.Reportes.Remove(this);
 					}
 					this._Persona.Entity = value;
 					if ((value != null))
 					{
-						value.Facturas.Add(this);
+						value.Reportes.Add(this);
 						this._IdCliente = value.ID_Persona;
 					}
 					else
@@ -848,16 +1010,975 @@ namespace LAAG
 			}
 		}
 		
-		private void attach_Muestra_analisis(Muestra_analisi entity)
+		private void attach_Resultado_analisis(Resultado_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Factura = this;
+			entity.Reporte = this;
 		}
 		
-		private void detach_Muestra_analisis(Muestra_analisi entity)
+		private void detach_Resultado_analisis(Resultado_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Factura = null;
+			entity.Reporte = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Persona")]
+	public partial class Persona : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID_Persona;
+		
+		private string _Nombre;
+		
+		private string _Apellido1;
+		
+		private string _Apellido2;
+		
+		private string _Correo;
+		
+		private string _Clave;
+		
+		private System.Nullable<System.DateTime> _FechaCreacion;
+		
+		private string _Telefono1;
+		
+		private string _Telefono2;
+		
+		private string _UsuarioCreacion;
+		
+		private System.Nullable<System.DateTime> _FechaActualizacion;
+		
+		private string _UsuarioActualizacion;
+		
+		private byte _Estado;
+		
+		private byte _Tipo;
+		
+		private string _NombreUsuario;
+		
+		private bool _PasswordChange;
+		
+		private EntitySet<Reporte> _Reportes;
+		
+		private EntitySet<Muestra> _Muestras;
+		
+		private EntitySet<Factura> _Facturas;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnID_PersonaChanging(int value);
+    partial void OnID_PersonaChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnApellido1Changing(string value);
+    partial void OnApellido1Changed();
+    partial void OnApellido2Changing(string value);
+    partial void OnApellido2Changed();
+    partial void OnCorreoChanging(string value);
+    partial void OnCorreoChanged();
+    partial void OnClaveChanging(string value);
+    partial void OnClaveChanged();
+    partial void OnFechaCreacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaCreacionChanged();
+    partial void OnTelefono1Changing(string value);
+    partial void OnTelefono1Changed();
+    partial void OnTelefono2Changing(string value);
+    partial void OnTelefono2Changed();
+    partial void OnUsuarioCreacionChanging(string value);
+    partial void OnUsuarioCreacionChanged();
+    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaActualizacionChanged();
+    partial void OnUsuarioActualizacionChanging(string value);
+    partial void OnUsuarioActualizacionChanged();
+    partial void OnEstadoChanging(byte value);
+    partial void OnEstadoChanged();
+    partial void OnTipoChanging(byte value);
+    partial void OnTipoChanged();
+    partial void OnNombreUsuarioChanging(string value);
+    partial void OnNombreUsuarioChanged();
+    partial void OnPasswordChangeChanging(bool value);
+    partial void OnPasswordChangeChanged();
+    #endregion
+		
+		public Persona()
+		{
+			this._Reportes = new EntitySet<Reporte>(new Action<Reporte>(this.attach_Reportes), new Action<Reporte>(this.detach_Reportes));
+			this._Muestras = new EntitySet<Muestra>(new Action<Muestra>(this.attach_Muestras), new Action<Muestra>(this.detach_Muestras));
+			this._Facturas = new EntitySet<Factura>(new Action<Factura>(this.attach_Facturas), new Action<Factura>(this.detach_Facturas));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Persona", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID_Persona
+		{
+			get
+			{
+				return this._ID_Persona;
+			}
+			set
+			{
+				if ((this._ID_Persona != value))
+				{
+					this.OnID_PersonaChanging(value);
+					this.SendPropertyChanging();
+					this._ID_Persona = value;
+					this.SendPropertyChanged("ID_Persona");
+					this.OnID_PersonaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellido1", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string Apellido1
+		{
+			get
+			{
+				return this._Apellido1;
+			}
+			set
+			{
+				if ((this._Apellido1 != value))
+				{
+					this.OnApellido1Changing(value);
+					this.SendPropertyChanging();
+					this._Apellido1 = value;
+					this.SendPropertyChanged("Apellido1");
+					this.OnApellido1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellido2", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string Apellido2
+		{
+			get
+			{
+				return this._Apellido2;
+			}
+			set
+			{
+				if ((this._Apellido2 != value))
+				{
+					this.OnApellido2Changing(value);
+					this.SendPropertyChanging();
+					this._Apellido2 = value;
+					this.SendPropertyChanged("Apellido2");
+					this.OnApellido2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
+		public string Correo
+		{
+			get
+			{
+				return this._Correo;
+			}
+			set
+			{
+				if ((this._Correo != value))
+				{
+					this.OnCorreoChanging(value);
+					this.SendPropertyChanging();
+					this._Correo = value;
+					this.SendPropertyChanged("Correo");
+					this.OnCorreoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clave", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string Clave
+		{
+			get
+			{
+				return this._Clave;
+			}
+			set
+			{
+				if ((this._Clave != value))
+				{
+					this.OnClaveChanging(value);
+					this.SendPropertyChanging();
+					this._Clave = value;
+					this.SendPropertyChanged("Clave");
+					this.OnClaveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaCreacion
+		{
+			get
+			{
+				return this._FechaCreacion;
+			}
+			set
+			{
+				if ((this._FechaCreacion != value))
+				{
+					this.OnFechaCreacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaCreacion = value;
+					this.SendPropertyChanged("FechaCreacion");
+					this.OnFechaCreacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono1", DbType="VarChar(8)")]
+		public string Telefono1
+		{
+			get
+			{
+				return this._Telefono1;
+			}
+			set
+			{
+				if ((this._Telefono1 != value))
+				{
+					this.OnTelefono1Changing(value);
+					this.SendPropertyChanging();
+					this._Telefono1 = value;
+					this.SendPropertyChanged("Telefono1");
+					this.OnTelefono1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono2", DbType="VarChar(8)")]
+		public string Telefono2
+		{
+			get
+			{
+				return this._Telefono2;
+			}
+			set
+			{
+				if ((this._Telefono2 != value))
+				{
+					this.OnTelefono2Changing(value);
+					this.SendPropertyChanging();
+					this._Telefono2 = value;
+					this.SendPropertyChanged("Telefono2");
+					this.OnTelefono2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(25)")]
+		public string UsuarioCreacion
+		{
+			get
+			{
+				return this._UsuarioCreacion;
+			}
+			set
+			{
+				if ((this._UsuarioCreacion != value))
+				{
+					this.OnUsuarioCreacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioCreacion = value;
+					this.SendPropertyChanged("UsuarioCreacion");
+					this.OnUsuarioCreacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaActualizacion", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaActualizacion
+		{
+			get
+			{
+				return this._FechaActualizacion;
+			}
+			set
+			{
+				if ((this._FechaActualizacion != value))
+				{
+					this.OnFechaActualizacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaActualizacion = value;
+					this.SendPropertyChanged("FechaActualizacion");
+					this.OnFechaActualizacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(25)")]
+		public string UsuarioActualizacion
+		{
+			get
+			{
+				return this._UsuarioActualizacion;
+			}
+			set
+			{
+				if ((this._UsuarioActualizacion != value))
+				{
+					this.OnUsuarioActualizacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioActualizacion = value;
+					this.SendPropertyChanged("UsuarioActualizacion");
+					this.OnUsuarioActualizacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
+		public byte Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this.OnEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._Estado = value;
+					this.SendPropertyChanged("Estado");
+					this.OnEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo", DbType="TinyInt NOT NULL")]
+		public byte Tipo
+		{
+			get
+			{
+				return this._Tipo;
+			}
+			set
+			{
+				if ((this._Tipo != value))
+				{
+					this.OnTipoChanging(value);
+					this.SendPropertyChanging();
+					this._Tipo = value;
+					this.SendPropertyChanged("Tipo");
+					this.OnTipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string NombreUsuario
+		{
+			get
+			{
+				return this._NombreUsuario;
+			}
+			set
+			{
+				if ((this._NombreUsuario != value))
+				{
+					this.OnNombreUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._NombreUsuario = value;
+					this.SendPropertyChanged("NombreUsuario");
+					this.OnNombreUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PasswordChange", DbType="Bit NOT NULL")]
+		public bool PasswordChange
+		{
+			get
+			{
+				return this._PasswordChange;
+			}
+			set
+			{
+				if ((this._PasswordChange != value))
+				{
+					this.OnPasswordChangeChanging(value);
+					this.SendPropertyChanging();
+					this._PasswordChange = value;
+					this.SendPropertyChanged("PasswordChange");
+					this.OnPasswordChangeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Reporte", Storage="_Reportes", ThisKey="ID_Persona", OtherKey="IdCliente")]
+		public EntitySet<Reporte> Reportes
+		{
+			get
+			{
+				return this._Reportes;
+			}
+			set
+			{
+				this._Reportes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Muestra", Storage="_Muestras", ThisKey="ID_Persona", OtherKey="IdCliente")]
+		public EntitySet<Muestra> Muestras
+		{
+			get
+			{
+				return this._Muestras;
+			}
+			set
+			{
+				this._Muestras.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Factura", Storage="_Facturas", ThisKey="ID_Persona", OtherKey="IdCliente")]
+		public EntitySet<Factura> Facturas
+		{
+			get
+			{
+				return this._Facturas;
+			}
+			set
+			{
+				this._Facturas.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Reportes(Reporte entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = this;
+		}
+		
+		private void detach_Reportes(Reporte entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = null;
+		}
+		
+		private void attach_Muestras(Muestra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = this;
+		}
+		
+		private void detach_Muestras(Muestra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = null;
+		}
+		
+		private void attach_Facturas(Factura entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = this;
+		}
+		
+		private void detach_Facturas(Factura entity)
+		{
+			this.SendPropertyChanging();
+			entity.Persona = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Muestra_analisis")]
+	public partial class Muestra_analisi : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdMuestraAnalisis;
+		
+		private string _Nombre;
+		
+		private int _Costo;
+		
+		private string _Codigo;
+		
+		private int _IdFactura;
+		
+		private int _IdAnalisis;
+		
+		private byte _Estado;
+		
+		private string _UsuarioCreacion;
+		
+		private System.DateTime _FechaCreacion;
+		
+		private string _UsuarioActualizacion;
+		
+		private System.Nullable<System.DateTime> _FechaActualizacion;
+		
+		private EntitySet<Resultado_analisi> _Resultado_analisis;
+		
+		private EntityRef<Muestra> _Muestra;
+		
+		private EntityRef<Factura> _Factura;
+		
+		private EntityRef<Analisi> _Analisi;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdMuestraAnalisisChanging(int value);
+    partial void OnIdMuestraAnalisisChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnCostoChanging(int value);
+    partial void OnCostoChanged();
+    partial void OnCodigoChanging(string value);
+    partial void OnCodigoChanged();
+    partial void OnIdFacturaChanging(int value);
+    partial void OnIdFacturaChanged();
+    partial void OnIdAnalisisChanging(int value);
+    partial void OnIdAnalisisChanged();
+    partial void OnEstadoChanging(byte value);
+    partial void OnEstadoChanged();
+    partial void OnUsuarioCreacionChanging(string value);
+    partial void OnUsuarioCreacionChanged();
+    partial void OnFechaCreacionChanging(System.DateTime value);
+    partial void OnFechaCreacionChanged();
+    partial void OnUsuarioActualizacionChanging(string value);
+    partial void OnUsuarioActualizacionChanged();
+    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaActualizacionChanged();
+    #endregion
+		
+		public Muestra_analisi()
+		{
+			this._Resultado_analisis = new EntitySet<Resultado_analisi>(new Action<Resultado_analisi>(this.attach_Resultado_analisis), new Action<Resultado_analisi>(this.detach_Resultado_analisis));
+			this._Muestra = default(EntityRef<Muestra>);
+			this._Factura = default(EntityRef<Factura>);
+			this._Analisi = default(EntityRef<Analisi>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMuestraAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdMuestraAnalisis
+		{
+			get
+			{
+				return this._IdMuestraAnalisis;
+			}
+			set
+			{
+				if ((this._IdMuestraAnalisis != value))
+				{
+					this.OnIdMuestraAnalisisChanging(value);
+					this.SendPropertyChanging();
+					this._IdMuestraAnalisis = value;
+					this.SendPropertyChanged("IdMuestraAnalisis");
+					this.OnIdMuestraAnalisisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Costo", DbType="Int NOT NULL")]
+		public int Costo
+		{
+			get
+			{
+				return this._Costo;
+			}
+			set
+			{
+				if ((this._Costo != value))
+				{
+					this.OnCostoChanging(value);
+					this.SendPropertyChanging();
+					this._Costo = value;
+					this.SendPropertyChanged("Costo");
+					this.OnCostoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Codigo", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Codigo
+		{
+			get
+			{
+				return this._Codigo;
+			}
+			set
+			{
+				if ((this._Codigo != value))
+				{
+					if (this._Muestra.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCodigoChanging(value);
+					this.SendPropertyChanging();
+					this._Codigo = value;
+					this.SendPropertyChanged("Codigo");
+					this.OnCodigoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFactura", DbType="Int NOT NULL")]
+		public int IdFactura
+		{
+			get
+			{
+				return this._IdFactura;
+			}
+			set
+			{
+				if ((this._IdFactura != value))
+				{
+					if (this._Factura.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdFacturaChanging(value);
+					this.SendPropertyChanging();
+					this._IdFactura = value;
+					this.SendPropertyChanged("IdFactura");
+					this.OnIdFacturaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAnalisis", DbType="Int NOT NULL")]
+		public int IdAnalisis
+		{
+			get
+			{
+				return this._IdAnalisis;
+			}
+			set
+			{
+				if ((this._IdAnalisis != value))
+				{
+					if (this._Analisi.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdAnalisisChanging(value);
+					this.SendPropertyChanging();
+					this._IdAnalisis = value;
+					this.SendPropertyChanged("IdAnalisis");
+					this.OnIdAnalisisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
+		public byte Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this.OnEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._Estado = value;
+					this.SendPropertyChanged("Estado");
+					this.OnEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string UsuarioCreacion
+		{
+			get
+			{
+				return this._UsuarioCreacion;
+			}
+			set
+			{
+				if ((this._UsuarioCreacion != value))
+				{
+					this.OnUsuarioCreacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioCreacion = value;
+					this.SendPropertyChanged("UsuarioCreacion");
+					this.OnUsuarioCreacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="Date NOT NULL")]
+		public System.DateTime FechaCreacion
+		{
+			get
+			{
+				return this._FechaCreacion;
+			}
+			set
+			{
+				if ((this._FechaCreacion != value))
+				{
+					this.OnFechaCreacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaCreacion = value;
+					this.SendPropertyChanged("FechaCreacion");
+					this.OnFechaCreacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(20)")]
+		public string UsuarioActualizacion
+		{
+			get
+			{
+				return this._UsuarioActualizacion;
+			}
+			set
+			{
+				if ((this._UsuarioActualizacion != value))
+				{
+					this.OnUsuarioActualizacionChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioActualizacion = value;
+					this.SendPropertyChanged("UsuarioActualizacion");
+					this.OnUsuarioActualizacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaActualizacion", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaActualizacion
+		{
+			get
+			{
+				return this._FechaActualizacion;
+			}
+			set
+			{
+				if ((this._FechaActualizacion != value))
+				{
+					this.OnFechaActualizacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaActualizacion = value;
+					this.SendPropertyChanged("FechaActualizacion");
+					this.OnFechaActualizacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_analisi_Resultado_analisi", Storage="_Resultado_analisis", ThisKey="IdMuestraAnalisis", OtherKey="IdMuestraAnalisis")]
+		public EntitySet<Resultado_analisi> Resultado_analisis
+		{
+			get
+			{
+				return this._Resultado_analisis;
+			}
+			set
+			{
+				this._Resultado_analisis.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_Muestra_analisi", Storage="_Muestra", ThisKey="Codigo", OtherKey="Codigo", IsForeignKey=true)]
+		public Muestra Muestra
+		{
+			get
+			{
+				return this._Muestra.Entity;
+			}
+			set
+			{
+				Muestra previousValue = this._Muestra.Entity;
+				if (((previousValue != value) 
+							|| (this._Muestra.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Muestra.Entity = null;
+						previousValue.Muestra_analisis.Remove(this);
+					}
+					this._Muestra.Entity = value;
+					if ((value != null))
+					{
+						value.Muestra_analisis.Add(this);
+						this._Codigo = value.Codigo;
+					}
+					else
+					{
+						this._Codigo = default(string);
+					}
+					this.SendPropertyChanged("Muestra");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Factura_Muestra_analisi", Storage="_Factura", ThisKey="IdFactura", OtherKey="IdFactura", IsForeignKey=true)]
+		public Factura Factura
+		{
+			get
+			{
+				return this._Factura.Entity;
+			}
+			set
+			{
+				Factura previousValue = this._Factura.Entity;
+				if (((previousValue != value) 
+							|| (this._Factura.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Factura.Entity = null;
+						previousValue.Muestra_analisis.Remove(this);
+					}
+					this._Factura.Entity = value;
+					if ((value != null))
+					{
+						value.Muestra_analisis.Add(this);
+						this._IdFactura = value.IdFactura;
+					}
+					else
+					{
+						this._IdFactura = default(int);
+					}
+					this.SendPropertyChanged("Factura");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Analisi_Muestra_analisi", Storage="_Analisi", ThisKey="IdAnalisis", OtherKey="IdAnalisis", IsForeignKey=true)]
+		public Analisi Analisi
+		{
+			get
+			{
+				return this._Analisi.Entity;
+			}
+			set
+			{
+				Analisi previousValue = this._Analisi.Entity;
+				if (((previousValue != value) 
+							|| (this._Analisi.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Analisi.Entity = null;
+						previousValue.Muestra_analisis.Remove(this);
+					}
+					this._Analisi.Entity = value;
+					if ((value != null))
+					{
+						value.Muestra_analisis.Add(this);
+						this._IdAnalisis = value.IdAnalisis;
+					}
+					else
+					{
+						this._IdAnalisis = default(int);
+					}
+					this.SendPropertyChanged("Analisi");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Resultado_analisis(Resultado_analisi entity)
+		{
+			this.SendPropertyChanging();
+			entity.Muestra_analisi = this;
+		}
+		
+		private void detach_Resultado_analisis(Resultado_analisi entity)
+		{
+			this.SendPropertyChanging();
+			entity.Muestra_analisi = null;
 		}
 	}
 	
@@ -1232,25 +2353,19 @@ namespace LAAG
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Muestra_analisis")]
-	public partial class Muestra_analisi : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Factura")]
+	public partial class Factura : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdMuestraAnalisis;
+		private int _IdFactura;
 		
-		private string _Nombre;
+		private System.DateTime _Fecha;
 		
 		private int _Costo;
 		
-		private string _Codigo;
-		
-		private int _IdFactura;
-		
-		private int _IdAnalisis;
-		
-		private byte _Estado;
+		private int _IdCliente;
 		
 		private string _UsuarioCreacion;
 		
@@ -1260,32 +2375,22 @@ namespace LAAG
 		
 		private System.Nullable<System.DateTime> _FechaActualizacion;
 		
-		private EntitySet<Resultado_analisi> _Resultado_analisis;
+		private EntitySet<Muestra_analisi> _Muestra_analisis;
 		
-		private EntityRef<Analisi> _Analisi;
-		
-		private EntityRef<Factura> _Factura;
-		
-		private EntityRef<Muestra> _Muestra;
+		private EntityRef<Persona> _Persona;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdMuestraAnalisisChanging(int value);
-    partial void OnIdMuestraAnalisisChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    partial void OnCostoChanging(int value);
-    partial void OnCostoChanged();
-    partial void OnCodigoChanging(string value);
-    partial void OnCodigoChanged();
     partial void OnIdFacturaChanging(int value);
     partial void OnIdFacturaChanged();
-    partial void OnIdAnalisisChanging(int value);
-    partial void OnIdAnalisisChanged();
-    partial void OnEstadoChanging(byte value);
-    partial void OnEstadoChanged();
+    partial void OnFechaChanging(System.DateTime value);
+    partial void OnFechaChanged();
+    partial void OnCostoChanging(int value);
+    partial void OnCostoChanged();
+    partial void OnIdClienteChanging(int value);
+    partial void OnIdClienteChanged();
     partial void OnUsuarioCreacionChanging(string value);
     partial void OnUsuarioCreacionChanged();
     partial void OnFechaCreacionChanging(System.DateTime value);
@@ -1296,51 +2401,49 @@ namespace LAAG
     partial void OnFechaActualizacionChanged();
     #endregion
 		
-		public Muestra_analisi()
+		public Factura()
 		{
-			this._Resultado_analisis = new EntitySet<Resultado_analisi>(new Action<Resultado_analisi>(this.attach_Resultado_analisis), new Action<Resultado_analisi>(this.detach_Resultado_analisis));
-			this._Analisi = default(EntityRef<Analisi>);
-			this._Factura = default(EntityRef<Factura>);
-			this._Muestra = default(EntityRef<Muestra>);
+			this._Muestra_analisis = new EntitySet<Muestra_analisi>(new Action<Muestra_analisi>(this.attach_Muestra_analisis), new Action<Muestra_analisi>(this.detach_Muestra_analisis));
+			this._Persona = default(EntityRef<Persona>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMuestraAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdMuestraAnalisis
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFactura", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdFactura
 		{
 			get
 			{
-				return this._IdMuestraAnalisis;
+				return this._IdFactura;
 			}
 			set
 			{
-				if ((this._IdMuestraAnalisis != value))
+				if ((this._IdFactura != value))
 				{
-					this.OnIdMuestraAnalisisChanging(value);
+					this.OnIdFacturaChanging(value);
 					this.SendPropertyChanging();
-					this._IdMuestraAnalisis = value;
-					this.SendPropertyChanged("IdMuestraAnalisis");
-					this.OnIdMuestraAnalisisChanged();
+					this._IdFactura = value;
+					this.SendPropertyChanged("IdFactura");
+					this.OnIdFacturaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Nombre
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
+		public System.DateTime Fecha
 		{
 			get
 			{
-				return this._Nombre;
+				return this._Fecha;
 			}
 			set
 			{
-				if ((this._Nombre != value))
+				if ((this._Fecha != value))
 				{
-					this.OnNombreChanging(value);
+					this.OnFechaChanging(value);
 					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
+					this._Fecha = value;
+					this.SendPropertyChanged("Fecha");
+					this.OnFechaChanged();
 				}
 			}
 		}
@@ -1365,94 +2468,26 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Codigo", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string Codigo
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCliente", DbType="Int NOT NULL")]
+		public int IdCliente
 		{
 			get
 			{
-				return this._Codigo;
+				return this._IdCliente;
 			}
 			set
 			{
-				if ((this._Codigo != value))
+				if ((this._IdCliente != value))
 				{
-					if (this._Muestra.HasLoadedOrAssignedValue)
+					if (this._Persona.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnCodigoChanging(value);
+					this.OnIdClienteChanging(value);
 					this.SendPropertyChanging();
-					this._Codigo = value;
-					this.SendPropertyChanged("Codigo");
-					this.OnCodigoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFactura", DbType="Int NOT NULL")]
-		public int IdFactura
-		{
-			get
-			{
-				return this._IdFactura;
-			}
-			set
-			{
-				if ((this._IdFactura != value))
-				{
-					if (this._Factura.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdFacturaChanging(value);
-					this.SendPropertyChanging();
-					this._IdFactura = value;
-					this.SendPropertyChanged("IdFactura");
-					this.OnIdFacturaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAnalisis", DbType="Int NOT NULL")]
-		public int IdAnalisis
-		{
-			get
-			{
-				return this._IdAnalisis;
-			}
-			set
-			{
-				if ((this._IdAnalisis != value))
-				{
-					if (this._Analisi.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdAnalisisChanging(value);
-					this.SendPropertyChanging();
-					this._IdAnalisis = value;
-					this.SendPropertyChanged("IdAnalisis");
-					this.OnIdAnalisisChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
-		public byte Estado
-		{
-			get
-			{
-				return this._Estado;
-			}
-			set
-			{
-				if ((this._Estado != value))
-				{
-					this.OnEstadoChanging(value);
-					this.SendPropertyChanging();
-					this._Estado = value;
-					this.SendPropertyChanged("Estado");
-					this.OnEstadoChanged();
+					this._IdCliente = value;
+					this.SendPropertyChanged("IdCliente");
+					this.OnIdClienteChanged();
 				}
 			}
 		}
@@ -1537,801 +2572,20 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_analisi_Resultado_analisi", Storage="_Resultado_analisis", ThisKey="IdMuestraAnalisis", OtherKey="IdMuestraAnalisis")]
-		public EntitySet<Resultado_analisi> Resultado_analisis
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Factura_Muestra_analisi", Storage="_Muestra_analisis", ThisKey="IdFactura", OtherKey="IdFactura")]
+		public EntitySet<Muestra_analisi> Muestra_analisis
 		{
 			get
 			{
-				return this._Resultado_analisis;
+				return this._Muestra_analisis;
 			}
 			set
 			{
-				this._Resultado_analisis.Assign(value);
+				this._Muestra_analisis.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Analisi_Muestra_analisi", Storage="_Analisi", ThisKey="IdAnalisis", OtherKey="IdAnalisis", IsForeignKey=true)]
-		public Analisi Analisi
-		{
-			get
-			{
-				return this._Analisi.Entity;
-			}
-			set
-			{
-				Analisi previousValue = this._Analisi.Entity;
-				if (((previousValue != value) 
-							|| (this._Analisi.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Analisi.Entity = null;
-						previousValue.Muestra_analisis.Remove(this);
-					}
-					this._Analisi.Entity = value;
-					if ((value != null))
-					{
-						value.Muestra_analisis.Add(this);
-						this._IdAnalisis = value.IdAnalisis;
-					}
-					else
-					{
-						this._IdAnalisis = default(int);
-					}
-					this.SendPropertyChanged("Analisi");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Factura_Muestra_analisi", Storage="_Factura", ThisKey="IdFactura", OtherKey="IdFactura", IsForeignKey=true)]
-		public Factura Factura
-		{
-			get
-			{
-				return this._Factura.Entity;
-			}
-			set
-			{
-				Factura previousValue = this._Factura.Entity;
-				if (((previousValue != value) 
-							|| (this._Factura.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Factura.Entity = null;
-						previousValue.Muestra_analisis.Remove(this);
-					}
-					this._Factura.Entity = value;
-					if ((value != null))
-					{
-						value.Muestra_analisis.Add(this);
-						this._IdFactura = value.IdFactura;
-					}
-					else
-					{
-						this._IdFactura = default(int);
-					}
-					this.SendPropertyChanged("Factura");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_Muestra_analisi", Storage="_Muestra", ThisKey="Codigo", OtherKey="Codigo", IsForeignKey=true)]
-		public Muestra Muestra
-		{
-			get
-			{
-				return this._Muestra.Entity;
-			}
-			set
-			{
-				Muestra previousValue = this._Muestra.Entity;
-				if (((previousValue != value) 
-							|| (this._Muestra.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Muestra.Entity = null;
-						previousValue.Muestra_analisis.Remove(this);
-					}
-					this._Muestra.Entity = value;
-					if ((value != null))
-					{
-						value.Muestra_analisis.Add(this);
-						this._Codigo = value.Codigo;
-					}
-					else
-					{
-						this._Codigo = default(string);
-					}
-					this.SendPropertyChanged("Muestra");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Resultado_analisis(Resultado_analisi entity)
-		{
-			this.SendPropertyChanging();
-			entity.Muestra_analisi = this;
-		}
-		
-		private void detach_Resultado_analisis(Resultado_analisi entity)
-		{
-			this.SendPropertyChanging();
-			entity.Muestra_analisi = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Persona")]
-	public partial class Persona : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID_Persona;
-		
-		private string _Nombre;
-		
-		private string _Apellido1;
-		
-		private string _Apellido2;
-		
-		private string _Correo;
-		
-		private string _Clave;
-		
-		private System.Nullable<System.DateTime> _FechaCreacion;
-		
-		private string _UsuarioCreacion;
-		
-		private System.Nullable<System.DateTime> _FechaActualizacion;
-		
-		private string _UsuarioActualizacion;
-		
-		private byte _Estado;
-		
-		private byte _Tipo;
-		
-		private string _NombreUsuario;
-		
-		private EntitySet<Telefono> _Telefonos;
-		
-		private EntitySet<Factura> _Facturas;
-		
-		private EntitySet<Muestra> _Muestras;
-		
-		private EntitySet<Reporte> _Reportes;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnID_PersonaChanging(int value);
-    partial void OnID_PersonaChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    partial void OnApellido1Changing(string value);
-    partial void OnApellido1Changed();
-    partial void OnApellido2Changing(string value);
-    partial void OnApellido2Changed();
-    partial void OnCorreoChanging(string value);
-    partial void OnCorreoChanged();
-    partial void OnClaveChanging(string value);
-    partial void OnClaveChanged();
-    partial void OnFechaCreacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaCreacionChanged();
-    partial void OnUsuarioCreacionChanging(string value);
-    partial void OnUsuarioCreacionChanged();
-    partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaActualizacionChanged();
-    partial void OnUsuarioActualizacionChanging(string value);
-    partial void OnUsuarioActualizacionChanged();
-    partial void OnEstadoChanging(byte value);
-    partial void OnEstadoChanged();
-    partial void OnTipoChanging(byte value);
-    partial void OnTipoChanged();
-    partial void OnNombreUsuarioChanging(string value);
-    partial void OnNombreUsuarioChanged();
-    #endregion
-		
-		public Persona()
-		{
-			this._Telefonos = new EntitySet<Telefono>(new Action<Telefono>(this.attach_Telefonos), new Action<Telefono>(this.detach_Telefonos));
-			this._Facturas = new EntitySet<Factura>(new Action<Factura>(this.attach_Facturas), new Action<Factura>(this.detach_Facturas));
-			this._Muestras = new EntitySet<Muestra>(new Action<Muestra>(this.attach_Muestras), new Action<Muestra>(this.detach_Muestras));
-			this._Reportes = new EntitySet<Reporte>(new Action<Reporte>(this.attach_Reportes), new Action<Reporte>(this.detach_Reportes));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Persona", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ID_Persona
-		{
-			get
-			{
-				return this._ID_Persona;
-			}
-			set
-			{
-				if ((this._ID_Persona != value))
-				{
-					this.OnID_PersonaChanging(value);
-					this.SendPropertyChanging();
-					this._ID_Persona = value;
-					this.SendPropertyChanged("ID_Persona");
-					this.OnID_PersonaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellido1", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string Apellido1
-		{
-			get
-			{
-				return this._Apellido1;
-			}
-			set
-			{
-				if ((this._Apellido1 != value))
-				{
-					this.OnApellido1Changing(value);
-					this.SendPropertyChanging();
-					this._Apellido1 = value;
-					this.SendPropertyChanged("Apellido1");
-					this.OnApellido1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellido2", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string Apellido2
-		{
-			get
-			{
-				return this._Apellido2;
-			}
-			set
-			{
-				if ((this._Apellido2 != value))
-				{
-					this.OnApellido2Changing(value);
-					this.SendPropertyChanging();
-					this._Apellido2 = value;
-					this.SendPropertyChanged("Apellido2");
-					this.OnApellido2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Correo", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
-		public string Correo
-		{
-			get
-			{
-				return this._Correo;
-			}
-			set
-			{
-				if ((this._Correo != value))
-				{
-					this.OnCorreoChanging(value);
-					this.SendPropertyChanging();
-					this._Correo = value;
-					this.SendPropertyChanged("Correo");
-					this.OnCorreoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clave", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string Clave
-		{
-			get
-			{
-				return this._Clave;
-			}
-			set
-			{
-				if ((this._Clave != value))
-				{
-					this.OnClaveChanging(value);
-					this.SendPropertyChanging();
-					this._Clave = value;
-					this.SendPropertyChanged("Clave");
-					this.OnClaveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCreacion", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaCreacion
-		{
-			get
-			{
-				return this._FechaCreacion;
-			}
-			set
-			{
-				if ((this._FechaCreacion != value))
-				{
-					this.OnFechaCreacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaCreacion = value;
-					this.SendPropertyChanged("FechaCreacion");
-					this.OnFechaCreacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(25)")]
-		public string UsuarioCreacion
-		{
-			get
-			{
-				return this._UsuarioCreacion;
-			}
-			set
-			{
-				if ((this._UsuarioCreacion != value))
-				{
-					this.OnUsuarioCreacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioCreacion = value;
-					this.SendPropertyChanged("UsuarioCreacion");
-					this.OnUsuarioCreacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaActualizacion", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaActualizacion
-		{
-			get
-			{
-				return this._FechaActualizacion;
-			}
-			set
-			{
-				if ((this._FechaActualizacion != value))
-				{
-					this.OnFechaActualizacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaActualizacion = value;
-					this.SendPropertyChanged("FechaActualizacion");
-					this.OnFechaActualizacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(25)")]
-		public string UsuarioActualizacion
-		{
-			get
-			{
-				return this._UsuarioActualizacion;
-			}
-			set
-			{
-				if ((this._UsuarioActualizacion != value))
-				{
-					this.OnUsuarioActualizacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioActualizacion = value;
-					this.SendPropertyChanged("UsuarioActualizacion");
-					this.OnUsuarioActualizacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
-		public byte Estado
-		{
-			get
-			{
-				return this._Estado;
-			}
-			set
-			{
-				if ((this._Estado != value))
-				{
-					this.OnEstadoChanging(value);
-					this.SendPropertyChanging();
-					this._Estado = value;
-					this.SendPropertyChanged("Estado");
-					this.OnEstadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tipo", DbType="TinyInt NOT NULL")]
-		public byte Tipo
-		{
-			get
-			{
-				return this._Tipo;
-			}
-			set
-			{
-				if ((this._Tipo != value))
-				{
-					this.OnTipoChanging(value);
-					this.SendPropertyChanging();
-					this._Tipo = value;
-					this.SendPropertyChanged("Tipo");
-					this.OnTipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreUsuario", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string NombreUsuario
-		{
-			get
-			{
-				return this._NombreUsuario;
-			}
-			set
-			{
-				if ((this._NombreUsuario != value))
-				{
-					this.OnNombreUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._NombreUsuario = value;
-					this.SendPropertyChanged("NombreUsuario");
-					this.OnNombreUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Telefono", Storage="_Telefonos", ThisKey="ID_Persona", OtherKey="IdPersona")]
-		public EntitySet<Telefono> Telefonos
-		{
-			get
-			{
-				return this._Telefonos;
-			}
-			set
-			{
-				this._Telefonos.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Factura", Storage="_Facturas", ThisKey="ID_Persona", OtherKey="IdCliente")]
-		public EntitySet<Factura> Facturas
-		{
-			get
-			{
-				return this._Facturas;
-			}
-			set
-			{
-				this._Facturas.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Muestra", Storage="_Muestras", ThisKey="ID_Persona", OtherKey="IdCliente")]
-		public EntitySet<Muestra> Muestras
-		{
-			get
-			{
-				return this._Muestras;
-			}
-			set
-			{
-				this._Muestras.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Reporte", Storage="_Reportes", ThisKey="ID_Persona", OtherKey="IdCliente")]
-		public EntitySet<Reporte> Reportes
-		{
-			get
-			{
-				return this._Reportes;
-			}
-			set
-			{
-				this._Reportes.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Telefonos(Telefono entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = this;
-		}
-		
-		private void detach_Telefonos(Telefono entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = null;
-		}
-		
-		private void attach_Facturas(Factura entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = this;
-		}
-		
-		private void detach_Facturas(Factura entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = null;
-		}
-		
-		private void attach_Muestras(Muestra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = this;
-		}
-		
-		private void detach_Muestras(Muestra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = null;
-		}
-		
-		private void attach_Reportes(Reporte entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = this;
-		}
-		
-		private void detach_Reportes(Reporte entity)
-		{
-			this.SendPropertyChanging();
-			entity.Persona = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reporte")]
-	public partial class Reporte : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdReporte;
-		
-		private System.Nullable<System.DateTime> _Fecha;
-		
-		private string _Metodologia;
-		
-		private string _Observaciones;
-		
-		private int _IdUsuario;
-		
-		private int _IdCliente;
-		
-		private EntitySet<Resultado_analisi> _Resultado_analisis;
-		
-		private EntityRef<Persona> _Persona;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdReporteChanging(int value);
-    partial void OnIdReporteChanged();
-    partial void OnFechaChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaChanged();
-    partial void OnMetodologiaChanging(string value);
-    partial void OnMetodologiaChanged();
-    partial void OnObservacionesChanging(string value);
-    partial void OnObservacionesChanged();
-    partial void OnIdUsuarioChanging(int value);
-    partial void OnIdUsuarioChanged();
-    partial void OnIdClienteChanging(int value);
-    partial void OnIdClienteChanged();
-    #endregion
-		
-		public Reporte()
-		{
-			this._Resultado_analisis = new EntitySet<Resultado_analisi>(new Action<Resultado_analisi>(this.attach_Resultado_analisis), new Action<Resultado_analisi>(this.detach_Resultado_analisis));
-			this._Persona = default(EntityRef<Persona>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdReporte", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdReporte
-		{
-			get
-			{
-				return this._IdReporte;
-			}
-			set
-			{
-				if ((this._IdReporte != value))
-				{
-					this.OnIdReporteChanging(value);
-					this.SendPropertyChanging();
-					this._IdReporte = value;
-					this.SendPropertyChanged("IdReporte");
-					this.OnIdReporteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date")]
-		public System.Nullable<System.DateTime> Fecha
-		{
-			get
-			{
-				return this._Fecha;
-			}
-			set
-			{
-				if ((this._Fecha != value))
-				{
-					this.OnFechaChanging(value);
-					this.SendPropertyChanging();
-					this._Fecha = value;
-					this.SendPropertyChanged("Fecha");
-					this.OnFechaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Metodologia", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
-		public string Metodologia
-		{
-			get
-			{
-				return this._Metodologia;
-			}
-			set
-			{
-				if ((this._Metodologia != value))
-				{
-					this.OnMetodologiaChanging(value);
-					this.SendPropertyChanging();
-					this._Metodologia = value;
-					this.SendPropertyChanged("Metodologia");
-					this.OnMetodologiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Observaciones", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
-		public string Observaciones
-		{
-			get
-			{
-				return this._Observaciones;
-			}
-			set
-			{
-				if ((this._Observaciones != value))
-				{
-					this.OnObservacionesChanging(value);
-					this.SendPropertyChanging();
-					this._Observaciones = value;
-					this.SendPropertyChanged("Observaciones");
-					this.OnObservacionesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", DbType="Int NOT NULL")]
-		public int IdUsuario
-		{
-			get
-			{
-				return this._IdUsuario;
-			}
-			set
-			{
-				if ((this._IdUsuario != value))
-				{
-					this.OnIdUsuarioChanging(value);
-					this.SendPropertyChanging();
-					this._IdUsuario = value;
-					this.SendPropertyChanged("IdUsuario");
-					this.OnIdUsuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCliente", DbType="Int NOT NULL")]
-		public int IdCliente
-		{
-			get
-			{
-				return this._IdCliente;
-			}
-			set
-			{
-				if ((this._IdCliente != value))
-				{
-					if (this._Persona.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdClienteChanging(value);
-					this.SendPropertyChanging();
-					this._IdCliente = value;
-					this.SendPropertyChanged("IdCliente");
-					this.OnIdClienteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reporte_Resultado_analisi", Storage="_Resultado_analisis", ThisKey="IdReporte", OtherKey="IdReporte")]
-		public EntitySet<Resultado_analisi> Resultado_analisis
-		{
-			get
-			{
-				return this._Resultado_analisis;
-			}
-			set
-			{
-				this._Resultado_analisis.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Reporte", Storage="_Persona", ThisKey="IdCliente", OtherKey="ID_Persona", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Persona_Factura", Storage="_Persona", ThisKey="IdCliente", OtherKey="ID_Persona", IsForeignKey=true)]
 		public Persona Persona
 		{
 			get
@@ -2348,12 +2602,12 @@ namespace LAAG
 					if ((previousValue != null))
 					{
 						this._Persona.Entity = null;
-						previousValue.Reportes.Remove(this);
+						previousValue.Facturas.Remove(this);
 					}
 					this._Persona.Entity = value;
 					if ((value != null))
 					{
-						value.Reportes.Add(this);
+						value.Facturas.Add(this);
 						this._IdCliente = value.ID_Persona;
 					}
 					else
@@ -2385,167 +2639,153 @@ namespace LAAG
 			}
 		}
 		
-		private void attach_Resultado_analisis(Resultado_analisi entity)
+		private void attach_Muestra_analisis(Muestra_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Reporte = this;
+			entity.Factura = this;
 		}
 		
-		private void detach_Resultado_analisis(Resultado_analisi entity)
+		private void detach_Muestra_analisis(Muestra_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Reporte = null;
+			entity.Factura = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Resultado_analisis")]
-	public partial class Resultado_analisi : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Analisis")]
+	public partial class Analisi : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdResultadoAnalisis;
+		private int _IdAnalisis;
 		
-		private int _IdMuestraAnalisis;
+		private string _Nombre;
 		
-		private int _IdReporte;
+		private string _Categoria;
 		
-		private byte _Estado;
+		private string _Descripcion;
 		
-		private int _UsuarioCreacion;
+		private string _UsuarioCreacion;
 		
 		private System.DateTime _FechaCreacion;
 		
-		private System.Nullable<int> _UsuarioActualizacion;
+		private string _UsuarioActualizacion;
 		
 		private System.Nullable<System.DateTime> _FechaActualizacion;
 		
-		private EntitySet<Resultado_elemento> _Resultado_elementos;
-		
-		private EntityRef<Muestra_analisi> _Muestra_analisi;
-		
-		private EntityRef<Reporte> _Reporte;
+		private EntitySet<Muestra_analisi> _Muestra_analisis;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdResultadoAnalisisChanging(int value);
-    partial void OnIdResultadoAnalisisChanged();
-    partial void OnIdMuestraAnalisisChanging(int value);
-    partial void OnIdMuestraAnalisisChanged();
-    partial void OnIdReporteChanging(int value);
-    partial void OnIdReporteChanged();
-    partial void OnEstadoChanging(byte value);
-    partial void OnEstadoChanged();
-    partial void OnUsuarioCreacionChanging(int value);
+    partial void OnIdAnalisisChanging(int value);
+    partial void OnIdAnalisisChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnCategoriaChanging(string value);
+    partial void OnCategoriaChanged();
+    partial void OnDescripcionChanging(string value);
+    partial void OnDescripcionChanged();
+    partial void OnUsuarioCreacionChanging(string value);
     partial void OnUsuarioCreacionChanged();
     partial void OnFechaCreacionChanging(System.DateTime value);
     partial void OnFechaCreacionChanged();
-    partial void OnUsuarioActualizacionChanging(System.Nullable<int> value);
+    partial void OnUsuarioActualizacionChanging(string value);
     partial void OnUsuarioActualizacionChanged();
     partial void OnFechaActualizacionChanging(System.Nullable<System.DateTime> value);
     partial void OnFechaActualizacionChanged();
     #endregion
 		
-		public Resultado_analisi()
+		public Analisi()
 		{
-			this._Resultado_elementos = new EntitySet<Resultado_elemento>(new Action<Resultado_elemento>(this.attach_Resultado_elementos), new Action<Resultado_elemento>(this.detach_Resultado_elementos));
-			this._Muestra_analisi = default(EntityRef<Muestra_analisi>);
-			this._Reporte = default(EntityRef<Reporte>);
+			this._Muestra_analisis = new EntitySet<Muestra_analisi>(new Action<Muestra_analisi>(this.attach_Muestra_analisis), new Action<Muestra_analisi>(this.detach_Muestra_analisis));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdResultadoAnalisis
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdAnalisis", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdAnalisis
 		{
 			get
 			{
-				return this._IdResultadoAnalisis;
+				return this._IdAnalisis;
 			}
 			set
 			{
-				if ((this._IdResultadoAnalisis != value))
+				if ((this._IdAnalisis != value))
 				{
-					this.OnIdResultadoAnalisisChanging(value);
+					this.OnIdAnalisisChanging(value);
 					this.SendPropertyChanging();
-					this._IdResultadoAnalisis = value;
-					this.SendPropertyChanged("IdResultadoAnalisis");
-					this.OnIdResultadoAnalisisChanged();
+					this._IdAnalisis = value;
+					this.SendPropertyChanged("IdAnalisis");
+					this.OnIdAnalisisChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMuestraAnalisis", DbType="Int NOT NULL")]
-		public int IdMuestraAnalisis
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Nombre
 		{
 			get
 			{
-				return this._IdMuestraAnalisis;
+				return this._Nombre;
 			}
 			set
 			{
-				if ((this._IdMuestraAnalisis != value))
+				if ((this._Nombre != value))
 				{
-					if (this._Muestra_analisi.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdMuestraAnalisisChanging(value);
+					this.OnNombreChanging(value);
 					this.SendPropertyChanging();
-					this._IdMuestraAnalisis = value;
-					this.SendPropertyChanged("IdMuestraAnalisis");
-					this.OnIdMuestraAnalisisChanged();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdReporte", DbType="Int NOT NULL")]
-		public int IdReporte
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Categoria
 		{
 			get
 			{
-				return this._IdReporte;
+				return this._Categoria;
 			}
 			set
 			{
-				if ((this._IdReporte != value))
+				if ((this._Categoria != value))
 				{
-					if (this._Reporte.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdReporteChanging(value);
+					this.OnCategoriaChanging(value);
 					this.SendPropertyChanging();
-					this._IdReporte = value;
-					this.SendPropertyChanged("IdReporte");
-					this.OnIdReporteChanged();
+					this._Categoria = value;
+					this.SendPropertyChanged("Categoria");
+					this.OnCategoriaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="TinyInt NOT NULL")]
-		public byte Estado
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50)")]
+		public string Descripcion
 		{
 			get
 			{
-				return this._Estado;
+				return this._Descripcion;
 			}
 			set
 			{
-				if ((this._Estado != value))
+				if ((this._Descripcion != value))
 				{
-					this.OnEstadoChanging(value);
+					this.OnDescripcionChanging(value);
 					this.SendPropertyChanging();
-					this._Estado = value;
-					this.SendPropertyChanged("Estado");
-					this.OnEstadoChanged();
+					this._Descripcion = value;
+					this.SendPropertyChanged("Descripcion");
+					this.OnDescripcionChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="Int NOT NULL")]
-		public int UsuarioCreacion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string UsuarioCreacion
 		{
 			get
 			{
@@ -2584,8 +2824,8 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="Int")]
-		public System.Nullable<int> UsuarioActualizacion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioActualizacion", DbType="VarChar(20)")]
+		public string UsuarioActualizacion
 		{
 			get
 			{
@@ -2624,84 +2864,16 @@ namespace LAAG
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resultado_analisi_Resultado_elemento", Storage="_Resultado_elementos", ThisKey="IdResultadoAnalisis", OtherKey="IdResultadoAnalisis")]
-		public EntitySet<Resultado_elemento> Resultado_elementos
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Analisi_Muestra_analisi", Storage="_Muestra_analisis", ThisKey="IdAnalisis", OtherKey="IdAnalisis")]
+		public EntitySet<Muestra_analisi> Muestra_analisis
 		{
 			get
 			{
-				return this._Resultado_elementos;
+				return this._Muestra_analisis;
 			}
 			set
 			{
-				this._Resultado_elementos.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Muestra_analisi_Resultado_analisi", Storage="_Muestra_analisi", ThisKey="IdMuestraAnalisis", OtherKey="IdMuestraAnalisis", IsForeignKey=true)]
-		public Muestra_analisi Muestra_analisi
-		{
-			get
-			{
-				return this._Muestra_analisi.Entity;
-			}
-			set
-			{
-				Muestra_analisi previousValue = this._Muestra_analisi.Entity;
-				if (((previousValue != value) 
-							|| (this._Muestra_analisi.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Muestra_analisi.Entity = null;
-						previousValue.Resultado_analisis.Remove(this);
-					}
-					this._Muestra_analisi.Entity = value;
-					if ((value != null))
-					{
-						value.Resultado_analisis.Add(this);
-						this._IdMuestraAnalisis = value.IdMuestraAnalisis;
-					}
-					else
-					{
-						this._IdMuestraAnalisis = default(int);
-					}
-					this.SendPropertyChanged("Muestra_analisi");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reporte_Resultado_analisi", Storage="_Reporte", ThisKey="IdReporte", OtherKey="IdReporte", IsForeignKey=true)]
-		public Reporte Reporte
-		{
-			get
-			{
-				return this._Reporte.Entity;
-			}
-			set
-			{
-				Reporte previousValue = this._Reporte.Entity;
-				if (((previousValue != value) 
-							|| (this._Reporte.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Reporte.Entity = null;
-						previousValue.Resultado_analisis.Remove(this);
-					}
-					this._Reporte.Entity = value;
-					if ((value != null))
-					{
-						value.Resultado_analisis.Add(this);
-						this._IdReporte = value.IdReporte;
-					}
-					else
-					{
-						this._IdReporte = default(int);
-					}
-					this.SendPropertyChanged("Reporte");
-				}
+				this._Muestra_analisis.Assign(value);
 			}
 		}
 		
@@ -2725,287 +2897,16 @@ namespace LAAG
 			}
 		}
 		
-		private void attach_Resultado_elementos(Resultado_elemento entity)
+		private void attach_Muestra_analisis(Muestra_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Resultado_analisi = this;
+			entity.Analisi = this;
 		}
 		
-		private void detach_Resultado_elementos(Resultado_elemento entity)
+		private void detach_Muestra_analisis(Muestra_analisi entity)
 		{
 			this.SendPropertyChanging();
-			entity.Resultado_analisi = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Resultado_elemento")]
-	public partial class Resultado_elemento : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IdResultadoElemento;
-		
-		private string _Nombre;
-		
-		private string _Resultado;
-		
-		private int _IdResultadoAnalisis;
-		
-		private string _UsuarioCreacion;
-		
-		private System.DateTime _FechaCracion;
-		
-		private string _UsuarioModificacion;
-		
-		private System.Nullable<System.DateTime> _FechaModificacion;
-		
-		private EntityRef<Resultado_analisi> _Resultado_analisi;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdResultadoElementoChanging(int value);
-    partial void OnIdResultadoElementoChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    partial void OnResultadoChanging(string value);
-    partial void OnResultadoChanged();
-    partial void OnIdResultadoAnalisisChanging(int value);
-    partial void OnIdResultadoAnalisisChanged();
-    partial void OnUsuarioCreacionChanging(string value);
-    partial void OnUsuarioCreacionChanged();
-    partial void OnFechaCracionChanging(System.DateTime value);
-    partial void OnFechaCracionChanged();
-    partial void OnUsuarioModificacionChanging(string value);
-    partial void OnUsuarioModificacionChanged();
-    partial void OnFechaModificacionChanging(System.Nullable<System.DateTime> value);
-    partial void OnFechaModificacionChanged();
-    #endregion
-		
-		public Resultado_elemento()
-		{
-			this._Resultado_analisi = default(EntityRef<Resultado_analisi>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoElemento", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IdResultadoElemento
-		{
-			get
-			{
-				return this._IdResultadoElemento;
-			}
-			set
-			{
-				if ((this._IdResultadoElemento != value))
-				{
-					this.OnIdResultadoElementoChanging(value);
-					this.SendPropertyChanging();
-					this._IdResultadoElemento = value;
-					this.SendPropertyChanged("IdResultadoElemento");
-					this.OnIdResultadoElementoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Resultado", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string Resultado
-		{
-			get
-			{
-				return this._Resultado;
-			}
-			set
-			{
-				if ((this._Resultado != value))
-				{
-					this.OnResultadoChanging(value);
-					this.SendPropertyChanging();
-					this._Resultado = value;
-					this.SendPropertyChanged("Resultado");
-					this.OnResultadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResultadoAnalisis", DbType="Int NOT NULL")]
-		public int IdResultadoAnalisis
-		{
-			get
-			{
-				return this._IdResultadoAnalisis;
-			}
-			set
-			{
-				if ((this._IdResultadoAnalisis != value))
-				{
-					if (this._Resultado_analisi.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdResultadoAnalisisChanging(value);
-					this.SendPropertyChanging();
-					this._IdResultadoAnalisis = value;
-					this.SendPropertyChanged("IdResultadoAnalisis");
-					this.OnIdResultadoAnalisisChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioCreacion", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string UsuarioCreacion
-		{
-			get
-			{
-				return this._UsuarioCreacion;
-			}
-			set
-			{
-				if ((this._UsuarioCreacion != value))
-				{
-					this.OnUsuarioCreacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioCreacion = value;
-					this.SendPropertyChanged("UsuarioCreacion");
-					this.OnUsuarioCreacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCracion", DbType="Date NOT NULL")]
-		public System.DateTime FechaCracion
-		{
-			get
-			{
-				return this._FechaCracion;
-			}
-			set
-			{
-				if ((this._FechaCracion != value))
-				{
-					this.OnFechaCracionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaCracion = value;
-					this.SendPropertyChanged("FechaCracion");
-					this.OnFechaCracionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioModificacion", DbType="VarChar(20)")]
-		public string UsuarioModificacion
-		{
-			get
-			{
-				return this._UsuarioModificacion;
-			}
-			set
-			{
-				if ((this._UsuarioModificacion != value))
-				{
-					this.OnUsuarioModificacionChanging(value);
-					this.SendPropertyChanging();
-					this._UsuarioModificacion = value;
-					this.SendPropertyChanged("UsuarioModificacion");
-					this.OnUsuarioModificacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="Date")]
-		public System.Nullable<System.DateTime> FechaModificacion
-		{
-			get
-			{
-				return this._FechaModificacion;
-			}
-			set
-			{
-				if ((this._FechaModificacion != value))
-				{
-					this.OnFechaModificacionChanging(value);
-					this.SendPropertyChanging();
-					this._FechaModificacion = value;
-					this.SendPropertyChanged("FechaModificacion");
-					this.OnFechaModificacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Resultado_analisi_Resultado_elemento", Storage="_Resultado_analisi", ThisKey="IdResultadoAnalisis", OtherKey="IdResultadoAnalisis", IsForeignKey=true)]
-		public Resultado_analisi Resultado_analisi
-		{
-			get
-			{
-				return this._Resultado_analisi.Entity;
-			}
-			set
-			{
-				Resultado_analisi previousValue = this._Resultado_analisi.Entity;
-				if (((previousValue != value) 
-							|| (this._Resultado_analisi.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Resultado_analisi.Entity = null;
-						previousValue.Resultado_elementos.Remove(this);
-					}
-					this._Resultado_analisi.Entity = value;
-					if ((value != null))
-					{
-						value.Resultado_elementos.Add(this);
-						this._IdResultadoAnalisis = value.IdResultadoAnalisis;
-					}
-					else
-					{
-						this._IdResultadoAnalisis = default(int);
-					}
-					this.SendPropertyChanged("Resultado_analisi");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			entity.Analisi = null;
 		}
 	}
 }

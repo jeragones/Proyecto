@@ -93,4 +93,12 @@ namespace LAAG.Models
         public string Telefono2 { get; set; }
 
     }
+
+    public class SearchModel 
+    {
+        
+        [Display(Name = "Buscar")]
+        public string Buscar { get; set; }
+    }
+
 }

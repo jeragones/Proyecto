@@ -1,28 +1,18 @@
-﻿@{
-    ViewBag.Title = "ListaUsuarios";
+﻿@model IEnumerable<LAAG.Models.SearchModel>
+@{
+    Layout = null;
 }
 
-<nav class="navbar navbar-default" role="navigation">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       <div class="navbar-header">
-        <p class="navbar-brand" href="#">Buscar Usuario</p>
-    </div>
-        <div class="col-sm-3 col-md-3 pull-left">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar" name="q">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>        
-    </div>
-</nav>
-
-<div class="container">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Usuarios</title>
+    </head>
+    <body>
+        <div class="container">
     <div class="row">
-                <div class="well">
+        <div class="well">
             <h1 class="text-center">Resultado de Busqueda</h1>
             <div class="list-group">
                
@@ -45,7 +35,7 @@
     </div>
 </div>
 
-<style>
+        <style>
 .personicon {
     font-size: 100px;
     color:#33A369;
@@ -64,3 +54,8 @@ a.list-group-item {
     border-right:10px solid transparent;
 }
 </style>
+
+
+    </body>
+
+</html>
