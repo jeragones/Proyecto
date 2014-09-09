@@ -73,23 +73,33 @@ namespace LAAG.Controllers
 
 
         //
-        // GET: /Account/Result
-        [HttpGet]
+        // POST: /Account/Search
+        [HttpPost]
         [AllowAnonymous]
-        public ActionResult Result(SearchModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(SearchModel model)
         {
+            //Usuario que se desea buscar
             String user = model.Buscar;
 
+            //consulta de todos los usuarios en la base de datos (aun no se esta usando)
             var users = from x in db.Personas select x;
             
             return View("Result");
         }
 
         //
-        // GET: /Account/ListaUsuarios
+        // GET: /Account/Search
 
         [AllowAnonymous]
-        public ActionResult Search()
+        public ActionResult Search(){
+            return View();
+        }
+        //
+        // GET: /Account/Result
+
+        [AllowAnonymous]
+        public ActionResult Result()
         {
             return View();
         }
