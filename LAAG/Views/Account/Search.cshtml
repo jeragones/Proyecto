@@ -12,9 +12,9 @@
             <form class="navbar-form" role="search">
                 <div class="input-group">
                     
-                    @Html.TextBoxFor(m => m.Buscar, new { @class = "form-control", placeholder = "Buscar"})
+                    @Html.TextBoxFor(m => m.Buscar, new { @class = "form-control", placeholder = "Buscar", @required = "required" })
                     <div class="input-group-btn">
-                        <button class="btn btn-default" id="btnSearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        <input type="button" class="btn btn-default" id="btnSearch" value="Buscar" />
                     </div>
                 </div>
             </form>
@@ -25,6 +25,7 @@
 
 </div>
 
+@section Scripts {
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btnSearch').click(function () {
@@ -32,7 +33,7 @@
         });
     });
 </script>
-
+}
 
 
 

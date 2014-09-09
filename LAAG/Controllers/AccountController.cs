@@ -73,13 +73,16 @@ namespace LAAG.Controllers
 
 
         //
-        // GET: /Account/Users
-
+        // GET: /Account/Result
+        [HttpGet]
         [AllowAnonymous]
-        public ActionResult Result()
+        public ActionResult Result(SearchModel model)
         {
+            String user = model.Buscar;
+
             var users = from x in db.Personas select x;
-            return View("Result",users);
+            
+            return View("Result");
         }
 
         //

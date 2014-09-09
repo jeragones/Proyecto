@@ -96,9 +96,42 @@ namespace LAAG.Models
 
     public class SearchModel 
     {
-        
+        [Required]
         [Display(Name = "Buscar")]
         public string Buscar { get; set; }
+    }
+
+    public class ResultModel
+    {
+
+        [Display(Name = "Tipo")]
+        public string Tipo { get; set; }
+
+
+        
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+       
+        [Display(Name = "Apellidos")]
+        public string Apellidos { get; set; }
+
+
+        [Display(Name = "Correo")]
+        public string Correo { get; set; }
+
+        [Required]
+        [Display(Name = "Usuario")]
+        public string Usuario { get; set; }
+
+
+        [Display(Name = "Telefono")]
+        public string Telefono { get; set; }
+
+
+        [Display(Name = "Telefono2")]
+        public string Telefono2 { get; set; }
+
     }
 
 }
