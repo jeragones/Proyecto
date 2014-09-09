@@ -1,4 +1,5 @@
 ﻿using System;
+using LAAG.App_Code;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -11,7 +12,7 @@ using WebMatrix.WebData;
 using LAAG.Filters;
 using LAAG.Models;
 
-namespace LAAG.Controllers
+namespace LAAG.App_Code
 {
     [Authorize]
     [InitializeSimpleMembership]
@@ -87,6 +88,8 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
+                CustomFunction insFunction = new CustomFunction();
+                MailService insMail = new MailService();
                 DataDataContext db = new DataDataContext();
                 // Intento de registrar al usuario
                 try
@@ -104,7 +107,7 @@ namespace LAAG.Controllers
                         p.Apellido2 = ape[1];
                     }
                     p.Correo = model.Correo;
-                    p.Clave = "12345";
+                    p.Clave = insFunction.codeGenerator();
                     p.Estado = 1;
                     p.Tipo = 1;
                     p.NombreUsuario = model.Usuario;
@@ -112,6 +115,7 @@ namespace LAAG.Controllers
                     db.Personas.InsertOnSubmit(p);
                     db.SubmitChanges();
 
+                    insMail.registrationEmail(p.Correo, p.NombreUsuario, p.Clave);
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -229,6 +233,39 @@ namespace LAAG.Controllers
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
         }
+
+        //
+        // POST: /Account/RecoverPassword
+
+        [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public ActionResult RecoverPassword(RecoverPassword model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {/*
+                DataDataContext db = new DataDataContext();
+                var persona = from tmp in Persona
+                              where tmp.NombreUsuario == model.UserName
+                              select tmp;*/
+            }
+            return null;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #region Aplicaciones auxiliares
         private ActionResult RedirectToLocal(string returnUrl)

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LAAG.App_Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LAAG.Controllers
+namespace LAAG.App_Code
 {
     public class HomeController : Controller
     {
@@ -36,5 +37,11 @@ namespace LAAG.Controllers
             //    return RedirectToAction("Login", "Account");
             //}
         }
+
+        //public ActionResult contact()
+        //{
+            
+        //    return null;
+        //}
     }
 }

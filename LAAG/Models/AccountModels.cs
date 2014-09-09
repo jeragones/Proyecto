@@ -91,6 +91,12 @@ namespace LAAG.Models
         
         [Display(Name = "Telefono2")]
         public string Telefono2 { get; set; }
+    }
 
+    public class RecoverPassword
+    {
+        [Required]
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
     }
 }

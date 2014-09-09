@@ -15,12 +15,15 @@
                 <h2 class="form-signin-heading">Iniciar Sesión</h2>
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "usuario", @required = "required" })
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "contraseña", @required = "required" })
+                
                 <div class="checkbox">
                     <label>
                         @Html.CheckBoxFor(m => m.RememberMe, new { @value = "remember-me" }) Recordar mi contraseña
                     </label>
                 </div>
+                
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Iniciar" />
+                <br><a href="/Home#contact" class="col-lg-offset-6">Recuperar contraseña</a>
             </form>
         </div>
     }

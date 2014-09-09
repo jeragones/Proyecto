@@ -8,7 +8,19 @@ using System.Web.Security;
 
 namespace LAAG.Models
 {
-    public class HomeModels
+    public class ContactModel
     {
+        [Display(Name = "Email")]
+        public string Tipo { get; set; }
+
+
+        [Required]
+        [Display(Name = "Subject")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Body")]
+        public string Apellidos { get; set; }
+
     }
 }
