@@ -27,11 +27,24 @@
 
 @section Scripts {
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#btnSearch').click(function () {
-            $('#result').load('/Account/Result');
-        });
-    });
+    $.ajax({
+        url:'/Account/Result',
+        contentType: 'application/html; charset=utf-8',
+        type: 'POST',
+        dataType: 'html'
+    })
+    .success(function (result) {
+        $('#result').html(result);
+    })
+    .error(function (xhr, status) {
+        alert(status);
+    })
+
+    //$(document).ready(function () {
+      //  $('#btnSearch').click(function () {
+        //    $('#result').load('/Account/Result');
+        //});
+    //});
 </script>
 }
 
