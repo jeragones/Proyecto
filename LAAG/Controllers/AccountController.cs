@@ -87,16 +87,16 @@ namespace LAAG.App_Code
             //consulta de todos los usuarios en la base de datos (aun no se esta usando)
             var users = from x in db.Personas select x;
             
-            return View("Result");
+            return View();
         }
 
         //
         // GET: /Account/Search
-
         [AllowAnonymous]
         public ActionResult Search(){
             return View();
         }
+
         //
         // GET: /Account/Result
 
