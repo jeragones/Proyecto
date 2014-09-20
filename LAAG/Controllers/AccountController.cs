@@ -145,11 +145,9 @@ namespace LAAG.App_Code
                     p.Estado = 1;
                     p.Tipo = 1;
                     p.NombreUsuario = model.Usuario;
-                    insMail.registrationEmail(p.Correo, p.NombreUsuario, p.Clave);
                     db.Personas.InsertOnSubmit(p);
                     db.SubmitChanges();
-
-                    
+                    insMail.registrationEmail(p.Correo, p.NombreUsuario, p.Clave);
                 }
                 catch (MembershipCreateUserException e)
                 {
