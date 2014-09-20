@@ -49,16 +49,21 @@ namespace LAAG.App_Code
                           "<p>Contraseña: " + password + "</p>" +
                           "<p>Ingrese en el siguiente enlace para realizar su cambio de contraseña:</p>" +
                           "<p><a href=\"http://localhost:63714/\">Cambiar contraseña</a></p>";
-
-            //for (int i = 101; i < 200; i++ )
-            //{
-                sendEmail(email, subject, body);
-            //}
+            sendEmail(email, subject, body);
         }
 
-        public void contactEmail(String email, String subject, String body) {
+        public void contactEmail(String email, String subject, String body) 
+        {
             body = "Responder al correo: <h3>"+email+"</h3><br><br><p>"+body+"</p>";
             sendEmail("labgronomico@gmail.com", subject, body);
+        }
+
+        public void recoverUser(String email, String user, String password)
+        {
+            String subject = "Recuperación de contraseña";
+            String body = "<b>Nombre de usuario: </b>" + user + "<br>" +
+                          "<b>Contraseña: </b>"+ password;
+            sendEmail(email, subject, body);
         }
     }
 }

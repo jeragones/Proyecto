@@ -18,6 +18,11 @@ namespace LAAG.App_Code
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        DataDataContext db = new DataDataContext();
+        CustomFunction insFunction = new CustomFunction();
+        MailService insMail = new MailService();
+
         //
         // GET: /Account/Login
 
@@ -40,7 +45,6 @@ namespace LAAG.App_Code
             Session["CurrentSession"] = null;
             if (ModelState.IsValid)
             {
-                DataDataContext db = new DataDataContext();
                 IQueryable<Persona> persona = db.IsValidUser(model.UserName, model.Password);
                 if (persona!=null)
                 {
@@ -69,6 +73,39 @@ namespace LAAG.App_Code
             return RedirectToAction("Login()", "Account");
         }
 
+
+        //
+        // POST: /Account/Search
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(SearchModel model)
+        {
+            //Usuario que se desea buscar
+            String user = model.Buscar;
+
+            //consulta de todos los usuarios en la base de datos (aun no se esta usando)
+            var users = from x in db.Personas select x;
+            
+            return View("Result");
+        }
+
+        //
+        // GET: /Account/Search
+
+        [AllowAnonymous]
+        public ActionResult Search(){
+            return View();
+        }
+        //
+        // GET: /Account/Result
+
+        [AllowAnonymous]
+        public ActionResult Result()
+        {
+            return View();
+        }
+        
         //
         // GET: /Account/Register
 
@@ -88,9 +125,6 @@ namespace LAAG.App_Code
         {
             if (ModelState.IsValid)
             {
-                CustomFunction insFunction = new CustomFunction();
-                MailService insMail = new MailService();
-                DataDataContext db = new DataDataContext();
                 // Intento de registrar al usuario
                 try
                 {
@@ -111,11 +145,11 @@ namespace LAAG.App_Code
                     p.Estado = 1;
                     p.Tipo = 1;
                     p.NombreUsuario = model.Usuario;
-
+                    insMail.registrationEmail(p.Correo, p.NombreUsuario, p.Clave);
                     db.Personas.InsertOnSubmit(p);
                     db.SubmitChanges();
 
-                    insMail.registrationEmail(p.Correo, p.NombreUsuario, p.Clave);
+                    
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -235,21 +269,27 @@ namespace LAAG.App_Code
         }
 
         //
+        // GET: /Account/RecoverPassword
+
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(string returnUrl)
+        {
+            return View();
+        }
+
+        //
         // POST: /Account/RecoverPassword
 
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult RecoverPassword(RecoverPassword model, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {/*
-                DataDataContext db = new DataDataContext();
-                var persona = from tmp in Persona
-                              where tmp.NombreUsuario == model.UserName
-                              select tmp;*/
-            }
-            return null;
+            var persona = from tmp in db.Personas
+                          where tmp.NombreUsuario == model.UserName
+                          select tmp;
+            //insMail.recoverUser(model.UserName, persona.Clave);
+            return RedirectToLocal(returnUrl);
         }
 
 

@@ -1,0 +1,39 @@
+﻿@model LAAG.Models.SearchModel
+@{
+    ViewBag.Title = "Buscar Usuarios";
+}
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       <div class="navbar-header">
+        <p class="navbar-brand">Buscar Usuario</p>
+    </div>
+        <div class="col-sm-3 col-md-3 pull-left">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    
+                    @Html.TextBoxFor(m => m.Buscar, new { @class = "form-control", placeholder = "Buscar", @required = "required" })
+                    <div class="input-group-btn">
+                        <input type="button" class="btn btn-default" id="btnSearch" value="Buscar" />
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>
+</nav>
+<div id="result">
+
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSearch').click(function () {
+            $('#result').load('/Account/Result');
+        });
+    });
+</script>
+}
+
+
+

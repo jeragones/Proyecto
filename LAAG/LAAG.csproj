@@ -260,6 +260,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\plugins\flot\excanvas.min.js" />
     <Content Include="Scripts\plugins\flot\flot-data.js" />
     <Content Include="Scripts\plugins\flot\jquery.flot.js" />
@@ -312,6 +315,10 @@
     <Content Include="Views\Shared\_Layout_SuAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_Cliente.cshtml" />
     <Content Include="Views\Home\Analisys.cshtml" />
+    <Content Include="Views\Account\Search.cshtml" />
+    <Content Include="Views\Account\Result.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Shared\_Layout_Clean.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
