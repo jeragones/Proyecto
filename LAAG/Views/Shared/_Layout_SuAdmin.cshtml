@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];}
+    <title>@ViewBag.Title - Lab. Análisis Agronómicos</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css/bootstrap.min.css")
+    @Styles.Render("~/Content/css/sb-admin.css")
+    @Styles.Render("~/Content/css/plugins/morris.css")
+    @Styles.Render("~/Content/font-awesome-4.1.0/css/font-awesome.min.css")
+
+    @Scripts.Render("~/Scripts/jquery-1.11.0.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/plugins/morris/raphael.min.js")
+    @Scripts.Render("~/Scripts/plugins/morris/morris.min.js")
+    @Scripts.Render("~/Scripts/plugins/morris/morris-data.js")
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">Lab. Análisis Agronómicos</a>
+            </div>
+            <!-- Top Menu Items -->
+
+            <ul class="nav navbar-right top-nav">
+                @if (Session["CurrentSession"] == null)
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")"><i class="fa fa-user"></i> Iniciar Sesión</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @persona.Nombre.ToString()<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/Account/Profile"><i class="fa fa-fw fa-user"></i>Perfil</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="@Url.Action("LogIn", "Account")"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-users"></i> Empleados</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-users"></i> Clientes</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-inbox"></i> Muestras</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-file"></i> Resultados</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-tasks"></i> Análisis</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-dollar"></i> Costos</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

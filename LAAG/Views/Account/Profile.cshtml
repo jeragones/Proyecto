@@ -1,0 +1,103 @@
+﻿@model LAAG.Models.RegisterModel
+@{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];}
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+<section >    
+    <div class="container">
+        <div class="row">
+            <form role="form">
+                <div class="col-lg-6">
+                    <h1>Actualización de Perfil</h1>
+                    <div class="form-group">
+                        <label for="InputName">Nombre</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", Value= persona.Nombre, @required = "required" })
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLastname">Apellidos</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", Value = persona.Apellido1+" "+persona.Apellido2, @required = "required" })
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputEmail">Correo</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Correo, new { @type = "email", @class = "form-control", Value = persona.Correo })
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputTelefono">Telefono 1</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", Value = persona.Telefono1 })
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputTelefono2">Telefono 2</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Telefono2, new { @class = "form-control", Value = persona.Telefono2 })
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <input type="submit" name="submit" id="submit" value="Actualizar" class="btn btn-info pull-right">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    #loginForm {
+        max-width: 300px;
+        margin:auto;
+        height:76vh;
+    }
+    
+    .wrapper {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    .btn {
+        background: -webkit-gradient(radial, 472 1000, 0, 122 86, 1000, from(#2CBD9D), to(#3D403D));
+    }
+
+    .form-signin {
+        padding: 15px 35px 45px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .checkbox {
+        font-weight: normal;
+    }
+
+    .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="password"] {
+        margin-bottom: 20px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>

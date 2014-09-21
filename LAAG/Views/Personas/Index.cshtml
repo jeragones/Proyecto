@@ -1,0 +1,150 @@
+﻿@model IEnumerable<LAAG.Persona>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Agregar Persona", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Usuarios Registrados
+    </div>
+    <div class="panel panel-body">
+        <div class="table-responsive">
+            <div id="table-users" class="dataTables_wrapper form-inline" role="grid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_lenght" id="dataTables_user_length">
+                            <label>
+                                <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                Usuarios
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_filter" class="dataTables_filter">
+                            <label> Buscar:  <input type="search" class="form-control input-sm" aria-controls="dataTables-example">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables_users" aria-describedby="dataTables-example_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Nombre)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Apellido1)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Apellido2)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Correo)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Telefono1)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Telefono2)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Estado)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.Tipo)
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTables-example">
+                                @Html.DisplayNameFor(model => model.NombreUsuario)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apellido1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apellido2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Correo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefono1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefono2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Estado)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tipo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreUsuario)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID_Persona }) |
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.ID_Persona }) |
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_Persona })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                            <ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+@section Scripts {
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTables_users').DataTable( {
+                ordering: true,
+                serching: true,
+                paging: true
+            } );
+        });
+    </script>
+}

@@ -1,0 +1,127 @@
+﻿@model LAAG.Persona
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Persona</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_Persona)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_Persona)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apellido1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apellido1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apellido2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apellido2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Correo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Correo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Clave)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Clave)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FechaCreacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FechaCreacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefono1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefono2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UsuarioCreacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UsuarioCreacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FechaActualizacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FechaActualizacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UsuarioActualizacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UsuarioActualizacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Estado)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estado)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Tipo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tipo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreUsuario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreUsuario)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PasswordChange)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PasswordChange)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new {id = Model.ID_Persona/* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

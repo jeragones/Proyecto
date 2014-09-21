@@ -1,0 +1,22 @@
+﻿@{
+    LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];
+    if (persona != null)
+    {
+        if (persona.Tipo == 0)//SuperAdministrador
+        {
+            Layout = "~/Views/Shared/_Layout_SuAdmin.cshtml";
+        }
+        else if (persona.Tipo == 1)//Administrador == Trabajador del laboratorio.
+        {
+            Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+        }
+        else
+        { // Cliente 
+            Layout = "~/Views/Shared/_Layout_Cliente.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
