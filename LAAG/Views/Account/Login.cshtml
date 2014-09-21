@@ -1,0 +1,76 @@
+﻿@model LAAG.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+<section id="loginForm">    
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="wrapper">
+            <form class="form-signin">
+                <h2 class="form-signin-heading">Iniciar Sesión</h2>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "usuario", @required = "required" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "contraseña", @required = "required" })
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @value = "remember-me" }) Recordar mi contraseña
+                    </label>
+                </div>
+                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Iniciar" />
+            </form>
+        </div>
+    }
+</section>
+
+<style>
+    #loginForm {
+        max-width: 300px;
+        margin:auto;
+        height:76vh;
+    }
+    
+    .wrapper {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    .btn {
+        background: -webkit-gradient(radial, 472 1000, 0, 122 86, 1000, from(#2CBD9D), to(#3D403D));
+    }
+
+    .form-signin {
+        padding: 15px 35px 45px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .checkbox {
+        font-weight: normal;
+    }
+
+    .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="password"] {
+        margin-bottom: 20px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>

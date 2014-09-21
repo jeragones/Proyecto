@@ -1,0 +1,81 @@
+﻿@model LAAG.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<!--<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>-->
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="container">
+    <div class="row">
+        <form role="form">
+            <div class="col-lg-6">
+                <div class="well well-sm"><strong>Registro de Clientes</strong></div>
+                <div class="form-group">
+                    <label for="InputName">Tipo Usuario</label>
+                    <div class="select-group">
+                        <select class="form-control">
+                          <option>Administrador</option>
+                          <option>Cliente</option>
+                        </select>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputName">Nombre</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre"})
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputLastname">Apellidos</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Apellidos", @required = "required" })
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Correo</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Correo, new {@type="email", @class = "form-control", placeholder = "Correo"})
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputUsuario">Usuario</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Usuario", @required = "required" })
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputTelefono">Telefono 1</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "Telefono" })
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputTelefono2">Telefono 2</label>
+                    <div class="input-group">
+                       @Html.TextBoxFor(m => m.Telefono2, new { @class = "form-control", placeholder = "Telefono"})
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                <input type="submit" name="submit" id="submit" value="Registrar" class="btn btn-info pull-right">
+            </div>
+        </form>
+    </div>
+</div>
+} 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
