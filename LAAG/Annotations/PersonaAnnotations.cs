@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAAG.Annotations
+namespace LAAG
 {
     [MetadataType(typeof(PersonaMetaData))]
     public partial class Persona

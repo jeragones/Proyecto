@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using LAAG.Annotations;
+using LAAG;
 using System.Web.Mvc;
 
 namespace LAAG.Controllers
