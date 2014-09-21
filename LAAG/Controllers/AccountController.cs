@@ -18,6 +18,7 @@ namespace LAAG.Controllers
     //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        //DataDataContext db = new DataDataContext();
 
         //
         // GET: /Account/Login
@@ -123,7 +124,7 @@ namespace LAAG.Controllers
                     //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     //WebSecurity.Login(model.UserName, model.Password);
                     //return RedirectToAction("Index", "Home");
-                   /* String n = model.Nombre;
+                    /*String n = model.Nombre;
                     Persona p = new Persona();
                     p.Nombre = model.Nombre;
                     String[] ape = model.Apellidos.Split(' ');
@@ -139,8 +140,8 @@ namespace LAAG.Controllers
                     p.NombreUsuario = model.Usuario;
 
                     db.Personas.InsertOnSubmit(p);
-                    db.SubmitChanges();*/
-
+                    db.SubmitChanges();
+                    */
                 }
                 catch (MembershipCreateUserException e)
                 {
