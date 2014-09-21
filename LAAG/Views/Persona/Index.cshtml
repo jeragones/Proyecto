@@ -16,7 +16,7 @@
     <!-- /.panel-heading -->
     <div class="panel-body">
         <div class="table-responsive">
-            <table id="tbPersonas" class="display">
+            <table id="tbPersonas" class="stripe">
                 <thead>
                     <tr>
                         <th>
@@ -91,8 +91,10 @@
 </div>
 
 @section Scripts{
+@Scripts.Render("~/Scripts/plugins/jquery-1.11.1.js")
     <link rel="stylesheet" href="~/Content/jquery.dataTables.min.css" />
     <script src="~/Scripts/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/dataTables/dataTables.bootstrap.js"></script>
 
     <script>
         $(document).ready(function () {

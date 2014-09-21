@@ -18,7 +18,25 @@ namespace LAAG.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Persona.ToList());
+            return View();
+        }
+
+        //
+        // GET: /Persona/
+
+        public ActionResult Clientes(int tipoP = 2)
+        {
+            var query = db.Persona.Where(p => p.Tipo == tipoP).ToList();
+            return View("Index",query);
+        }
+
+        //
+        // GET: /Persona/
+
+        public ActionResult Empleados(int tipoP = 0)
+        {
+            var query = db.Persona.Where(p => p.Tipo == tipoP).ToList();
+            return View("Index",query);
         }
 
         //

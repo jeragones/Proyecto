@@ -9,7 +9,14 @@
     @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
+        {
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert">×</a>
+                <h5 class="alert-heading"><strong>Error!</strong></h5>
+                @Html.ValidationSummary(true)
+            </div>
+        }
         <div class="wrapper">
             <form class="form-signin">
                 <h2 class="form-signin-heading">Iniciar Sesión</h2>
@@ -32,11 +39,7 @@
         margin:auto;
         height:76vh;
     }
-    
-    .wrapper {
-        margin-top: 80px;
-        margin-bottom: 80px;
-    }
+
 
     .btn {
         background: -webkit-gradient(radial, 472 1000, 0, 122 86, 1000, from(#2CBD9D), to(#3D403D));

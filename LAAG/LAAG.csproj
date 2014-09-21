@@ -239,6 +239,8 @@
   <ItemGroup>
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\plugins\dataTables\bootstrap.min.css" />
+    <Content Include="Content\css\plugins\dataTables\dataTables.bootstrap.css" />
     <Content Include="Content\css\plugins\morris.css" />
     <Content Include="Content\css\sb-admin.css" />
     <Content Include="Content\custom\index.css" />
@@ -322,6 +324,7 @@
     <Content Include="Scripts\plugins\flot\jquery.flot.pie.js" />
     <Content Include="Scripts\plugins\flot\jquery.flot.resize.js" />
     <Content Include="Scripts\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\plugins\jquery-1.11.1.min.js" />
     <Content Include="Scripts\plugins\morris\morris-data.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
     <Content Include="Scripts\plugins\morris\morris.min.js" />
