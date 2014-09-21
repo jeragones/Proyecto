@@ -16,7 +16,7 @@
     <!-- /.panel-heading -->
     <div class="panel-body">
         <div class="table-responsive">
-            <table id="tbPersonas" class="stripe">
+            <table id="tbPersonas" class="order-column">
                 <thead>
                     <tr>
                         <th>
@@ -29,6 +29,9 @@
                             @Html.DisplayNameFor(model => model.Apellido2)
                         </th>
                         <th>
+                            @Html.DisplayNameFor(model => model.NombreUsuario)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Correo)
                         </th>
                         <th>
@@ -36,12 +39,6 @@
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Estado)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Tipo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NombreUsuario)
                         </th>
                         <th></th>
                     </tr>
@@ -60,6 +57,9 @@
                                 @Html.DisplayFor(modelItem => item.Apellido2)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.NombreUsuario)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Correo)
                             </td>
                             <td>
@@ -69,13 +69,7 @@
                                 @Html.DisplayFor(modelItem => item.Estado)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Tipo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombreUsuario)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.ID_Persona }) |
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID_Persona } ) |
                                 @Html.ActionLink("Detalles", "Details", new { id = item.ID_Persona }) |
                                 @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_Persona })
                             </td>
@@ -91,7 +85,7 @@
 </div>
 
 @section Scripts{
-@Scripts.Render("~/Scripts/plugins/jquery-1.11.1.js")
+@Scripts.Render("~/Scripts/jquery-1.11.1.js")
     <link rel="stylesheet" href="~/Content/jquery.dataTables.min.css" />
     <script src="~/Scripts/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/plugins/dataTables/dataTables.bootstrap.js"></script>

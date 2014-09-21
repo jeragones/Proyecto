@@ -306,6 +306,11 @@
     <Content Include="Images\imgOther.png" />
     <Content Include="Images\imgGround.png" />
     <Content Include="Images\imgFoliar.png" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_asc_disabled.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\sort_desc_disabled.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom\index.js" />
