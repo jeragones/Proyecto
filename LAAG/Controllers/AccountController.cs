@@ -10,15 +10,14 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using LAAG.Filters;
 using LAAG.Models;
+using LAAG.AuxFiles;
 
 namespace LAAG.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
-
-        DataDataContext db = new DataDataContext();
 
         //
         // GET: /Account/Login
@@ -42,15 +41,22 @@ namespace LAAG.Controllers
             Session["CurrentSession"] = null;
             if (ModelState.IsValid)
             {
-                DataDataContext db = new DataDataContext();
-                IQueryable<Persona> persona = db.IsValidUser(model.UserName, model.Password);
-                if (persona!=null)
+                AuxClass aux = new AuxClass();
+                IQueryable<Persona> persona = aux.IsValidUser(model.UserName, model.Password);
+                if (persona != null)
                 {
-                    foreach(var a in persona){
+                    foreach (var a in persona)
+                    {
                         Session["CurrentSession"] = a;
-                        return RedirectToLocal(returnUrl);
+                        if (a.PasswordChange == true)
+                        {//true=1 -> Necesita Cambiar
+                            return RedirectToAction("SetPassword", "Account");
+                        }
+                        else
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
                     }
-                    
                 }
             }
 
@@ -78,8 +84,8 @@ namespace LAAG.Controllers
         [AllowAnonymous]
         public ActionResult Result()
         {
-            var users = from x in db.Personas select x;
-            return View("Result",users);
+            //var users = from x in db.Personas select x;
+            return View("Result","");
         }
 
         //
@@ -117,7 +123,7 @@ namespace LAAG.Controllers
                     //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     //WebSecurity.Login(model.UserName, model.Password);
                     //return RedirectToAction("Index", "Home");
-                    String n = model.Nombre;
+                   /* String n = model.Nombre;
                     Persona p = new Persona();
                     p.Nombre = model.Nombre;
                     String[] ape = model.Apellidos.Split(' ');
@@ -133,7 +139,7 @@ namespace LAAG.Controllers
                     p.NombreUsuario = model.Usuario;
 
                     db.Personas.InsertOnSubmit(p);
-                    db.SubmitChanges();
+                    db.SubmitChanges();*/
 
                 }
                 catch (MembershipCreateUserException e)
