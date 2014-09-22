@@ -91,14 +91,26 @@ namespace LAAG.Models
         
         [Display(Name = "Telefono2")]
         public string Telefono2 { get; set; }
-
     }
 
     public class SearchModel 
     {
-        
         [Display(Name = "Buscar")]
         public string Buscar { get; set; }
     }
+    
+    public class EmailModel
+    {
+        [Display(Name = "Nombre")]
+        public string name { get; set; }
 
+
+        [Required]
+        [Display(Name = "Correo Electrónico")]
+        public string email { get; set; }
+
+        [Required]
+        [Display(Name = "Mensaje")]
+        public string message { get; set; }
+    }
 }

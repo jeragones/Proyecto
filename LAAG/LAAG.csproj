@@ -198,8 +198,6 @@
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Annotations\PersonaAnnotations.cs" />
-    <Content Include="App_Code\CustomFunction.cs" />
-    <Content Include="App_Code\MailService.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -208,6 +206,8 @@
     <Compile Include="AuxFiles\AuxClass.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="App_Code\MailService.cs" />
+    <Compile Include="App_Code\CustomFunction.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Factura.cs">
@@ -246,6 +246,7 @@
     <Content Include="Content\css\plugins\morris.css" />
     <Content Include="Content\css\sb-admin.css" />
     <Content Include="Content\custom\index.css" />
+    <Content Include="Content\custom\PersonaCreate.css" />
     <Content Include="Content\font-awesome-4.1.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.1.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
@@ -377,8 +378,6 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout_SuAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_Cliente.cshtml" />
-    <Content Include="Views\Account\Search.cshtml" />
-    <Content Include="Views\Account\Result.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Persona\Details.cshtml" />

@@ -18,6 +18,9 @@ namespace LAAG.Controllers
     //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        private AGRONOMICOSDBEntities db = new AGRONOMICOSDBEntities();
+
         //DataDataContext db = new DataDataContext();
 
         //
@@ -95,6 +98,7 @@ namespace LAAG.Controllers
         [AllowAnonymous]
         public ActionResult Search()
         {
+            //db.Persona.All();
             return View();
         }
         

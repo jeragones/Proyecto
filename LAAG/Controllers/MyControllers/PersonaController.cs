@@ -6,11 +6,15 @@ using LAAG;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LAAG.Controllers.MyControllers;
 
 namespace LAAG.Controllers
 {
     public partial class PersonaController : Controller
     {
+
+        CustomFunction insFunction = new CustomFunction();
+        MailService insMail = new MailService();
 
         //
         // POST: /Persona/Create
@@ -21,8 +25,10 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
+                persona.Clave = insFunction.codeGenerator();
                 db.Persona.Add(persona);
                 db.SaveChanges();
+                insMail.registrationEmail(persona.Correo, persona.NombreUsuario,persona.Clave);
                 return RedirectToAction("Index");
             }
 
