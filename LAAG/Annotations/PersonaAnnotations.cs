@@ -46,9 +46,11 @@ namespace LAAG
             [DisplayName("Teléfono opcional")]
             public string Telefono2 { get; set; }
 
+            [Required]
             [DisplayName("Estado")]
             public byte Estado { get; set; }
 
+            [Required]
             [DisplayName("Tipo")]
             public byte Tipo { get; set; }
 
