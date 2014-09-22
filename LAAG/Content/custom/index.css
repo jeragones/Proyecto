@@ -15,13 +15,18 @@
     GENERAL STYLES
 ==================================================*/
 body {
-           font-family: 'Ruluko', sans-serif;
+    font-family: 'Ruluko', sans-serif;
     font-size:14px;
 }
 
 .nav a {
     color:#ffffff !important;
 }
+
+.nav a:hover {
+    color: #525252;
+}
+
 .navbar-header a {
     color:#ffffff !important;
     padding-right:100px;
@@ -38,8 +43,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     line-height:120px;
     text-transform:uppercase;
-     color: #00A9DF;
-     font-size:50px ;
+    color: #00A9DF;
+    font-size:43px ;
     font-weight:900!important;
 }
 h3 {

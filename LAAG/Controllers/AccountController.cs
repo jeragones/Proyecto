@@ -22,6 +22,9 @@ namespace LAAG.Controllers
     public class AccountController : Controller
     {
         private AGRONOMICOSDBEntities db = new AGRONOMICOSDBEntities();
+        private AuxClass insAux = new AuxClass();
+        private MailService insMail = new MailService();
+
         //
         // GET: /Account/Login
 
@@ -44,8 +47,7 @@ namespace LAAG.Controllers
             Session["CurrentSession"] = null;
             if (ModelState.IsValid)
             {
-                AuxClass aux = new AuxClass();
-                IQueryable<Persona> persona = aux.IsValidUser(model.UserName, model.Password);
+                IQueryable<Persona> persona = insAux.IsValidUser(model.UserName, model.Password);
                 if (persona != null)
                 {
                     foreach (var a in persona)
@@ -97,6 +99,7 @@ namespace LAAG.Controllers
         [AllowAnonymous]
         public ActionResult Search()
         {
+            //db.Persona.All();
             return View();
         }
 
@@ -291,6 +294,34 @@ namespace LAAG.Controllers
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
+        }
+
+        //
+        // GET: /Account/RecoverPassword
+
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(string returnUrl)
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/RecoverPassword
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RecoverPassword(RecoverPassword model, string returnUrl)
+        {
+            IQueryable<Persona> persona = insAux.GetPerson(model.UserName);
+                if (persona != null)
+                {
+                    foreach (var a in persona)
+                    {
+                        insMail.recoverUser(a.Correo, a.NombreUsuario, a.Clave);
+                    }
+                }
+            return RedirectToLocal(returnUrl);
         }
 
         #region Aplicaciones auxiliares
