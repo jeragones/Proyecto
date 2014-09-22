@@ -28,7 +28,7 @@ namespace LAAG.Controllers
                 persona.Clave = insFunction.codeGenerator();
                 db.Persona.Add(persona);
                 db.SaveChanges();
-                insMail.registrationEmail(persona.Correo, persona.NombreUsuario,persona.Clave);
+                //insMail.registrationEmail(persona.Correo, persona.NombreUsuario,persona.Clave);
                 return RedirectToAction("Index");
             }
 

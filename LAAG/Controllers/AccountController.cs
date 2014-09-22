@@ -14,6 +14,8 @@ using LAAG.Models;
 using System.Data;
 using System.Data.Entity;
 using LAAG.AuxFiles;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace LAAG.Controllers
 {
@@ -148,12 +150,21 @@ namespace LAAG.Controllers
 
                         db.Entry(personaOld).State = EntityState.Modified;
                         db.SaveChanges();
-                        ModelState.AddModelError("success", "");
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Home.Index");
                     }
                     catch (MembershipCreateUserException e)
                     {
                         ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    }
+                    catch (DbEntityValidationException dbEx)
+                    {
+                        foreach (var validationErrors in dbEx.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                            }
+                        }
                     }
                 }
            // }
