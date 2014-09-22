@@ -16,7 +16,7 @@ namespace LAAG
     public class PersonaMetaData
         {
             [Required]
-            [DisplayName("Persona")]
+            [DisplayName("Nombre")]
             public string Nombre { get; set; }
 
             [Required]
@@ -28,7 +28,7 @@ namespace LAAG
             public string Apellido2 { get; set; }
 
             [Required]
-            [DisplayName("Email")]
+            [DisplayName("Correo Electrónico")]
             public string Correo { get; set; }
 
             [Required]
@@ -39,11 +39,11 @@ namespace LAAG
             public Nullable<System.DateTime> FechaCreacion { get; set; }
 
             [Required]
-            [DisplayName("Telefono")]
+            [DisplayName("Teléfono")]
             public string Telefono1 { get; set; }
 
             [Required]
-            [DisplayName("Telefono opcional")]
+            [DisplayName("Teléfono opcional")]
             public string Telefono2 { get; set; }
 
             [DisplayName("Estado")]

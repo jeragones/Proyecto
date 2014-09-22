@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LAAG.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,30 +12,31 @@ namespace LAAG.Controllers
 
         public ActionResult Index()
         {
-            return canSee();
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Index(EmailModel model, string returnUrl)
+        {
+            if(ModelState.IsValid) {
+                MailService insMail = new MailService();
+                insMail.contactEmail(model.email, model.name, model.message);
+            }
+            model.message = "";
+            model.email = "";
+            model.name = "";
+            return View(model);
         }
 
         public ActionResult blankPage()
         {
-            return canSee();
+            return View();
         }
 
         public ActionResult Login()
         {
             return View();
-        }
-
-        public ActionResult canSee() 
-        {
-            return View();
-            //if (Session["CurrentSession"] != null)
-            //{
-            //    return View();
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
         }
     }
 }

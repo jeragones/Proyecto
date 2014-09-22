@@ -9,7 +9,6 @@
 <fieldset>
     <legend>Persona</legend>
 
-
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Nombre)
     </div>
@@ -52,15 +51,13 @@
         @Html.DisplayFor(model => model.Telefono2)
     </div>
 
-    <!--
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.UsuarioCreacion)
+         @Html.HiddenFor(model => model.UsuarioCreacion)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.UsuarioCreacion)
+        @Html.HiddenFor(model => model.UsuarioCreacion)
     </div>
-    -->
-
+    
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Estado)
     </div>

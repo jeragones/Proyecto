@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
-using System.Net.Mime;
-using System.Threading;
-using System.ComponentModel;
+using System.Text;
 
-namespace LAAG.App_Code
-
+namespace LAAG.Controllers
 {
-    public class MailService
+    class MailService
     {
         static bool mailSent = false;
 
@@ -47,8 +45,9 @@ namespace LAAG.App_Code
             String body = "<h1>Registro de usuario</h1><br>" +
                           "<p>Nombre de usuario: "+user+"</p>" +
                           "<p>Contraseña: " + password + "</p>" +
-                          "<p>Ingrese en el siguiente enlace para realizar su cambio de contraseña:</p>" +
-                          "<p><a href=\"http://localhost:63714/\">Cambiar contraseña</a></p>";
+                          "<p>Ingrese en el siguiente enlace para iniciar sesión y utilizar nuestros servicios:</p>" +
+                          "<p><a href=\"http://localhost:8080/Account/Login\">Iniciar Sesión</a></p>";
+                          //"<p><a href=\"http://localhost:63714/\">Cambiar contraseña</a></p>";
             sendEmail(email, subject, body);
         }
 
@@ -67,4 +66,3 @@ namespace LAAG.App_Code
         }
     }
 }
-
