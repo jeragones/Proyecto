@@ -1,0 +1,141 @@
+﻿@model LAAG.Persona
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID_Persona)
+        @Html.HiddenFor(model => model.FechaCreacion)
+        @Html.HiddenFor(model => model.UsuarioCreacion)
+        @Html.HiddenFor(model => model.FechaActualizacion)
+        @Html.HiddenFor(model => model.UsuarioActualizacion)
+        @Html.HiddenFor(model => model.NombreUsuario)
+        @Html.HiddenFor(model => model.PasswordChange)
+        @Html.HiddenFor(model => model.Estado)
+        @Html.HiddenFor(model => model.Tipo)
+
+
+        <div class="container">
+            <h1>Editar Perfil</h1>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-9 personal-info">
+                    <h3>Información Personal</h3>
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nombre, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Apellido1, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Apellido1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Apellido1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Apellido2, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Apellido2, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Apellido2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Correo, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Correo, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Clave, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Clave, new { @class = "form-control", id = "Clave", type = "password" })
+                                @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="divClaveConfirm">
+                            <label class="col-md-3 control-label">Confirmar Contraseña:</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Clave, new { @class = "form-control", id = "ClaveConfirm", type = "password", onkeyup = "checkPass(); return false;" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefono1, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Telefono1, new { @class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.Telefono1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefono2, new { @class = "col-lg-3 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(model => model.Telefono2, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Telefono2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input type="submit" class="btn btn-primary" id="btnSubmit" value="Guardar Cambios">
+                                <span></span>
+                                <input type="reset" class="btn btn-default" value="Cancelar">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script>
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('Clave');
+            var pass2 = document.getElementById('ClaveConfirm');
+            var divConfirm = document.getElementById('divClaveConfirm');
+            //Store the Confimation Message Object ...
+            var btn = document.getElementById('btnSubmit');
+            //Set the colors we will be using ...
+            var good = 'form-group has-success';
+            var bad = 'form-group has-error';
+            //Compare the values in the password field 
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                divConfirm.className = good;
+                btn.className = "btn btn-primary";
+            } else {
+                divConfirm.className = bad;
+                btn.className = "btn btn-primary disabled";
+            }
+        }
+
+    </script>
+}

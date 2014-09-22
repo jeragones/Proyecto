@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using LAAG.Annotations;
+using LAAG;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,7 +41,7 @@ namespace LAAG.Controllers
             {
                 db.Entry(persona).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(persona);
         }

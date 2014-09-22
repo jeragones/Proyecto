@@ -4,12 +4,15 @@ using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.SqlClient;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using LAAG.Filters;
 using LAAG.Models;
+using System.Data;
+using System.Data.Entity;
 using LAAG.AuxFiles;
 
 namespace LAAG.Controllers
@@ -18,7 +21,7 @@ namespace LAAG.Controllers
     //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
-
+        private AGRONOMICOSDBEntities db = new AGRONOMICOSDBEntities();
         //
         // GET: /Account/Login
 
@@ -96,90 +99,121 @@ namespace LAAG.Controllers
         {
             return View();
         }
-        
-        //
-        // GET: /Account/Register
 
+        //
+        // GET: Account/SetPassword
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult SetPassword()
         {
-            return View();
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View("SetPassword");
+            }
         }
 
         //
-        // POST: /Account/Register
-
+        //POST: /Account/SetPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult SetPassword(Persona model)
+        {
+            //if (ModelState.IsValid)
+           // {
+                if (Session["CurrentSession"] == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];
+                     AGRONOMICOSDBEntities db = new AGRONOMICOSDBEntities();
+                    // Intento de registrar al usuario
+                    try
+                    {
+                        var personaOld = db.Persona
+                       .Where(i => i.ID_Persona == persona.ID_Persona)
+                       .Single();
+
+                        String password = model.Clave;
+                        personaOld.Clave = password;
+                        personaOld.PasswordChange = false;
+
+                        db.Entry(personaOld).State = EntityState.Modified;
+                        db.SaveChanges();
+                        ModelState.AddModelError("success", "");
+                        return RedirectToAction("Index");
+                    }
+                    catch (MembershipCreateUserException e)
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    }
+                }
+           // }
+            return View("SetPassword");
+        }
+
+        //
+        //GET: /Account/Profile
+        [AllowAnonymous]
+        public ActionResult Profile()
+        {
+            LAAG.Persona personaT = (LAAG.Persona)Session["CurrentSession"];
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                Persona persona = db.Persona.Find(personaT.ID_Persona);
+                if (persona == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details",  persona);
+            }
+        }
+
+        //
+        //GET: /Account/EditProfile
+        [AllowAnonymous]
+        public ActionResult EditProfile()
+        {
+            LAAG.Persona personaT = (LAAG.Persona)Session["CurrentSession"];
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                Persona persona = db.Persona.Find(personaT.ID_Persona);
+                if (persona == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("EditProfile", persona);
+            }
+        }
+
+        //
+        //POST: /Account/EditProfile
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult EditProfile(Persona persona)
         {
             if (ModelState.IsValid)
             {
-                
-                // Intento de registrar al usuario
-                try
-                {
-                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    //WebSecurity.Login(model.UserName, model.Password);
-                    //return RedirectToAction("Index", "Home");
-                   /* String n = model.Nombre;
-                    Persona p = new Persona();
-                    p.Nombre = model.Nombre;
-                    String[] ape = model.Apellidos.Split(' ');
-                    p.Apellido1 = ape[0];
-                    if (ape.Length > 1) 
-                    {
-                        p.Apellido2 = ape[1];
-                    }
-                    p.Correo = model.Correo;
-                    p.Clave = "12345";
-                    p.Estado = 1;
-                    p.Tipo = 1;
-                    p.NombreUsuario = model.Usuario;
-
-                    db.Personas.InsertOnSubmit(p);
-                    db.SubmitChanges();*/
-
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
+                db.Entry(persona).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
-
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+            return View(persona);
         }
 
-        //
-        // POST: /Account/Disassociate
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Disassociate(string provider, string providerUserId)
-        {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
-
-            // Desasociar la cuenta solo si el usuario que ha iniciado sesión es el propietario
-            if (ownerAccount == User.Identity.Name)
-            {
-                // Usar una transacción para evitar que el usuario elimine su última credencial de inicio de sesión
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-                {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-                    {
-                        OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-                        scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
-                    }
-                }
-            }
-
-            return RedirectToAction("Manage", new { Message = message });
-        }
 
         //
         // GET: /Account/Manage

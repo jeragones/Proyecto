@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAAG.Annotations
+namespace LAAG
 {
     [MetadataType(typeof(PersonaMetaData))]
     public partial class Persona
@@ -42,7 +42,6 @@ namespace LAAG.Annotations
             [DisplayName("Telefono")]
             public string Telefono1 { get; set; }
 
-            [Required]
             [DisplayName("Telefono opcional")]
             public string Telefono2 { get; set; }
 

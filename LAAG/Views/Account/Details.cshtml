@@ -1,0 +1,48 @@
+﻿@model LAAG.Persona
+
+@{
+    ViewBag.Title = "Detalles";
+}
+@{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];}
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                @Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.Apellido1) @Html.DisplayFor(model => model.Apellido2)
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-2 col-lg-2 " align="center">
+                    <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle">
+                </div>
+
+                <div class=" col-md-4 col-lg-4 ">
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.NombreUsuario)</b></td>
+                                <td>@Html.DisplayFor(model => model.NombreUsuario)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Correo)</b></td>
+                                <td>@Html.DisplayFor(model => model.Correo)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Telefono1)</b></td>
+                                <td>@Html.DisplayFor(model => model.Telefono1)</td>
+                            </tr>
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Telefono2)</b></td>
+                                <td>@Html.DisplayFor(model => model.Telefono2)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="/Account/EditProfile" class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

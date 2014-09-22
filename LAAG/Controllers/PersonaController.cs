@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using LAAG.Annotations;
+using LAAG;
 using System.Web.Mvc;
 
 namespace LAAG.Controllers
@@ -22,7 +22,7 @@ namespace LAAG.Controllers
         }
 
         //
-        // GET: /Persona/
+        // GET: /Persona/Clientes
 
         public ActionResult Clientes(int tipoP = 2)
         {
@@ -31,9 +31,9 @@ namespace LAAG.Controllers
         }
 
         //
-        // GET: /Persona/
+        // GET: /Persona/Empleados
 
-        public ActionResult Empleados(int tipoP = 0)
+        public ActionResult Empleados(int tipoP = 1)
         {
             var query = db.Persona.Where(p => p.Tipo == tipoP).ToList();
             return View("Index",query);
