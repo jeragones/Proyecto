@@ -58,7 +58,7 @@ namespace LAAG.Controllers
             Persona persona = db.Persona.Find(id);
             db.Persona.Remove(persona);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
     }
