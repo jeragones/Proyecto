@@ -23,16 +23,12 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Persona persona)
         {
-            if (ModelState.IsValid)
-            {
-                persona.Clave = insFunction.codeGenerator();
-                db.Persona.Add(persona);
-                db.SaveChanges();
-                insMail.registrationEmail(persona.Correo, persona.NombreUsuario,persona.Clave);
-                return RedirectToAction("Index");
-            }
-
-            return View(persona);
+            persona.Clave = insFunction.codeGenerator();
+            persona.FechaCreacion = DateTime.Now;
+            db.Persona.Add(persona);
+            db.SaveChanges();
+            insMail.registrationEmail(persona.Correo, persona.NombreUsuario, persona.Clave);
+            return RedirectToAction("Index", "Home");
         }
 
 

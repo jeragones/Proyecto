@@ -3,107 +3,128 @@
 @{
     ViewBag.Title = "Agregar";
 }
-@{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];}
+@{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];
+   }
 
-@using (Html.BeginForm())
-{
+
+
+<h2>Agregar</h2>
+
+
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID_Persona)
-        @Html.HiddenFor(model => model.Clave)
-        @Html.HiddenFor(model => model.FechaCreacion)
-        @Html.HiddenFor(model => model.UsuarioCreacion)
-        @Html.HiddenFor(model => model.FechaActualizacion)
-        @Html.HiddenFor(model => model.UsuarioActualizacion)
-        @Html.HiddenFor(model => model.Estado, 0)
-        @Html.HiddenFor(model => model.PasswordChange)
+<section id="RegisterForm">
+<div class="container">
+    <div class="row">
+        <form role="form">
+            <div class="col-lg-6">
+            
+                @Html.HiddenFor(model => model.ID_Persona)
 
-        <div class="container">
-            <h1>Agregar Persona</h1>
-            <hr>
-
-            <div class="row">
-                <div class="col-md-9 personal-info">
-                    <h3>Información Personal</h3>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Nombre, new { @class = "col-lg-3 control-label" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Apellido1, new { @class = "col-lg-3 control-label" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Apellido1, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Apellido1,"", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Apellido2, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Apellido2, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Apellido2, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Correo, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Correo, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Telefono1, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Telefono1, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Telefono1, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Telefono2, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Telefono2, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Telefono2, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Tipo, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NombreUsuario, new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Crear Persona" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Nombre",@required = "required"})
+                        @Html.ValidationMessageFor(model => model.Nombre)
+                        <span class="input-group-addon"></span>   
+                    </div>
                 </div>
+
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Apellido1)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Apellido1, new { @class = "form-control", placeholder = "Apellido", @required = "required"  })
+                            @Html.ValidationMessageFor(model => model.Apellido1)
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+                
+
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Apellido2)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Apellido2,new { @class = "form-control", placeholder = "Apellido", @required = "required"  } )
+                            @Html.ValidationMessageFor(model => model.Apellido2)
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Correo)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Correo, new { @class = "form-control", type="email", placeholder = "Correo", @required = "required"  } )
+                            @Html.ValidationMessageFor(model => model.Correo)
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+
+                @Html.HiddenFor(model => model.Clave, new { @Value="afrdgftghjgh"})
+
+                @Html.HiddenFor(model => model.FechaCreacion)
+            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefono1)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Telefono1, new { @class = "form-control", placeholder = "Telefono"} )
+                        @Html.ValidationMessageFor(model => model.Telefono1) 
+                        <span class="input-group-addon"></span> 
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefono2)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Telefono2, new { @class = "form-control", placeholder = "Telefono"} )
+                        @Html.ValidationMessageFor(model => model.Telefono2)
+                        <span class="input-group-addon"></span>  
+                    </div>
+                </div>
+            
+                @Html.HiddenFor(model => model.UsuarioCreacion)
+            
+                @Html.HiddenFor(model => model.FechaActualizacion)
+            
+                @Html.HiddenFor(model => model.UsuarioActualizacion)  
+
+                @Html.HiddenFor(model => model.Estado, new { @Value=0}) 
+    
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tipo)
+            
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control",type="number", placeholder = "Tipo",@required = "required"} )
+                        @Html.ValidationMessageFor(model => model.Tipo)
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NombreUsuario)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control", placeholder = "Nombre de Usuario",@required = "required"} )
+                        @Html.ValidationMessageFor(model => model.NombreUsuario) 
+                        <span class="input-group-addon"></span> 
+                    </div>  
+                </div>
+
+                @Html.HiddenFor(model => model.PasswordChange,new { @Value=true})
+
+                <p>
+                    <input type="submit" value="Guardar" class="btn btn-info pull-right"/>
+                </p>
+
             </div>
-        </div>
-        <hr>
+        </form>
     </div>
+</div>
+</section>
 }
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+
+<div>
+    @Html.ActionLink("Atrás", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -38,7 +38,6 @@ namespace LAAG
             [DisplayName("Fecha de Creación")]
             public Nullable<System.DateTime> FechaCreacion { get; set; }
 
-            [Required]
             [DisplayName("Teléfono")]
             public string Telefono1 { get; set; }
 
