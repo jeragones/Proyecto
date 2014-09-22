@@ -11,6 +11,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
+        <!--
         <div class="editor-label">
             @Html.LabelFor(model => model.ID_Persona)
         </div>
@@ -18,6 +19,7 @@
             @Html.EditorFor(model => model.ID_Persona)
             @Html.ValidationMessageFor(model => model.ID_Persona)
         </div>
+        -->
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Nombre)
@@ -59,6 +61,7 @@
             @Html.ValidationMessageFor(model => model.Clave)
         </div>
 
+        <!--
         <div class="editor-label">
             @Html.LabelFor(model => model.FechaCreacion)
         </div>
@@ -66,6 +69,7 @@
             @Html.EditorFor(model => model.FechaCreacion)
             @Html.ValidationMessageFor(model => model.FechaCreacion)
         </div>
+        -->
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Telefono1)
@@ -83,6 +87,7 @@
             @Html.ValidationMessageFor(model => model.Telefono2)
         </div>
 
+        <!--
         <div class="editor-label">
             @Html.LabelFor(model => model.UsuarioCreacion)
         </div>
@@ -90,6 +95,7 @@
             @Html.EditorFor(model => model.UsuarioCreacion)
             @Html.ValidationMessageFor(model => model.UsuarioCreacion)
         </div>
+        -->
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FechaActualizacion)
@@ -131,6 +137,7 @@
             @Html.ValidationMessageFor(model => model.NombreUsuario)
         </div>
 
+        <!--
         <div class="editor-label">
             @Html.LabelFor(model => model.PasswordChange)
         </div>
@@ -138,9 +145,9 @@
             @Html.EditorFor(model => model.PasswordChange)
             @Html.ValidationMessageFor(model => model.PasswordChange)
         </div>
-
+        -->
         <p>
-            <input type="submit" value="Guardar" class="btn btn-primary" />
+            <input type="submit" value="Guardar" class="btn btn-info pull-right" />
         </p>
     </fieldset>
 }
