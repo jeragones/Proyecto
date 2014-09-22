@@ -381,7 +381,6 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Persona\Details.cshtml" />
-    <Content Include="Views\Persona\Create.cshtml" />
     <Content Include="Views\Persona\Edit.cshtml" />
     <Content Include="Views\Persona\Delete.cshtml" />
     <Content Include="Views\Persona\_ViewStart.cshtml" />
@@ -391,6 +390,7 @@
     <Content Include="Views\Shared\_Layout_Clean.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
     <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Persona\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
