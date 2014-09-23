@@ -23,6 +23,10 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Persona persona)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1176d56985690393ba0a0787f1ea5e31a53c73c9
             persona.Clave = insFunction.codeGenerator();
             persona.FechaCreacion = DateTime.Now;
             db.Persona.Add(persona);
@@ -30,7 +34,6 @@ namespace LAAG.Controllers
             insMail.registrationEmail(persona.Correo, persona.NombreUsuario, persona.Clave);
             return RedirectToAction("Index", "Home");
         }
-
 
         //
         // POST: /Persona/Edit/5
