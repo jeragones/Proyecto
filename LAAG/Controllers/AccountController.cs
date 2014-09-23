@@ -150,6 +150,7 @@ namespace LAAG.Controllers
 
                         db.Entry(personaOld).State = EntityState.Modified;
                         db.SaveChanges();
+<<<<<<< HEAD
                         ModelState.AddModelError("success", "");
                         return RedirectToAction("Index", "Home");
                     }
@@ -162,10 +163,23 @@ namespace LAAG.Controllers
                                 Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
                             }
                         }
+=======
+                        return RedirectToAction("Home.Index");
+>>>>>>> 1176d56985690393ba0a0787f1ea5e31a53c73c9
                     }
                     catch (MembershipCreateUserException e)
                     {
                         ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    }
+                    catch (DbEntityValidationException dbEx)
+                    {
+                        foreach (var validationErrors in dbEx.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                            }
+                        }
                     }
                 }
       //      }
