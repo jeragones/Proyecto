@@ -21,13 +21,14 @@ namespace LAAG
     
         public int IdAnalisis { get; set; }
         public string Nombre { get; set; }
-        public string Categoria { get; set; }
+        public int id_Categoria { get; set; }
         public string Descripcion { get; set; }
         public string UsuarioCreacion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioActualizacion { get; set; }
         public Nullable<System.DateTime> FechaActualizacion { get; set; }
     
+        public virtual Categorias Categorias { get; set; }
         public virtual ICollection<Muestra_analisis> Muestra_analisis { get; set; }
     }
 }

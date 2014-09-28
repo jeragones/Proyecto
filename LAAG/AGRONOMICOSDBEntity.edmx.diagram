@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="30631984ab7e4e62a43bd1d9fc5b8b6d" Name="Diagram1">
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Analisis" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Factura" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Muestra" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Muestra_analisis" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
@@ -13,7 +12,6 @@
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Reporte" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Resultado_analisis" Width="1.5" PointX="7.5" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Resultado_elemento" Width="1.5" PointX="9.75" PointY="6.625" IsExpanded="true" />
-        <AssociationConnector Association="AGRONOMICOSDBModel.IdAnalisi" ManuallyRouted="false" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idClienteFactura" ManuallyRouted="false" />
         <AssociationConnector Association="AGRONOMICOSDBModel.IdFactura" ManuallyRouted="false" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idClienteMuestra" ManuallyRouted="false" />
@@ -22,7 +20,11 @@
         <AssociationConnector Association="AGRONOMICOSDBModel.IdCliente" ManuallyRouted="false" />
         <AssociationConnector Association="AGRONOMICOSDBModel.IdReporte" ManuallyRouted="false" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idResultadoAnalisis" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Analisis" Width="1.5" PointX="9.625" PointY="1" />
+        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Categorias" Width="1.5" PointX="7.375" PointY="1.625" />
+        <AssociationConnector Association="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040" />
+        <AssociationConnector Association="AGRONOMICOSDBModel.IdAnalisi" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -4,19 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AGRONOMICOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AGRONOMICOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analisis">
           <Key>
             <PropertyRef Name="IdAnalisis" />
           </Key>
           <Property Name="IdAnalisis" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Categoria" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_Categoria" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="UsuarioCreacion" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FechaCreacion" Type="date" Nullable="false" />
           <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="20" />
           <Property Name="FechaActualizacion" Type="date" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -121,6 +128,18 @@
           <Property Name="UsuarioModificacion" Type="varchar" MaxLength="20" />
           <Property Name="FechaModificacion" Type="date" />
         </EntityType>
+        <Association Name="FK__Analisis__id_Cat__1CF15040">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="Analisis" Type="Self.Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Analisis">
+              <PropertyRef Name="id_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="IdAnalisi">
           <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
           <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
@@ -231,6 +250,7 @@
         </Association>
         <EntityContainer Name="AGRONOMICOSDBModelStoreContainer">
           <EntitySet Name="Analisis" EntityType="Self.Analisis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra_analisis" EntityType="Self.Muestra_analisis" Schema="dbo" store:Type="Tables" />
@@ -238,6 +258,10 @@
           <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Resultado_analisis" EntityType="Self.Resultado_analisis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Resultado_elemento" EntityType="Self.Resultado_elemento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Analisis__id_Cat__1CF15040" Association="Self.FK__Analisis__id_Cat__1CF15040">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Analisis" EntitySet="Analisis" />
+          </AssociationSet>
           <AssociationSet Name="IdAnalisi" Association="Self.IdAnalisi">
             <End Role="Analisis" EntitySet="Analisis" />
             <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
@@ -275,25 +299,10 @@
             <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AGRONOMICOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Analisis">
-          <Key>
-            <PropertyRef Name="IdAnalisis" />
-          </Key>
-          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Categoria" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Muestra_analisis" Relationship="Self.IdAnalisi" FromRole="Analisis" ToRole="Muestra_analisis" />
-        </EntityType>
         <EntityType Name="Factura">
           <Key>
             <PropertyRef Name="IdFactura" />
@@ -342,10 +351,10 @@
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Analisis" Relationship="Self.IdAnalisi" FromRole="Muestra_analisis" ToRole="Analisis" />
           <NavigationProperty Name="Factura" Relationship="Self.IdFactura" FromRole="Muestra_analisis" ToRole="Factura" />
           <NavigationProperty Name="Muestra" Relationship="Self.MuestraCodigo" FromRole="Muestra_analisis" ToRole="Muestra" />
           <NavigationProperty Name="Resultado_analisis" Relationship="Self.IdMuestraAnalisis" FromRole="Muestra_analisis" ToRole="Resultado_analisis" />
+          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Muestra_analisis" ToRole="Analisis" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -414,18 +423,6 @@
           <Property Name="FechaModificacion" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Resultado_analisis" Relationship="Self.idResultadoAnalisis" FromRole="Resultado_elemento" ToRole="Resultado_analisis" />
         </EntityType>
-        <Association Name="IdAnalisi">
-          <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Analisis">
-              <PropertyRef Name="IdAnalisis" />
-            </Principal>
-            <Dependent Role="Muestra_analisis">
-              <PropertyRef Name="IdAnalisis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idClienteFactura">
           <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
@@ -523,7 +520,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AGRONOMICOSDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Analisis" EntityType="Self.Analisis" />
           <EntitySet Name="Factura" EntityType="Self.Factura" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" />
           <EntitySet Name="Muestra_analisis" EntityType="Self.Muestra_analisis" />
@@ -531,10 +527,6 @@
           <EntitySet Name="Reporte" EntityType="Self.Reporte" />
           <EntitySet Name="Resultado_analisis" EntityType="Self.Resultado_analisis" />
           <EntitySet Name="Resultado_elemento" EntityType="Self.Resultado_elemento" />
-          <AssociationSet Name="IdAnalisi" Association="Self.IdAnalisi">
-            <End Role="Analisis" EntitySet="Analisis" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
-          </AssociationSet>
           <AssociationSet Name="idClienteFactura" Association="Self.idClienteFactura">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Factura" EntitySet="Factura" />
@@ -567,27 +559,70 @@
             <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
             <End Role="Resultado_elemento" EntitySet="Resultado_elemento" />
           </AssociationSet>
+          <EntitySet Name="Analisis" EntityType="AGRONOMICOSDBModel.Analisis" />
+          <EntitySet Name="Categorias" EntityType="AGRONOMICOSDBModel.Categorias" />
+          <AssociationSet Name="FK__Analisis__id_Cat__1CF15040" Association="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Analisis" EntitySet="Analisis" />
+          </AssociationSet>
+          <AssociationSet Name="IdAnalisi" Association="AGRONOMICOSDBModel.IdAnalisi">
+            <End Role="Analisis" EntitySet="Analisis" />
+            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Analisis">
+          <Key>
+            <PropertyRef Name="IdAnalisis" />
+          </Key>
+          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Categorias" Relationship="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040" FromRole="Analisis" ToRole="Categorias" />
+          <NavigationProperty Name="Muestra_analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Analisis" ToRole="Muestra_analisis" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040" FromRole="Categorias" ToRole="Analisis" />
+        </EntityType>
+        <Association Name="FK__Analisis__id_Cat__1CF15040">
+          <End Type="AGRONOMICOSDBModel.Categorias" Role="Categorias" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Analisis">
+              <PropertyRef Name="id_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdAnalisi">
+          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Muestra_analisis" Role="Muestra_analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Principal>
+            <Dependent Role="Muestra_analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AGRONOMICOSDBModelStoreContainer" CdmEntityContainer="AGRONOMICOSDBEntities">
-          <EntitySetMapping Name="Analisis">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis">
-              <MappingFragment StoreEntitySet="Analisis">
-                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Factura">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Factura">
               <MappingFragment StoreEntitySet="Factura">
@@ -695,6 +730,28 @@
                 <ScalarProperty Name="FechaCracion" ColumnName="FechaCracion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Analisis">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis">
+              <MappingFragment StoreEntitySet="Analisis">
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="id_Categoria" ColumnName="id_Categoria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

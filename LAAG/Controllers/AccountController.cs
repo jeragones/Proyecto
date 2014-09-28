@@ -46,6 +46,7 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            String error = "El nombre de usuario o la contraseña especificados son incorrectos.";
             Session["CurrentSession"] = null;
             if (ModelState.IsValid)
             {
@@ -54,21 +55,27 @@ namespace LAAG.Controllers
                 {
                     foreach (var a in persona)
                     {
-                        Session["CurrentSession"] = a;
-                        if (a.PasswordChange == true)
-                        {//true=1 -> Necesita Cambiar
-                            return RedirectToAction("SetPassword", "Account");
-                        }
-                        else
+                        if (a.Estado == 0)
                         {
-                            return RedirectToLocal(returnUrl);
+                            Session["CurrentSession"] = a;
+                            if (a.PasswordChange == true)
+                            {//true=1 -> Necesita Cambiar
+                                return RedirectToAction("SetPassword", "Account");
+                            }
+                            else
+                            {
+                                return RedirectToLocal(returnUrl);
+                            }
+                        }
+                        else {
+                            error = "El usuario está deshabilitado, por favor ponerse en contacto con los funcionarios del laboratorio.";
                         }
                     }
                 }
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+            ModelState.AddModelError("", error);
             return View(model);
         }
 
