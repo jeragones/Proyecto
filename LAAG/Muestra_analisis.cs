@@ -31,9 +31,9 @@ namespace LAAG
         public string UsuarioActualizacion { get; set; }
         public Nullable<System.DateTime> FechaActualizacion { get; set; }
     
-        public virtual Analisis Analisis { get; set; }
         public virtual Factura Factura { get; set; }
         public virtual Muestra Muestra { get; set; }
         public virtual ICollection<Resultado_analisis> Resultado_analisis { get; set; }
+        public virtual Analisis Analisis { get; set; }
     }
 }

@@ -197,6 +197,7 @@
     <Compile Include="Analisis.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -204,10 +205,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuxFiles\AuxClass.cs" />
+    <Compile Include="Categorias.cs">
+      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Code\MailService.cs" />
     <Compile Include="App_Code\CustomFunction.cs" />
+    <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Factura.cs">
@@ -239,6 +245,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuxFiles\Script_Agronomicos.sql" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\plugins\dataTables\bootstrap.min.css" />
@@ -391,6 +398,12 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Shared\_Layout_Clean.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\Categoria\Details.cshtml" />
+    <Content Include="Views\Categoria\Create.cshtml" />
+    <Content Include="Views\Categoria\Edit.cshtml" />
+    <Content Include="Views\Categoria\Delete.cshtml" />
+    <Content Include="Views\Categoria\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

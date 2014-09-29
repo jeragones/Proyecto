@@ -25,7 +25,6 @@ namespace LAAG
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Analisis> Analisis { get; set; }
         public DbSet<Factura> Factura { get; set; }
         public DbSet<Muestra> Muestra { get; set; }
         public DbSet<Muestra_analisis> Muestra_analisis { get; set; }
@@ -33,5 +32,7 @@ namespace LAAG
         public DbSet<Reporte> Reporte { get; set; }
         public DbSet<Resultado_analisis> Resultado_analisis { get; set; }
         public DbSet<Resultado_elemento> Resultado_elemento { get; set; }
+        public DbSet<Analisis> Analisis { get; set; }
+        public DbSet<Categorias> Categorias { get; set; }
     }
 }

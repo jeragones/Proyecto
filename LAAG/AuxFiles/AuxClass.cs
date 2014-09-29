@@ -13,7 +13,7 @@ namespace LAAG.AuxFiles
         {    
             var userResults = from u in myDB.Persona
                               where u.NombreUsuario == userName
-                              && u.Clave == passWord && u.Estado == 0
+                              && u.Clave == passWord
                               select u;
             return userResults;
         }
