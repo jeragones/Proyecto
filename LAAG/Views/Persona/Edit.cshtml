@@ -3,6 +3,31 @@
 @{
     ViewBag.Title = "Editar";
 }
+@{
+    List<SelectListItem> listTipo = new List<SelectListItem>();
+    listTipo.Add(new SelectListItem
+         {
+             Text = "Administrador",
+             Value = "1"
+         });
+    listTipo.Add(new SelectListItem
+         {
+             Text = "Cliente",
+             Value = "2"
+         });
+
+    List<SelectListItem> listEstado = new List<SelectListItem>();
+    listEstado.Add(new SelectListItem
+    {
+        Text = "Activo",
+        Value = "0"
+    });
+    listEstado.Add(new SelectListItem
+    {
+        Text = "Inactivo",
+        Value = "1"
+    });
+}
 
 <h2>Editar</h2>
 
@@ -20,19 +45,15 @@
         @Html.HiddenFor(model => model.Apellido2, new { @class = "form-control" })
         @Html.HiddenFor(model => model.Correo, new { @class = "form-control" })
         @Html.HiddenFor(model => model.Clave, new { @class = "form-control" })
-        @Html.HiddenFor(model => model.FechaCreacion, new { @class = "form-control" })
         @Html.HiddenFor(model => model.Telefono1, new { @class = "form-control" })
         @Html.HiddenFor(model => model.Telefono2, new { @class = "form-control" })
-        @Html.HiddenFor(model => model.UsuarioCreacion, new { @class = "form-control" })
-        @Html.HiddenFor(model => model.FechaActualizacion, new { @class = "form-control" })
-        @Html.HiddenFor(model => model.UsuarioActualizacion, new { @class = "form-control" })
         @Html.HiddenFor(model => model.NombreUsuario, new { @class = "form-control" })
         @Html.HiddenFor(model => model.PasswordChange)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Estado, new { @class = "control-label col-md-1" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Estado, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Estado, listEstado, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tipo, new { @class = "control-label col-md-1" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Tipo, listTipo, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
             </div>
         </div>

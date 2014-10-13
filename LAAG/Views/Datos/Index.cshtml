@@ -1,26 +1,26 @@
-﻿@model IEnumerable<LAAG.Categoria>
+﻿@model IEnumerable<LAAG.Dato>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Datos";
 }
-<!--Deberíamos de enviar y recibir la acción por el viewbag-->
+
 <p>
     @Html.ActionLink("Agregar", "Create")
 </p>
 <div class="panel panel-default">
     <div class="panel-heading">
-        Categorías
+        Datos
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
         <div class="table-responsive">
-            <table id="tbPersonas" class="order-column">
+            <table id="tbDatos" class="order-column">
                 <thead>
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.Nombre)
                         </th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +31,9 @@
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria }) |
-                                @Html.ActionLink("Detalles", "Details", new { id = item.IdCategoria }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCategoria })
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdDato }) |
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdDato }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdDato })
                             </td>
                         </tr>
                     }
@@ -54,7 +54,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#tbPersonas').dataTable({
+            $('#tbDatos').dataTable({
                 "language": {
                     "url": "/Scripts/plugins/dataTables/Spanish.txt"
                 }

@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Code\MailService.cs" />
     <Compile Include="App_Code\CustomFunction.cs" />
@@ -410,6 +411,12 @@
     <Content Include="Views\Categoria\Edit.cshtml" />
     <Content Include="Views\Categoria\Delete.cshtml" />
     <Content Include="Views\Categoria\_ViewStart.cshtml" />
+    <Content Include="Views\Datos\Index.cshtml" />
+    <Content Include="Views\Datos\Details.cshtml" />
+    <Content Include="Views\Datos\Create.cshtml" />
+    <Content Include="Views\Datos\Edit.cshtml" />
+    <Content Include="Views\Datos\Delete.cshtml" />
+    <Content Include="Views\Datos\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

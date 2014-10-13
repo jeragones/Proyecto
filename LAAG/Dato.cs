@@ -22,6 +22,7 @@ namespace LAAG
     
         public int IdDato { get; set; }
         public string Nombre { get; set; }
+        public string unidadMedida { get; set; }
     
         public virtual ICollection<Analisis_Dato> Analisis_Dato { get; set; }
         public virtual ICollection<Resultado_Dato> Resultado_Dato { get; set; }

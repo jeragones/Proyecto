@@ -1,0 +1,29 @@
+﻿@model LAAG.Dato
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.unidadMedida)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.unidadMedida)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.IdDato }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>
