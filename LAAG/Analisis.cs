@@ -16,19 +16,17 @@ namespace LAAG
     {
         public Analisis()
         {
-            this.Muestra_analisis = new HashSet<Muestra_analisis>();
+            this.Analisis_Dato = new HashSet<Analisis_Dato>();
+            this.Muestra_Analisis = new HashSet<Muestra_Analisis>();
         }
     
         public int IdAnalisis { get; set; }
         public string Nombre { get; set; }
-        public int id_Categoria { get; set; }
+        public int IdCategoria { get; set; }
         public string Descripcion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public string UsuarioActualizacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
     
-        public virtual Categorias Categorias { get; set; }
-        public virtual ICollection<Muestra_analisis> Muestra_analisis { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        public virtual ICollection<Analisis_Dato> Analisis_Dato { get; set; }
+        public virtual ICollection<Muestra_Analisis> Muestra_Analisis { get; set; }
     }
 }

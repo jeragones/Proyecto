@@ -12,17 +12,13 @@ namespace LAAG
     using System;
     using System.Collections.Generic;
     
-    public partial class Resultado_elemento
+    public partial class Analisis_Dato
     {
-        public int IdResultadoElemento { get; set; }
-        public string Nombre { get; set; }
-        public string Resultado { get; set; }
-        public int IdResultadoAnalisis { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public System.DateTime FechaCracion { get; set; }
-        public string UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int IdAnalisisDato { get; set; }
+        public int IdAnalisis { get; set; }
+        public int IdDato { get; set; }
     
-        public virtual Resultado_analisis Resultado_analisis { get; set; }
+        public virtual Analisis Analisis { get; set; }
+        public virtual Dato Dato { get; set; }
     }
 }

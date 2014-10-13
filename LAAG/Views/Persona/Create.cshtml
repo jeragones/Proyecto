@@ -6,11 +6,6 @@
 @{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];
    }
 
-
-
-<h2>Agregar</h2>
-
-
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
@@ -60,8 +55,6 @@
                     </div>
 
                 @Html.HiddenFor(model => model.Clave, new { @Value="afrdgftghjgh"})
-
-                @Html.HiddenFor(model => model.FechaCreacion)
             
                 <div class="form-group">
                     @Html.LabelFor(model => model.Telefono1)
@@ -80,12 +73,7 @@
                         <span class="input-group-addon"></span>  
                     </div>
                 </div>
-            
-                @Html.HiddenFor(model => model.UsuarioCreacion)
-            
-                @Html.HiddenFor(model => model.FechaActualizacion)
-            
-                @Html.HiddenFor(model => model.UsuarioActualizacion)  
+  
 
                 @Html.HiddenFor(model => model.Estado, new { @Value=0}) 
     

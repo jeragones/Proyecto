@@ -12,24 +12,20 @@ namespace LAAG
     using System;
     using System.Collections.Generic;
     
-    public partial class Resultado_analisis
+    public partial class Resultado_Analisis
     {
-        public Resultado_analisis()
+        public Resultado_Analisis()
         {
-            this.Resultado_elemento = new HashSet<Resultado_elemento>();
+            this.Resultado_Dato = new HashSet<Resultado_Dato>();
         }
     
         public int IdResultadoAnalisis { get; set; }
         public int IdMuestraAnalisis { get; set; }
         public int IdReporte { get; set; }
         public byte Estado { get; set; }
-        public int UsuarioCreacion { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public Nullable<int> UsuarioActualizacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
     
-        public virtual Muestra_analisis Muestra_analisis { get; set; }
+        public virtual Muestra_Analisis Muestra_Analisis { get; set; }
         public virtual Reporte Reporte { get; set; }
-        public virtual ICollection<Resultado_elemento> Resultado_elemento { get; set; }
+        public virtual ICollection<Resultado_Dato> Resultado_Dato { get; set; }
     }
 }

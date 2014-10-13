@@ -12,22 +12,16 @@ namespace LAAG
     using System;
     using System.Collections.Generic;
     
-    public partial class Muestra
+    public partial class Categoria
     {
-        public Muestra()
+        public Categoria()
         {
-            this.Muestra_Analisis = new HashSet<Muestra_Analisis>();
+            this.Analisis = new HashSet<Analisis>();
         }
     
-        public string Codigo { get; set; }
-        public string Campo { get; set; }
-        public int IdPersona { get; set; }
-        public string Provincia { get; set; }
-        public string Canton { get; set; }
-        public string Distrito { get; set; }
-        public string Direccion { get; set; }
+        public int IdCategoria { get; set; }
+        public string Nombre { get; set; }
     
-        public virtual Persona Persona { get; set; }
-        public virtual ICollection<Muestra_Analisis> Muestra_Analisis { get; set; }
+        public virtual ICollection<Analisis> Analisis { get; set; }
     }
 }

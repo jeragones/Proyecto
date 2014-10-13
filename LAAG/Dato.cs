@@ -12,16 +12,18 @@ namespace LAAG
     using System;
     using System.Collections.Generic;
     
-    public partial class Categorias
+    public partial class Dato
     {
-        public Categorias()
+        public Dato()
         {
-            this.Analisis = new HashSet<Analisis>();
+            this.Analisis_Dato = new HashSet<Analisis_Dato>();
+            this.Resultado_Dato = new HashSet<Resultado_Dato>();
         }
     
-        public int idCategoria { get; set; }
+        public int IdDato { get; set; }
         public string Nombre { get; set; }
     
-        public virtual ICollection<Analisis> Analisis { get; set; }
+        public virtual ICollection<Analisis_Dato> Analisis_Dato { get; set; }
+        public virtual ICollection<Resultado_Dato> Resultado_Dato { get; set; }
     }
 }

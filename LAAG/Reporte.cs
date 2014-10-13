@@ -16,7 +16,7 @@ namespace LAAG
     {
         public Reporte()
         {
-            this.Resultado_analisis = new HashSet<Resultado_analisis>();
+            this.Resultado_Analisis = new HashSet<Resultado_Analisis>();
         }
     
         public int IdReporte { get; set; }
@@ -27,6 +27,6 @@ namespace LAAG
         public int IdCliente { get; set; }
     
         public virtual Persona Persona { get; set; }
-        public virtual ICollection<Resultado_analisis> Resultado_analisis { get; set; }
+        public virtual ICollection<Resultado_Analisis> Resultado_Analisis { get; set; }
     }
 }

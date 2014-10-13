@@ -197,6 +197,9 @@
     <Compile Include="Analisis.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Analisis_Dato.cs">
+      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -205,7 +208,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuxFiles\AuxClass.cs" />
-    <Compile Include="Categorias.cs">
+    <Compile Include="Categoria.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
@@ -215,7 +218,10 @@
     <Compile Include="App_Code\CustomFunction.cs" />
     <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
-    <Compile Include="Controllers\PersonaController.cs" />
+    <Compile Include="Filters\PersonaController.cs" />
+    <Compile Include="Dato.cs">
+      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Factura.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
@@ -227,7 +233,7 @@
     <Compile Include="Muestra.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Muestra_analisis.cs">
+    <Compile Include="Muestra_Analisis.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -237,10 +243,10 @@
     <Compile Include="Reporte.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resultado_analisis.cs">
+    <Compile Include="Resultado_Analisis.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resultado_elemento.cs">
+    <Compile Include="Resultado_Dato.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -16,11 +16,11 @@ namespace LAAG.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "idCategoria")]Categorias categorias)
+        public ActionResult Create([Bind(Exclude = "idCategoria")]Categoria categorias)
         {
             if (ModelState.IsValid)
             {
-                db.Categorias.Add(categorias);
+                db.Categoria.Add(categorias);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -33,7 +33,7 @@ namespace LAAG.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Categorias categorias)
+        public ActionResult Edit(Categoria categorias)
         {
             if (ModelState.IsValid)
             {
@@ -52,8 +52,8 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Categorias categorias = db.Categorias.Find(id);
-            db.Categorias.Remove(categorias);
+            Categoria categorias = db.Categoria.Find(id);
+            db.Categoria.Remove(categorias);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

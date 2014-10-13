@@ -4,26 +4,37 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AGRONOMICOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AGRONOMICOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analisis">
           <Key>
             <PropertyRef Name="IdAnalisis" />
           </Key>
           <Property Name="IdAnalisis" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="id_Categoria" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" Nullable="false" />
-          <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="20" />
-          <Property Name="FechaActualizacion" Type="date" />
         </EntityType>
-        <EntityType Name="Categorias">
+        <EntityType Name="Analisis_Dato">
           <Key>
-            <PropertyRef Name="idCategoria" />
+            <PropertyRef Name="IdAnalisisDato" />
           </Key>
-          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAnalisisDato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAnalisis" Type="int" Nullable="false" />
+          <Property Name="IdDato" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dato">
+          <Key>
+            <PropertyRef Name="IdDato" />
+          </Key>
+          <Property Name="IdDato" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -32,11 +43,7 @@
           <Property Name="IdFactura" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="Costo" Type="int" Nullable="false" />
-          <Property Name="IdCliente" Type="int" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" Nullable="false" />
-          <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="20" />
-          <Property Name="FechaActualizacion" Type="date" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
@@ -44,17 +51,13 @@
           </Key>
           <Property Name="Codigo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Campo" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
           <Property Name="Provincia" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Canton" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Distrito" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Direccion" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="UsuarioCracion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" Nullable="false" />
-          <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="20" />
-          <Property Name="FechaActualizacion" Type="date" />
         </EntityType>
-        <EntityType Name="Muestra_analisis">
+        <EntityType Name="Muestra_Analisis">
           <Key>
             <PropertyRef Name="IdMuestraAnalisis" />
           </Key>
@@ -65,10 +68,6 @@
           <Property Name="IdFactura" Type="int" Nullable="false" />
           <Property Name="IdAnalisis" Type="int" Nullable="false" />
           <Property Name="Estado" Type="tinyint" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" Nullable="false" />
-          <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="20" />
-          <Property Name="FechaActualizacion" Type="date" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -80,12 +79,8 @@
           <Property Name="Apellido2" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Clave" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" />
           <Property Name="Telefono1" Type="varchar" MaxLength="8" />
           <Property Name="Telefono2" Type="varchar" MaxLength="8" />
-          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="25" />
-          <Property Name="FechaActualizacion" Type="date" />
-          <Property Name="UsuarioActualizacion" Type="varchar" MaxLength="25" />
           <Property Name="Estado" Type="tinyint" Nullable="false" />
           <Property Name="Tipo" Type="tinyint" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="25" Nullable="false" />
@@ -102,7 +97,7 @@
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="IdCliente" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Resultado_analisis">
+        <EntityType Name="Resultado_Analisis">
           <Key>
             <PropertyRef Name="IdResultadoAnalisis" />
           </Key>
@@ -110,44 +105,72 @@
           <Property Name="IdMuestraAnalisis" Type="int" Nullable="false" />
           <Property Name="IdReporte" Type="int" Nullable="false" />
           <Property Name="Estado" Type="tinyint" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
-          <Property Name="FechaCreacion" Type="date" Nullable="false" />
-          <Property Name="UsuarioActualizacion" Type="int" />
-          <Property Name="FechaActualizacion" Type="date" />
         </EntityType>
-        <EntityType Name="Resultado_elemento">
+        <EntityType Name="Resultado_Dato">
           <Key>
-            <PropertyRef Name="IdResultadoElemento" />
+            <PropertyRef Name="IdResultadoDato" />
           </Key>
-          <Property Name="IdResultadoElemento" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IdResultadoDato" Type="int" Nullable="false" />
+          <Property Name="IdDato" Type="int" Nullable="false" />
           <Property Name="Resultado" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="IdResultadoAnalisis" Type="int" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCracion" Type="date" Nullable="false" />
-          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="20" />
-          <Property Name="FechaModificacion" Type="date" />
         </EntityType>
-        <Association Name="FK__Analisis__id_Cat__1CF15040">
-          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+        <Association Name="FK__Analisis__IdCate__24927208">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Analisis" Type="Self.Analisis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categorias">
-              <PropertyRef Name="idCategoria" />
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
             </Principal>
             <Dependent Role="Analisis">
-              <PropertyRef Name="id_Categoria" />
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Analisis_Dato_Analisis">
+          <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
+          <End Role="Analisis_Dato" Type="Self.Analisis_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Principal>
+            <Dependent Role="Analisis_Dato">
+              <PropertyRef Name="IdAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Analisis_Dato_Dato">
+          <End Role="Dato" Type="Self.Dato" Multiplicity="1" />
+          <End Role="Analisis_Dato" Type="Self.Analisis_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dato">
+              <PropertyRef Name="IdDato" />
+            </Principal>
+            <Dependent Role="Analisis_Dato">
+              <PropertyRef Name="IdDato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resultado_Dato_Dato">
+          <End Role="Dato" Type="Self.Dato" Multiplicity="1" />
+          <End Role="Resultado_Dato" Type="Self.Resultado_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dato">
+              <PropertyRef Name="IdDato" />
+            </Principal>
+            <Dependent Role="Resultado_Dato">
+              <PropertyRef Name="IdDato" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdAnalisi">
           <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Analisis">
               <PropertyRef Name="IdAnalisis" />
             </Principal>
-            <Dependent Role="Muestra_analisis">
+            <Dependent Role="Muestra_Analisis">
               <PropertyRef Name="IdAnalisis" />
             </Dependent>
           </ReferentialConstraint>
@@ -172,7 +195,7 @@
               <PropertyRef Name="ID_Persona" />
             </Principal>
             <Dependent Role="Factura">
-              <PropertyRef Name="IdCliente" />
+              <PropertyRef Name="IdPersona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,87 +207,101 @@
               <PropertyRef Name="ID_Persona" />
             </Principal>
             <Dependent Role="Muestra">
-              <PropertyRef Name="IdCliente" />
+              <PropertyRef Name="IdPersona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdFactura">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Factura">
               <PropertyRef Name="IdFactura" />
             </Principal>
-            <Dependent Role="Muestra_analisis">
+            <Dependent Role="Muestra_Analisis">
               <PropertyRef Name="IdFactura" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdMuestraAnalisis">
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="1" />
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="1" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Muestra_analisis">
+            <Principal Role="Muestra_Analisis">
               <PropertyRef Name="IdMuestraAnalisis" />
             </Principal>
-            <Dependent Role="Resultado_analisis">
+            <Dependent Role="Resultado_Analisis">
               <PropertyRef Name="IdMuestraAnalisis" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdReporte">
           <End Role="Reporte" Type="Self.Reporte" Multiplicity="1" />
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="*" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reporte">
               <PropertyRef Name="IdReporte" />
             </Principal>
-            <Dependent Role="Resultado_analisis">
+            <Dependent Role="Resultado_Analisis">
               <PropertyRef Name="IdReporte" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="idResultadoAnalisis">
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="1" />
-          <End Role="Resultado_elemento" Type="Self.Resultado_elemento" Multiplicity="*" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="1" />
+          <End Role="Resultado_Dato" Type="Self.Resultado_Dato" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Resultado_analisis">
+            <Principal Role="Resultado_Analisis">
               <PropertyRef Name="IdResultadoAnalisis" />
             </Principal>
-            <Dependent Role="Resultado_elemento">
+            <Dependent Role="Resultado_Dato">
               <PropertyRef Name="IdResultadoAnalisis" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="MuestraCodigo">
           <End Role="Muestra" Type="Self.Muestra" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Muestra">
               <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="Muestra_analisis">
+            <Dependent Role="Muestra_Analisis">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AGRONOMICOSDBModelStoreContainer">
           <EntitySet Name="Analisis" EntityType="Self.Analisis" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Analisis_Dato" EntityType="Self.Analisis_Dato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dato" EntityType="Self.Dato" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Muestra_analisis" EntityType="Self.Muestra_analisis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Muestra_Analisis" EntityType="Self.Muestra_Analisis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reporte" EntityType="Self.Reporte" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Resultado_analisis" EntityType="Self.Resultado_analisis" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Resultado_elemento" EntityType="Self.Resultado_elemento" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Analisis__id_Cat__1CF15040" Association="Self.FK__Analisis__id_Cat__1CF15040">
-            <End Role="Categorias" EntitySet="Categorias" />
+          <EntitySet Name="Resultado_Analisis" EntityType="Self.Resultado_Analisis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resultado_Dato" EntityType="Self.Resultado_Dato" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Analisis__IdCate__24927208" Association="Self.FK__Analisis__IdCate__24927208">
+            <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Analisis" EntitySet="Analisis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Analisis_Dato_Analisis" Association="Self.FK_Analisis_Dato_Analisis">
+            <End Role="Analisis" EntitySet="Analisis" />
+            <End Role="Analisis_Dato" EntitySet="Analisis_Dato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Analisis_Dato_Dato" Association="Self.FK_Analisis_Dato_Dato">
+            <End Role="Dato" EntitySet="Dato" />
+            <End Role="Analisis_Dato" EntitySet="Analisis_Dato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resultado_Dato_Dato" Association="Self.FK_Resultado_Dato_Dato">
+            <End Role="Dato" EntitySet="Dato" />
+            <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
           <AssociationSet Name="IdAnalisi" Association="Self.IdAnalisi">
             <End Role="Analisis" EntitySet="Analisis" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdCliente" Association="Self.IdCliente">
             <End Role="Persona" EntitySet="Persona" />
@@ -280,29 +317,69 @@
           </AssociationSet>
           <AssociationSet Name="IdFactura" Association="Self.IdFactura">
             <End Role="Factura" EntitySet="Factura" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdMuestraAnalisis" Association="Self.IdMuestraAnalisis">
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdReporte" Association="Self.IdReporte">
             <End Role="Reporte" EntitySet="Reporte" />
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
           </AssociationSet>
           <AssociationSet Name="idResultadoAnalisis" Association="Self.idResultadoAnalisis">
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
-            <End Role="Resultado_elemento" EntitySet="Resultado_elemento" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
+            <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
           <AssociationSet Name="MuestraCodigo" Association="Self.MuestraCodigo">
             <End Role="Muestra" EntitySet="Muestra" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AGRONOMICOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Analisis">
+          <Key>
+            <PropertyRef Name="IdAnalisis" />
+          </Key>
+          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Analisis__IdCate__24927208" FromRole="Analisis" ToRole="Categoria" />
+          <NavigationProperty Name="Analisis_Dato" Relationship="Self.FK_Analisis_Dato_Analisis" FromRole="Analisis" ToRole="Analisis_Dato" />
+          <NavigationProperty Name="Muestra_Analisis" Relationship="Self.IdAnalisi" FromRole="Analisis" ToRole="Muestra_Analisis" />
+        </EntityType>
+        <EntityType Name="Analisis_Dato">
+          <Key>
+            <PropertyRef Name="IdAnalisisDato" />
+          </Key>
+          <Property Name="IdAnalisisDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
+          <Property Name="IdDato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Analisis" Relationship="Self.FK_Analisis_Dato_Analisis" FromRole="Analisis_Dato" ToRole="Analisis" />
+          <NavigationProperty Name="Dato" Relationship="Self.FK_Analisis_Dato_Dato" FromRole="Analisis_Dato" ToRole="Dato" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Analisis" Relationship="Self.FK__Analisis__IdCate__24927208" FromRole="Categoria" ToRole="Analisis" />
+        </EntityType>
+        <EntityType Name="Dato">
+          <Key>
+            <PropertyRef Name="IdDato" />
+          </Key>
+          <Property Name="IdDato" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Analisis_Dato" Relationship="Self.FK_Analisis_Dato_Dato" FromRole="Dato" ToRole="Analisis_Dato" />
+          <NavigationProperty Name="Resultado_Dato" Relationship="Self.FK_Resultado_Dato_Dato" FromRole="Dato" ToRole="Resultado_Dato" />
+        </EntityType>
         <EntityType Name="Factura">
           <Key>
             <PropertyRef Name="IdFactura" />
@@ -310,13 +387,9 @@
           <Property Name="IdFactura" Type="Int32" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Costo" Type="Int32" Nullable="false" />
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="Self.idClienteFactura" FromRole="Factura" ToRole="Persona" />
-          <NavigationProperty Name="Muestra_analisis" Relationship="Self.IdFactura" FromRole="Factura" ToRole="Muestra_analisis" />
+          <NavigationProperty Name="Muestra_Analisis" Relationship="Self.IdFactura" FromRole="Factura" ToRole="Muestra_Analisis" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
@@ -324,19 +397,15 @@
           </Key>
           <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Campo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
           <Property Name="Provincia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Distrito" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Direccion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UsuarioCracion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Persona" Relationship="Self.idClienteMuestra" FromRole="Muestra" ToRole="Persona" />
-          <NavigationProperty Name="Muestra_analisis" Relationship="Self.MuestraCodigo" FromRole="Muestra" ToRole="Muestra_analisis" />
+          <NavigationProperty Name="Muestra_Analisis" Relationship="Self.MuestraCodigo" FromRole="Muestra" ToRole="Muestra_Analisis" />
         </EntityType>
-        <EntityType Name="Muestra_analisis">
+        <EntityType Name="Muestra_Analisis">
           <Key>
             <PropertyRef Name="IdMuestraAnalisis" />
           </Key>
@@ -347,14 +416,10 @@
           <Property Name="IdFactura" Type="Int32" Nullable="false" />
           <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
           <Property Name="Estado" Type="Byte" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Factura" Relationship="Self.IdFactura" FromRole="Muestra_analisis" ToRole="Factura" />
-          <NavigationProperty Name="Muestra" Relationship="Self.MuestraCodigo" FromRole="Muestra_analisis" ToRole="Muestra" />
-          <NavigationProperty Name="Resultado_analisis" Relationship="Self.IdMuestraAnalisis" FromRole="Muestra_analisis" ToRole="Resultado_analisis" />
-          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Muestra_analisis" ToRole="Analisis" />
+          <NavigationProperty Name="Analisis" Relationship="Self.IdAnalisi" FromRole="Muestra_Analisis" ToRole="Analisis" />
+          <NavigationProperty Name="Factura" Relationship="Self.IdFactura" FromRole="Muestra_Analisis" ToRole="Factura" />
+          <NavigationProperty Name="Muestra" Relationship="Self.MuestraCodigo" FromRole="Muestra_Analisis" ToRole="Muestra" />
+          <NavigationProperty Name="Resultado_Analisis" Relationship="Self.IdMuestraAnalisis" FromRole="Muestra_Analisis" ToRole="Resultado_Analisis" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -366,12 +431,8 @@
           <Property Name="Apellido2" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Clave" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
           <Property Name="Telefono1" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="Telefono2" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Byte" Nullable="false" />
           <Property Name="Tipo" Type="Byte" Nullable="false" />
           <Property Name="NombreUsuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
@@ -391,9 +452,9 @@
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="IdCliente" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="Self.IdCliente" FromRole="Reporte" ToRole="Persona" />
-          <NavigationProperty Name="Resultado_analisis" Relationship="Self.IdReporte" FromRole="Reporte" ToRole="Resultado_analisis" />
+          <NavigationProperty Name="Resultado_Analisis" Relationship="Self.IdReporte" FromRole="Reporte" ToRole="Resultado_Analisis" />
         </EntityType>
-        <EntityType Name="Resultado_analisis">
+        <EntityType Name="Resultado_Analisis">
           <Key>
             <PropertyRef Name="IdResultadoAnalisis" />
           </Key>
@@ -401,28 +462,81 @@
           <Property Name="IdMuestraAnalisis" Type="Int32" Nullable="false" />
           <Property Name="IdReporte" Type="Int32" Nullable="false" />
           <Property Name="Estado" Type="Byte" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="Int32" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Muestra_analisis" Relationship="Self.IdMuestraAnalisis" FromRole="Resultado_analisis" ToRole="Muestra_analisis" />
-          <NavigationProperty Name="Reporte" Relationship="Self.IdReporte" FromRole="Resultado_analisis" ToRole="Reporte" />
-          <NavigationProperty Name="Resultado_elemento" Relationship="Self.idResultadoAnalisis" FromRole="Resultado_analisis" ToRole="Resultado_elemento" />
+          <NavigationProperty Name="Muestra_Analisis" Relationship="Self.IdMuestraAnalisis" FromRole="Resultado_Analisis" ToRole="Muestra_Analisis" />
+          <NavigationProperty Name="Reporte" Relationship="Self.IdReporte" FromRole="Resultado_Analisis" ToRole="Reporte" />
+          <NavigationProperty Name="Resultado_Dato" Relationship="Self.idResultadoAnalisis" FromRole="Resultado_Analisis" ToRole="Resultado_Dato" />
         </EntityType>
-        <EntityType Name="Resultado_elemento">
+        <EntityType Name="Resultado_Dato">
           <Key>
-            <PropertyRef Name="IdResultadoElemento" />
+            <PropertyRef Name="IdResultadoDato" />
           </Key>
-          <Property Name="IdResultadoElemento" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdResultadoDato" Type="Int32" Nullable="false" />
+          <Property Name="IdDato" Type="Int32" Nullable="false" />
           <Property Name="Resultado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdResultadoAnalisis" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioCreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaCracion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioModificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Resultado_analisis" Relationship="Self.idResultadoAnalisis" FromRole="Resultado_elemento" ToRole="Resultado_analisis" />
+          <NavigationProperty Name="Dato" Relationship="Self.FK_Resultado_Dato_Dato" FromRole="Resultado_Dato" ToRole="Dato" />
+          <NavigationProperty Name="Resultado_Analisis" Relationship="Self.idResultadoAnalisis" FromRole="Resultado_Dato" ToRole="Resultado_Analisis" />
         </EntityType>
+        <Association Name="FK__Analisis__IdCate__24927208">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Analisis" Type="Self.Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Analisis">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Analisis_Dato_Analisis">
+          <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
+          <End Role="Analisis_Dato" Type="Self.Analisis_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Principal>
+            <Dependent Role="Analisis_Dato">
+              <PropertyRef Name="IdAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdAnalisi">
+          <End Role="Analisis" Type="Self.Analisis" Multiplicity="1" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Principal>
+            <Dependent Role="Muestra_Analisis">
+              <PropertyRef Name="IdAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Analisis_Dato_Dato">
+          <End Role="Dato" Type="Self.Dato" Multiplicity="1" />
+          <End Role="Analisis_Dato" Type="Self.Analisis_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dato">
+              <PropertyRef Name="IdDato" />
+            </Principal>
+            <Dependent Role="Analisis_Dato">
+              <PropertyRef Name="IdDato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resultado_Dato_Dato">
+          <End Role="Dato" Type="Self.Dato" Multiplicity="1" />
+          <End Role="Resultado_Dato" Type="Self.Resultado_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dato">
+              <PropertyRef Name="IdDato" />
+            </Principal>
+            <Dependent Role="Resultado_Dato">
+              <PropertyRef Name="IdDato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idClienteFactura">
           <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
@@ -431,18 +545,18 @@
               <PropertyRef Name="ID_Persona" />
             </Principal>
             <Dependent Role="Factura">
-              <PropertyRef Name="IdCliente" />
+              <PropertyRef Name="IdPersona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdFactura">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Factura">
               <PropertyRef Name="IdFactura" />
             </Principal>
-            <Dependent Role="Muestra_analisis">
+            <Dependent Role="Muestra_Analisis">
               <PropertyRef Name="IdFactura" />
             </Dependent>
           </ReferentialConstraint>
@@ -455,30 +569,30 @@
               <PropertyRef Name="ID_Persona" />
             </Principal>
             <Dependent Role="Muestra">
-              <PropertyRef Name="IdCliente" />
+              <PropertyRef Name="IdPersona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="MuestraCodigo">
           <End Role="Muestra" Type="Self.Muestra" Multiplicity="1" />
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Muestra">
               <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="Muestra_analisis">
+            <Dependent Role="Muestra_Analisis">
               <PropertyRef Name="Codigo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="IdMuestraAnalisis">
-          <End Role="Muestra_analisis" Type="Self.Muestra_analisis" Multiplicity="1" />
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="*" />
+          <End Role="Muestra_Analisis" Type="Self.Muestra_Analisis" Multiplicity="1" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Muestra_analisis">
+            <Principal Role="Muestra_Analisis">
               <PropertyRef Name="IdMuestraAnalisis" />
             </Principal>
-            <Dependent Role="Resultado_analisis">
+            <Dependent Role="Resultado_Analisis">
               <PropertyRef Name="IdMuestraAnalisis" />
             </Dependent>
           </ReferentialConstraint>
@@ -497,43 +611,67 @@
         </Association>
         <Association Name="IdReporte">
           <End Role="Reporte" Type="Self.Reporte" Multiplicity="1" />
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="*" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reporte">
               <PropertyRef Name="IdReporte" />
             </Principal>
-            <Dependent Role="Resultado_analisis">
+            <Dependent Role="Resultado_Analisis">
               <PropertyRef Name="IdReporte" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="idResultadoAnalisis">
-          <End Role="Resultado_analisis" Type="Self.Resultado_analisis" Multiplicity="1" />
-          <End Role="Resultado_elemento" Type="Self.Resultado_elemento" Multiplicity="*" />
+          <End Role="Resultado_Analisis" Type="Self.Resultado_Analisis" Multiplicity="1" />
+          <End Role="Resultado_Dato" Type="Self.Resultado_Dato" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Resultado_analisis">
+            <Principal Role="Resultado_Analisis">
               <PropertyRef Name="IdResultadoAnalisis" />
             </Principal>
-            <Dependent Role="Resultado_elemento">
+            <Dependent Role="Resultado_Dato">
               <PropertyRef Name="IdResultadoAnalisis" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AGRONOMICOSDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Analisis" EntityType="Self.Analisis" />
+          <EntitySet Name="Analisis_Dato" EntityType="Self.Analisis_Dato" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Dato" EntityType="Self.Dato" />
           <EntitySet Name="Factura" EntityType="Self.Factura" />
           <EntitySet Name="Muestra" EntityType="Self.Muestra" />
-          <EntitySet Name="Muestra_analisis" EntityType="Self.Muestra_analisis" />
+          <EntitySet Name="Muestra_Analisis" EntityType="Self.Muestra_Analisis" />
           <EntitySet Name="Persona" EntityType="Self.Persona" />
           <EntitySet Name="Reporte" EntityType="Self.Reporte" />
-          <EntitySet Name="Resultado_analisis" EntityType="Self.Resultado_analisis" />
-          <EntitySet Name="Resultado_elemento" EntityType="Self.Resultado_elemento" />
+          <EntitySet Name="Resultado_Analisis" EntityType="Self.Resultado_Analisis" />
+          <EntitySet Name="Resultado_Dato" EntityType="Self.Resultado_Dato" />
+          <AssociationSet Name="FK__Analisis__IdCate__24927208" Association="Self.FK__Analisis__IdCate__24927208">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Analisis" EntitySet="Analisis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Analisis_Dato_Analisis" Association="Self.FK_Analisis_Dato_Analisis">
+            <End Role="Analisis" EntitySet="Analisis" />
+            <End Role="Analisis_Dato" EntitySet="Analisis_Dato" />
+          </AssociationSet>
+          <AssociationSet Name="IdAnalisi" Association="Self.IdAnalisi">
+            <End Role="Analisis" EntitySet="Analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Analisis_Dato_Dato" Association="Self.FK_Analisis_Dato_Dato">
+            <End Role="Dato" EntitySet="Dato" />
+            <End Role="Analisis_Dato" EntitySet="Analisis_Dato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resultado_Dato_Dato" Association="Self.FK_Resultado_Dato_Dato">
+            <End Role="Dato" EntitySet="Dato" />
+            <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
+          </AssociationSet>
           <AssociationSet Name="idClienteFactura" Association="Self.idClienteFactura">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
           <AssociationSet Name="IdFactura" Association="Self.IdFactura">
             <End Role="Factura" EntitySet="Factura" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
           <AssociationSet Name="idClienteMuestra" Association="Self.idClienteMuestra">
             <End Role="Persona" EntitySet="Persona" />
@@ -541,11 +679,11 @@
           </AssociationSet>
           <AssociationSet Name="MuestraCodigo" Association="Self.MuestraCodigo">
             <End Role="Muestra" EntitySet="Muestra" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdMuestraAnalisis" Association="Self.IdMuestraAnalisis">
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdCliente" Association="Self.IdCliente">
             <End Role="Persona" EntitySet="Persona" />
@@ -553,87 +691,61 @@
           </AssociationSet>
           <AssociationSet Name="IdReporte" Association="Self.IdReporte">
             <End Role="Reporte" EntitySet="Reporte" />
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
           </AssociationSet>
           <AssociationSet Name="idResultadoAnalisis" Association="Self.idResultadoAnalisis">
-            <End Role="Resultado_analisis" EntitySet="Resultado_analisis" />
-            <End Role="Resultado_elemento" EntitySet="Resultado_elemento" />
-          </AssociationSet>
-          <EntitySet Name="Analisis" EntityType="AGRONOMICOSDBModel.Analisis" />
-          <EntitySet Name="Categorias" EntityType="AGRONOMICOSDBModel.Categorias" />
-          <AssociationSet Name="FK__Analisis__id_Cat__1CF15040" Association="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040">
-            <End Role="Categorias" EntitySet="Categorias" />
-            <End Role="Analisis" EntitySet="Analisis" />
-          </AssociationSet>
-          <AssociationSet Name="IdAnalisi" Association="AGRONOMICOSDBModel.IdAnalisi">
-            <End Role="Analisis" EntitySet="Analisis" />
-            <End Role="Muestra_analisis" EntitySet="Muestra_analisis" />
+            <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
+            <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Analisis">
-          <Key>
-            <PropertyRef Name="IdAnalisis" />
-          </Key>
-          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="id_Categoria" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UsuarioActualizacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Categorias" Relationship="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040" FromRole="Analisis" ToRole="Categorias" />
-          <NavigationProperty Name="Muestra_analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Analisis" ToRole="Muestra_analisis" />
-        </EntityType>
-        <EntityType Name="Categorias">
-          <Key>
-            <PropertyRef Name="idCategoria" />
-          </Key>
-          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK__Analisis__id_Cat__1CF15040" FromRole="Categorias" ToRole="Analisis" />
-        </EntityType>
-        <Association Name="FK__Analisis__id_Cat__1CF15040">
-          <End Type="AGRONOMICOSDBModel.Categorias" Role="Categorias" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categorias">
-              <PropertyRef Name="idCategoria" />
-            </Principal>
-            <Dependent Role="Analisis">
-              <PropertyRef Name="id_Categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="IdAnalisi">
-          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Muestra_analisis" Role="Muestra_analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Analisis">
-              <PropertyRef Name="IdAnalisis" />
-            </Principal>
-            <Dependent Role="Muestra_analisis">
-              <PropertyRef Name="IdAnalisis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AGRONOMICOSDBModelStoreContainer" CdmEntityContainer="AGRONOMICOSDBEntities">
+          <EntitySetMapping Name="Analisis">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis">
+              <MappingFragment StoreEntitySet="Analisis">
+                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Analisis_Dato">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis_Dato">
+              <MappingFragment StoreEntitySet="Analisis_Dato">
+                <ScalarProperty Name="IdAnalisisDato" ColumnName="IdAnalisisDato" />
+                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
+                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dato">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Dato">
+              <MappingFragment StoreEntitySet="Dato">
+                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Factura">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Factura">
               <MappingFragment StoreEntitySet="Factura">
                 <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -642,21 +754,17 @@
               <MappingFragment StoreEntitySet="Muestra">
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Campo" ColumnName="Campo" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
                 <ScalarProperty Name="Provincia" ColumnName="Provincia" />
                 <ScalarProperty Name="Canton" ColumnName="Canton" />
                 <ScalarProperty Name="Distrito" ColumnName="Distrito" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="UsuarioCracion" ColumnName="UsuarioCracion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Muestra_analisis">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra_analisis">
-              <MappingFragment StoreEntitySet="Muestra_analisis">
+          <EntitySetMapping Name="Muestra_Analisis">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra_Analisis">
+              <MappingFragment StoreEntitySet="Muestra_Analisis">
                 <ScalarProperty Name="IdMuestraAnalisis" ColumnName="IdMuestraAnalisis" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
@@ -664,10 +772,6 @@
                 <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
                 <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -680,12 +784,8 @@
                 <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
                 <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
@@ -705,53 +805,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Resultado_analisis">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_analisis">
-              <MappingFragment StoreEntitySet="Resultado_analisis">
+          <EntitySetMapping Name="Resultado_Analisis">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_Analisis">
+              <MappingFragment StoreEntitySet="Resultado_Analisis">
                 <ScalarProperty Name="IdResultadoAnalisis" ColumnName="IdResultadoAnalisis" />
                 <ScalarProperty Name="IdMuestraAnalisis" ColumnName="IdMuestraAnalisis" />
                 <ScalarProperty Name="IdReporte" ColumnName="IdReporte" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Resultado_elemento">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_elemento">
-              <MappingFragment StoreEntitySet="Resultado_elemento">
-                <ScalarProperty Name="IdResultadoElemento" ColumnName="IdResultadoElemento" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <EntitySetMapping Name="Resultado_Dato">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_Dato">
+              <MappingFragment StoreEntitySet="Resultado_Dato">
+                <ScalarProperty Name="IdResultadoDato" ColumnName="IdResultadoDato" />
+                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
                 <ScalarProperty Name="Resultado" ColumnName="Resultado" />
                 <ScalarProperty Name="IdResultadoAnalisis" ColumnName="IdResultadoAnalisis" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="FechaCracion" ColumnName="FechaCracion" />
-                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Analisis">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis">
-              <MappingFragment StoreEntitySet="Analisis">
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="UsuarioActualizacion" ColumnName="UsuarioActualizacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="id_Categoria" ColumnName="id_Categoria" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Categorias">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Categorias">
-              <MappingFragment StoreEntitySet="Categorias">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

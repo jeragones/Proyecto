@@ -25,14 +25,16 @@ namespace LAAG
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Analisis> Analisis { get; set; }
+        public DbSet<Analisis_Dato> Analisis_Dato { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Dato> Dato { get; set; }
         public DbSet<Factura> Factura { get; set; }
         public DbSet<Muestra> Muestra { get; set; }
-        public DbSet<Muestra_analisis> Muestra_analisis { get; set; }
+        public DbSet<Muestra_Analisis> Muestra_Analisis { get; set; }
         public DbSet<Persona> Persona { get; set; }
         public DbSet<Reporte> Reporte { get; set; }
-        public DbSet<Resultado_analisis> Resultado_analisis { get; set; }
-        public DbSet<Resultado_elemento> Resultado_elemento { get; set; }
-        public DbSet<Analisis> Analisis { get; set; }
-        public DbSet<Categorias> Categorias { get; set; }
+        public DbSet<Resultado_Analisis> Resultado_Analisis { get; set; }
+        public DbSet<Resultado_Dato> Resultado_Dato { get; set; }
     }
 }
