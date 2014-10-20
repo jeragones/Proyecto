@@ -57,20 +57,14 @@ $(document).ready(
 
         //Antes de ir a la acción Post del submit, se agregan los ingenieros y labs modificados
         $("#formCreateContract").submit(function (eventObj) {
-            var jsonDatosIngenieros = { "Ingenieros": ingenieros };
-            var jsonDatosLaboratorios = { "Laboratorios": laboratorios };
+            var jsonDatos = { "Datos": datos };
 
             // Json de los ingenieros que va a tener el contrato
             $('<input />').attr('type', 'hidden')
-                .attr('name', "jsonIng")
-                .attr('value', $.toJSON(jsonDatosIngenieros))
+                .attr('name', "jsonDatos")
+                .attr('value', JSON.stringify(jsonDatos))
                 .appendTo('#formCreateContract');
 
-            // Json de los laboratorios que va a tener el contrato
-            $('<input />').attr('type', 'hidden')
-                .attr('name', "jsonLab")
-                .attr('value', $.toJSON(jsonDatosLaboratorios))
-                .appendTo('#formCreateContract');
 
             return true;
         })

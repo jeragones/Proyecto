@@ -31,6 +31,19 @@ namespace LAAG.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Nombre");
+
+            var mquery = (from d in db.Dato
+                          select new SelectListItem
+                          {
+                              Value = d.IdDato.ToString(),
+                              Text = d.Nombre + " / " + d.unidadMedida
+                          }
+             );
+
+            ViewBag.Datos = new SelectList(db.Dato, "IdDato", "Nombre");
+
             return View(analisis);
         }
 
@@ -62,6 +75,17 @@ namespace LAAG.Controllers
             {
                 return HttpNotFound();
             }
+
+            var mquery = (from d in db.Dato
+                          select new SelectListItem
+                          {
+                              Value = d.IdDato.ToString(),
+                              Text = d.Nombre + " / " + d.unidadMedida
+                          }
+             );
+
+            ViewBag.Datos = new SelectList(db.Dato, "IdDato", "Nombre");
+
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Nombre", analisis.IdCategoria);
             return View(analisis);
         }

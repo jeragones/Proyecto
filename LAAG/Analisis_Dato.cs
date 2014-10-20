@@ -19,6 +19,5 @@ namespace LAAG
         public int IdDato { get; set; }
     
         public virtual Analisis Analisis { get; set; }
-        public virtual Dato Dato { get; set; }
     }
 }

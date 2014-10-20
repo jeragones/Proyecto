@@ -5,10 +5,9 @@
 }
 
 <h2>Agregar Análisis</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "formCreateContract", id = "formCreateContract" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
 
     <div class="container">
         <div class="row">

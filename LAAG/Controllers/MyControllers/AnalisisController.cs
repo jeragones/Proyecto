@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -58,12 +59,29 @@ namespace LAAG.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Analisis analisis)
+        public ActionResult Create([Bind(Exclude = "idAnalisis")]Analisis analisis,
+            [Bind(Include = "jsonDatos")] string jsonDatos)
         {
             if (ModelState.IsValid)
             {
+                //Obtener los laboratios
+                dynamic json = JsonConvert.DeserializeObject(jsonDatos);
+
                 db.Analisis.Add(analisis);
                 db.SaveChanges();
+                var idAnalisis = analisis.IdAnalisis;
+                foreach (var child in json.Datos.Children())
+                {
+                    //Creación del ingeniero-contrato.
+                    Analisis_Dato analisis_dato = new Analisis_Dato();
+                    analisis_dato.IdDato = child;
+                    //analisis_dato.Dato = db.Dato.Find((int)child);
+                    analisis_dato.IdAnalisis = analisis.IdAnalisis;
+                    //.Analisis = analisis;
+                    db.Analisis_Dato.Add(analisis_dato);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -95,6 +113,7 @@ namespace LAAG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Nombre", analisis.IdCategoria);
             return View(analisis);
         }

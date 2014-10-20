@@ -224,13 +224,13 @@
     <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
     <Compile Include="Controllers\MyControllers\DatosController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
-    <Compile Include="Filters\PersonaController.cs" />
     <Compile Include="Dato.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Factura.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\PersonaController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

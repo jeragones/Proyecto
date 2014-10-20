@@ -4,56 +4,90 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Analisis</legend>
+    <div class="form-horizontal">
+        <h4> </h4>
+        <hr />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdAnalisis)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IdAnalisis)
-            @Html.ValidationMessageFor(model => model.IdAnalisis)
-        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdAnalisis)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Nombre)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Nombre)
-            @Html.ValidationMessageFor(model => model.Nombre)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-1" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdCategoria, "Categoria")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdCategoria", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdCategoria)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Descripcion)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Descripcion)
-            @Html.ValidationMessageFor(model => model.Descripcion)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categoria, new { @class = "control-label col-md-1" })
+            <div class="col-md-10">
+                @Html.DropDownList("idCategoria", (IEnumerable<SelectListItem>)ViewBag.IdCategoria, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-1" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="step2" >
+
+            <div>
+                @Html.DropDownList("Datos", null, new { @class = "form-horizontal input-sm ", @id = "dllDatos" })
+                <input class="btn btn-primary" type="button" id="btnAgregarIngeniero" value="Agregar Dato" />
+                <br /><br />
+            </div>
+
+            <!-- Panel que contendrá la tabla dinámica de ingenieros -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Elementos del Análisis
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="tbIngenieros" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Unidad de Medida</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aqui se cargarán las filas dinámicamente con la información de los ingenieros -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+
+        </div>
+        <!--  FIN -->
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Atrás", "Index")
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

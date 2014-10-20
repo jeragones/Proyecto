@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "Análisis";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
 }
+
 
 <p>
     @Html.ActionLink("Agregar", "Create")
@@ -24,6 +26,9 @@
                             @Html.DisplayNameFor(model => model.Categoria)
                         </th>
                         <th>
+                            @Html.DisplayName("Datos")
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Descripcion)
                         </th>
                         <th>Acciones</th>
@@ -37,7 +42,14 @@
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Categoria)
+                                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+                            </td>
+                            <td>
+                                @foreach(var dato in item.Analisis_Dato){
+                                    LAAG.Dato data = db.Dato.Find(dato.IdDato);
+                                    String str = data.Nombre+"/ ";
+                                    @Html.DisplayFor(modelItem => str)
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Descripcion)
