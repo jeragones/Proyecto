@@ -1,0 +1,102 @@
+﻿@model LAAG.Analisis
+
+@{
+    ViewBag.Title = "Agregar Análisis";
+}
+
+<h2>Agregar Análisis</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="container">
+        <div class="row">
+            <form role="form">
+                <div class="col-lg-6">
+
+                    @Html.HiddenFor(model => model.IdAnalisis)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Nombre", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Categoria)
+                        <div class="input-group">
+                            @Html.DropDownList("idCategoria", (IEnumerable<SelectListItem>)ViewBag.IdCategoria, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Categoria)
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descripcion)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", placeholder = "Descripción", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="step2" style="min-height:377px">
+
+                        <div>
+                            @Html.DropDownList("Datos", null, new { @class = "form-horizontal input-sm", @id = "dllDatos" })
+                            <input class="btn btn-primary" type="button" id="btnAgregarIngeniero" value="Agregar Dato" />
+                            <br /><br />
+                        </div>
+
+                        <!-- Panel que contendrá la tabla dinámica de ingenieros -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Elementos del Análisis
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="tbIngenieros" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Unidad de Medida</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Aqui se cargarán las filas dinámicamente con la información de los ingenieros -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+                    </div>
+                    <!--  FIN -->
+
+
+                    <p>
+                        <input type="submit" value="Guardar" class="btn btn-primary pull-right" />
+                    </p>
+
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Atrás", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/custom/Analisis/MultiplesDatos.js"></script>
+}

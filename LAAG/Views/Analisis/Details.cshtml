@@ -1,0 +1,43 @@
+﻿@model LAAG.Analisis
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Analisis</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdAnalisis)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdAnalisis)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Categoria.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categoria.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descripcion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

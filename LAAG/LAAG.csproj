@@ -200,6 +200,8 @@
     <Compile Include="Analisis_Dato.cs">
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Annotations\AnalisisAnnotations.cs" />
+    <Compile Include="Annotations\DatoAnnotations.cs" />
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -212,12 +214,15 @@
       <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnalisisController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Code\MailService.cs" />
     <Compile Include="App_Code\CustomFunction.cs" />
+    <Compile Include="Controllers\MyControllers\AnalisisController.cs" />
     <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
+    <Compile Include="Controllers\MyControllers\DatosController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Filters\PersonaController.cs" />
     <Compile Include="Dato.cs">
@@ -329,6 +334,7 @@
     <Content Include="Images\sort_desc_disabled.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom\Analisis\MultiplesDatos.js" />
     <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -417,6 +423,12 @@
     <Content Include="Views\Datos\Edit.cshtml" />
     <Content Include="Views\Datos\Delete.cshtml" />
     <Content Include="Views\Datos\_ViewStart.cshtml" />
+    <Content Include="Views\Analisis\Index.cshtml" />
+    <Content Include="Views\Analisis\Details.cshtml" />
+    <Content Include="Views\Analisis\Create.cshtml" />
+    <Content Include="Views\Analisis\Edit.cshtml" />
+    <Content Include="Views\Analisis\Delete.cshtml" />
+    <Content Include="Views\Analisis\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

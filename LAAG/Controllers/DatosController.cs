@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace LAAG.Controllers
 {
-    public class DatosController : Controller
+    public partial class DatosController : Controller
     {
         private AGRONOMICOSDBEntities db = new AGRONOMICOSDBEntities();
 
@@ -41,23 +41,7 @@ namespace LAAG.Controllers
             return View();
         }
 
-        //
-        // POST: /Datos/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "IdDato")]Dato dato)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Dato.Add(dato);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(dato);
-        }
-
+       
         //
         // GET: /Datos/Edit/5
 
@@ -71,21 +55,6 @@ namespace LAAG.Controllers
             return View(dato);
         }
 
-        //
-        // POST: /Datos/Edit/5
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Dato dato)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(dato).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(dato);
-        }
 
         //
         // GET: /Datos/Delete/5
@@ -100,18 +69,6 @@ namespace LAAG.Controllers
             return View(dato);
         }
 
-        //
-        // POST: /Datos/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Dato dato = db.Dato.Find(id);
-            db.Dato.Remove(dato);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

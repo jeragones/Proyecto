@@ -1,7 +1,7 @@
-﻿@model IEnumerable<LAAG.Dato>
+﻿@model IEnumerable<LAAG.Analisis>
 
 @{
-    ViewBag.Title = "Datos";
+    ViewBag.Title = "Análisis";
 }
 
 <p>
@@ -14,14 +14,17 @@
     <!-- /.panel-heading -->
     <div class="panel-body">
         <div class="table-responsive">
-            <table id="tbDatos" class="order-column">
+            <table id="tbAnalisis" class="order-column">
                 <thead>
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.Nombre)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.unidadMedida)
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
                         </th>
                         <th>Acciones</th>
                     </tr>
@@ -34,12 +37,15 @@
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.unidadMedida)
+                                @Html.DisplayFor(modelItem => item.Categoria)
                             </td>
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.IdDato }) |
-                                @Html.ActionLink("Detalles", "Details", new { id = item.IdDato }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdDato })
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdAnalisis }) |
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdAnalisis }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdAnalisis })
                             </td>
                         </tr>
                     }
@@ -60,7 +66,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#tbDatos').dataTable({
+            $('#tbAnalisis').dataTable({
                 "language": {
                     "url": "/Scripts/plugins/dataTables/Spanish.txt"
                 }
