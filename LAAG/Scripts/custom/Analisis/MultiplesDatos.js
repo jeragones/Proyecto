@@ -9,7 +9,7 @@ $(document).ready(
     function () {
 
         // Función que permite agregar una fila con los detalles del ingeniero seleccionado en la sección Ingenieros del Wizard
-        $('#btnAgregarIngeniero').click(function () {
+        $('#btnAgregarDato').click(function () {
             var dd = document.getElementById('dllDatos')
             var _id = dd.options[dd.selectedIndex].value;
 
@@ -30,7 +30,7 @@ $(document).ready(
 
                     var fila = '<tr id=' + json.IdDato + '><td>' + json.Nombre + '</td> ';
                     fila += '<td>' + json.unidadMedida + '</td>';
-                    fila += '<td> <button class="remove btn btn-danger" onclick=" eliminarIngeniero(' + json.IdDato + ')">Quitar Dato</button> </td></tr>';
+                    fila += '<td> <button class="remove btn btn-danger" onclick=" eliminarDato(' + json.IdDato + ')">Quitar Dato</button> </td></tr>';
 
                     //Agrega el ingeniero a la tabla htlm
                     $('#tbIngenieros > tbody:last').append(fila);
@@ -50,10 +50,6 @@ $(document).ready(
             $(this).parents("tr").remove();
         }),
 
-        // Función que permite quitar una fila con los detalles del laboratorio seleccionado en la sección Laboratorios del Wizard
-        $(document).on("click", "#tbLaboratorios button.remove", function () {
-            $(this).parents("tr").remove();
-        }),
 
         //Antes de ir a la acción Post del submit, se agregan los ingenieros y labs modificados
         $("#formCreateContract").submit(function (eventObj) {
@@ -81,9 +77,6 @@ function eliminarIngeniero(_id) {
         },
         success: function (data) {
             var json = $.parseJSON(data);
-            //console.log("id ->" + _id);
-            //var index = ingenieros.indexOf(_id);
-            //console.log(index);
             for (var i = ingenieros.length - 1; i >= 0; i--) {
                 if (ingenieros[i] == _id) {
                     ingenieros.splice(i, 1);

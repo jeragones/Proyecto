@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
 }
 
 @using (Html.BeginForm())
@@ -65,6 +66,17 @@
                             </thead>
                             <tbody>
                                 <!-- Aqui se cargarán las filas dinámicamente con la información de los ingenieros -->
+                                    @foreach (var dato in Model.Analisis_Dato)
+                                    {
+                                        LAAG.Dato data = db.Dato.Find(dato.IdDato);
+                                        <tr id=@dato.IdDato>
+                                            <td>@data.Nombre</td> 
+                                            <td>@data.unidadMedida</td>
+                                            <td> 
+                                                <button class="remove btn btn-danger" onclick=" eliminarDato(@dato.IdDato)">Quitar Dato</button> 
+                                            </td>
+                                        </tr>
+                                    }
                             </tbody>
                         </table>
                     </div>

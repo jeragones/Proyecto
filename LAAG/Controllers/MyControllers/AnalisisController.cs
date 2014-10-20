@@ -31,22 +31,6 @@ namespace LAAG.Controllers
                 return HttpNotFound();
             }
 
-            // Se crea un objeto con las propiedades de ingeniero y persona
-            //var obj = new dato
-            //{
-            //    idPersona = ingeniero.idPersona,
-            //    persona = new persona
-            //    {
-            //        id = ingeniero.persona.id,
-            //        nombre = ingeniero.persona.nombre,
-            //        apellido1 = ingeniero.persona.apellido1,
-            //        apellido2 = ingeniero.persona.apellido2
-            //    },
-            //    rol = ingeniero.rol,
-            //    descripcion = ingeniero.descripcion,
-            //    departamento = ingeniero.departamento
-            //};
-
             //Se procede a convertir a JSON el objeto recien creado
             var json = new JavaScriptSerializer().Serialize(dato);
 
