@@ -1,13 +1,29 @@
 ﻿var ingenieros = [];
 var datos = [];
+var ids = [];
 
 // Array que contendrá los id de los laboratorios del proyecto
 var laboratorios = [];
+document.getElementById('idCategoria').value = modelo
+
+function obtenerids() {
+    for (var i = 1; i < document.getElementById('tbIngenieros').rows.length; i++)
+    {
+        datos.push(parseInt(document.getElementById('tbIngenieros').rows[i].id))
+    }
+}
+
+function eliminarlos() {
+    for (var i = 0; i < datos.length; i++) {
+        $("#dllDatos option[value='" + datos[i] + "']").remove()
+    }
+}
 
 $(document).ready(
-
+    
     function () {
-
+        obtenerids(),
+    eliminarlos(),
         // Función que permite agregar una fila con los detalles del ingeniero seleccionado en la sección Ingenieros del Wizard
         $('#btnAgregarDato').click(function () {
             var dd = document.getElementById('dllDatos')
@@ -83,7 +99,7 @@ function eliminarDato(_id) {
                 }
             }
             // ingenieros.splice(ingenieros.indexOf(_id), 1);
-            $("<option value=" + json.IdDato + ">" + json.Nombre +  "</option>").appendTo("#dllDatos");
+            $("<option value=" + json.IdDato + ">" + json.Nombre + "</option>").appendTo("#dllDatos");
         },
         error: function (xhr, textStatus, errorThrown) {
             if (xhr.status == 400) {

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,7 +35,7 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dato).State = EntityState.Modified;
+                db.Entry(dato).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

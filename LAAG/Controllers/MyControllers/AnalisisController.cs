@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -69,14 +67,6 @@ namespace LAAG.Controllers
                 return RedirectToAction("Index");
             }
 
-            var mquery = (from d in db.Dato 
-                          select new SelectListItem
-                          {
-                              Value = d.IdDato.ToString(),
-                              Text = d.Nombre + " / " + d.unidadMedida
-                          }
-            );
-
             ViewBag.Datos = new SelectList(db.Dato, "IdDato", "Nombre");
 
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Nombre", analisis.IdCategoria);
@@ -89,11 +79,34 @@ namespace LAAG.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Analisis analisis)
+        public ActionResult Edit(Analisis analisis,
+            [Bind(Include = "jsonDatos")] string jsonDatos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(analisis).State = EntityState.Modified;
+
+                Analisis analisisEditar = db.Analisis.Find(analisis.IdAnalisis);
+                db.Entry(analisis).State = System.Data.Entity.EntityState.Modified;
+
+                //Obtener los datos
+                dynamic json = JsonConvert.DeserializeObject(jsonDatos);
+
+                //db.Entry(analisis).State = System.Data.Entity.EntityState.Modified;
+                var idAnalisis = analisis.IdAnalisis;
+
+                db.Analisis_Dato.RemoveRange(analisisEditar.Analisis_Dato);
+
+                foreach (var child in json.Datos.Children())
+                {
+                    //Creación del ingeniero-contrato.
+                    Analisis_Dato analisis_dato = new Analisis_Dato();
+                    analisis_dato.IdDato = child;
+                    //analisis_dato.Dato = db.Dato.Find((int)child);
+                    analisis_dato.IdAnalisis = analisis.IdAnalisis;
+                    //.Analisis = analisis;
+                    db.Analisis_Dato.Add(analisis_dato);
+                    db.SaveChanges();
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -11,8 +11,6 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using LAAG.Filters;
 using LAAG.Models;
-using System.Data;
-using System.Data.Entity;
 using LAAG.AuxFiles;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -155,7 +153,7 @@ namespace LAAG.Controllers
                         personaOld.Clave = password;
                         personaOld.PasswordChange = false;
 
-                        db.Entry(personaOld).State = EntityState.Modified;
+                        db.Entry(personaOld).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                         ModelState.AddModelError("success", "");
                         return RedirectToAction("Index", "Home");
@@ -196,7 +194,7 @@ namespace LAAG.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View("Details",  persona);
+                return View("Details", persona);
             }
         }
 
@@ -229,7 +227,7 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(persona).State = EntityState.Modified;
+                db.Entry(persona).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }

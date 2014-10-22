@@ -40,11 +40,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -62,9 +68,6 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -179,26 +182,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AGRONOMICOSDBEntity.Context.cs">
+    <Compile Include="AGRONOMICOSDBEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AGRONOMICOSDBEntity.Context.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="AGRONOMICOSDBEntity.cs">
+    <Compile Include="AGRONOMICOSDBEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="AGRONOMICOSDBEntity.Designer.cs">
+    <Compile Include="AGRONOMICOSDBEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AGRONOMICOSDBEntity.edmx</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Analisis.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Analisis_Dato.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Annotations\AnalisisAnnotations.cs" />
     <Compile Include="Annotations\DatoAnnotations.cs" />
@@ -211,7 +214,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuxFiles\AuxClass.cs" />
     <Compile Include="Categoria.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnalisisController.cs" />
@@ -225,10 +228,10 @@
     <Compile Include="Controllers\MyControllers\DatosController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Dato.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Factura.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Filters\PersonaController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -237,23 +240,23 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Muestra.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Muestra_Analisis.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporte.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Resultado_Analisis.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Resultado_Dato.cs">
-      <DependentUpon>AGRONOMICOSDBEntity.tt</DependentUpon>
+      <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -305,22 +308,22 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <EntityDeploy Include="AGRONOMICOSDBEntity.edmx">
+    <EntityDeploy Include="AGRONOMICOSDBEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AGRONOMICOSDBEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>AGRONOMICOSDBEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="AGRONOMICOSDBEntity.Context.tt">
+    <Content Include="AGRONOMICOSDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AGRONOMICOSDBEntity.edmx</DependentUpon>
-      <LastGenOutput>AGRONOMICOSDBEntity.Context.cs</LastGenOutput>
+      <DependentUpon>AGRONOMICOSDBEntities.edmx</DependentUpon>
+      <LastGenOutput>AGRONOMICOSDBEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="AGRONOMICOSDBEntity.edmx.diagram">
-      <DependentUpon>AGRONOMICOSDBEntity.edmx</DependentUpon>
+    <Content Include="AGRONOMICOSDBEntities.edmx.diagram">
+      <DependentUpon>AGRONOMICOSDBEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="AGRONOMICOSDBEntity.tt">
+    <Content Include="AGRONOMICOSDBEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AGRONOMICOSDBEntity.edmx</DependentUpon>
-      <LastGenOutput>AGRONOMICOSDBEntity.cs</LastGenOutput>
+      <DependentUpon>AGRONOMICOSDBEntities.edmx</DependentUpon>
+      <LastGenOutput>AGRONOMICOSDBEntities.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\LAAG.pubxml" />
     <Content Include="Images\imgBromatologic.png" />
@@ -334,6 +337,7 @@
     <Content Include="Images\sort_desc_disabled.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom\Analisis\EditarAnalisis.js" />
     <Content Include="Scripts\custom\Analisis\MultiplesDatos.js" />
     <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />

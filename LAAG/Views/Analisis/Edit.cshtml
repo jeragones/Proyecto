@@ -5,10 +5,14 @@
     LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "formCreateContract", id = "formCreateContract" }))
 {
     @Html.AntiForgeryToken()
-
+    
+    <script>
+        var modelo = @{@Html.Raw(Json.Encode(Model.Categoria.IdCategoria));}
+    </script>
+    
     <div class="form-horizontal">
         <h4> </h4>
         <hr />
@@ -44,7 +48,7 @@
 
             <div>
                 @Html.DropDownList("Datos", null, new { @class = "form-horizontal input-sm ", @id = "dllDatos" })
-                <input class="btn btn-primary" type="button" id="btnAgregarIngeniero" value="Agregar Dato" />
+                <input class="btn btn-primary" type="button" id="btnAgregarDato" value="Agregar Dato" />
                 <br /><br />
             </div>
 
@@ -103,4 +107,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/custom/Analisis/EditarAnalisis.js"></script>
 }
