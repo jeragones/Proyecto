@@ -4,40 +4,56 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+   
+
+
 
 <fieldset>
-    <legend>Analisis</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.IdAnalisis)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IdAnalisis)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Nombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Nombre)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Categoria.Nombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Categoria.Nombre)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Descripcion)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Descripcion)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 " >
+            <h2 >Detalles</h2>
+        
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              
+            </div>
+            <div class="panel-body">
+              
+                
+                <div class=" col-md-3 col-lg-12 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Nombre):</td>
+                        <td> @Html.DisplayFor(model => model.Nombre)</td>
+                      </tr>
+                       
+                      <tr>
+                        <td>Categoria:</td>
+                        <td>@Html.DisplayFor(model => model.Categoria.Nombre)</td>
+                      </tr>
+                      
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Descripcion):</td>
+                        <td>@Html.DisplayFor(model => model.Descripcion)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                  
+                </div>
+              </div>
+              <div class="panel-footer">
+                        
+                    </div>
+            </div>
+                 
+            
+         <p>
+    
+    @Html.ActionLink("Atrás", "Index")
 </p>
+        </div>
+    
+ </fieldset>   
