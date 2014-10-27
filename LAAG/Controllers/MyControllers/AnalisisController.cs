@@ -84,10 +84,7 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 Analisis analisisEditar = db.Analisis.Find(analisis.IdAnalisis);
-                db.Entry(analisis).State = System.Data.Entity.EntityState.Modified;
-
                 //Obtener los datos
                 dynamic json = JsonConvert.DeserializeObject(jsonDatos);
 
@@ -107,6 +104,15 @@ namespace LAAG.Controllers
                     db.Analisis_Dato.Add(analisis_dato);
                     db.SaveChanges();
                 }
+
+                analisisEditar.IdCategoria = analisis.IdCategoria;
+                analisisEditar.Descripcion = analisis.Descripcion;
+                analisisEditar.Nombre = analisis.Nombre;
+
+                db.Analisis.Attach(analisisEditar);
+                db.Entry(analisisEditar).State = System.Data.Entity.EntityState.Modified;
+
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
