@@ -108,6 +108,7 @@ namespace LAAG.Controllers
                 analisisEditar.IdCategoria = analisis.IdCategoria;
                 analisisEditar.Descripcion = analisis.Descripcion;
                 analisisEditar.Nombre = analisis.Nombre;
+                analisisEditar.Costo = analisis.Costo;
 
                 db.Analisis.Attach(analisisEditar);
                 db.Entry(analisisEditar).State = System.Data.Entity.EntityState.Modified;

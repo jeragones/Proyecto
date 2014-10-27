@@ -17,11 +17,13 @@ namespace LAAG
         public Categoria()
         {
             this.Analisis = new HashSet<Analisis>();
+            this.Analisis1 = new HashSet<Analisis>();
         }
     
         public int IdCategoria { get; set; }
         public string Nombre { get; set; }
     
         public virtual ICollection<Analisis> Analisis { get; set; }
+        public virtual ICollection<Analisis> Analisis1 { get; set; }
     }
 }

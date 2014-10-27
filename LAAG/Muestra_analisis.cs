@@ -21,7 +21,7 @@ namespace LAAG
     
         public int IdMuestraAnalisis { get; set; }
         public string Nombre { get; set; }
-        public int Costo { get; set; }
+        public decimal Costo { get; set; }
         public string Codigo { get; set; }
         public int IdFactura { get; set; }
         public int IdAnalisis { get; set; }

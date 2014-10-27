@@ -12,19 +12,18 @@ namespace LAAG
     using System;
     using System.Collections.Generic;
     
-    public partial class Factura
+    public partial class Provincia
     {
-        public Factura()
+        public Provincia()
         {
-            this.Muestra_Analisis = new HashSet<Muestra_Analisis>();
+            this.Canton = new HashSet<Canton>();
+            this.Muestra = new HashSet<Muestra>();
         }
     
-        public int IdFactura { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public decimal Costo { get; set; }
-        public int IdPersona { get; set; }
+        public int numeroProvincia { get; set; }
+        public string nombre { get; set; }
     
-        public virtual Persona Persona { get; set; }
-        public virtual ICollection<Muestra_Analisis> Muestra_Analisis { get; set; }
+        public virtual ICollection<Canton> Canton { get; set; }
+        public virtual ICollection<Muestra> Muestra { get; set; }
     }
 }
