@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
 }
 
    
@@ -38,6 +39,28 @@
                         <td>@Html.DisplayNameFor(model => model.Descripcion):</td>
                         <td>@Html.DisplayFor(model => model.Descripcion)</td>
                       </tr>
+
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Costo):</td>
+                        <td>@Html.DisplayFor(model => model.Costo)</td>
+                      </tr>
+
+
+                        <tr>
+                        <td>Datos:</td>
+                        <td>
+
+                             @foreach (var dato in Model.Analisis_Dato)
+                                            {
+                                                LAAG.Dato data = db.Dato.Find(dato.IdDato);
+                                                
+                                                   @data.Nombre
+                                                   <br>
+                                            }
+                        </td>
+                      </tr>
+
+
                     </tbody>
                   </table>
                   
