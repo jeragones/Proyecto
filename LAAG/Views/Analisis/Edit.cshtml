@@ -8,102 +8,110 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "formCreateContract", id = "formCreateContract" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <script>
         var modelo = @{@Html.Raw(Json.Encode(Model.Categoria.IdCategoria));}
     </script>
-    
-    <div class="form-horizontal">
-        <h4> </h4>
-        <hr />
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdAnalisis)
+    <div class="container">
+        <div class="row">
+            <form role="form">
+                <div class="col-lg-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-1" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdAnalisis)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Categoria, new { @class = "control-label col-md-1" })
-            <div class="col-md-10">
-                @Html.DropDownList("idCategoria", (IEnumerable<SelectListItem>)ViewBag.IdCategoria, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, new { @class = "control-label col-md-1" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Costo, new { @class = "control-label col-md-1" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Costo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group" id="step2" >
-
-            <div>
-                @Html.DropDownList("Datos", null, new { @class = "form-horizontal input-sm ", @id = "dllDatos" })
-                <input class="btn btn-primary" type="button" id="btnAgregarDato" value="Agregar Dato" />
-                <br /><br />
-            </div>
-
-            <!-- Panel que contendrá la tabla dinámica de ingenieros -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Elementos del Análisis
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table id="tbIngenieros" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Unidad de Medida</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Aqui se cargarán las filas dinámicamente con la información de los ingenieros -->
-                                    @foreach (var dato in Model.Analisis_Dato)
-                                    {
-                                        LAAG.Dato data = db.Dato.Find(dato.IdDato);
-                                        <tr id=@dato.IdDato>
-                                            <td>@data.Nombre</td> 
-                                            <td>@data.unidadMedida</td>
-                                            <td> 
-                                                <button class="remove btn btn-danger" onclick=" eliminarDato(@dato.IdDato)">Quitar Dato</button> 
-                                            </td>
-                                        </tr>
-                                    }
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            <span class="input-group-addon"></span>  
+                        </div>
                     </div>
-                    <!-- /.table-responsive -->
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Categoria)
+                        <div class="input-group">
+                            @Html.DropDownList("idCategoria", (IEnumerable<SelectListItem>)ViewBag.IdCategoria, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descripcion)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Costo)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Costo, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
+                            <span class="input-group-addon"></span>  
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="step2">
+
+                        <div>
+                            @Html.DropDownList("Datos", null, new { @class = "form-horizontal input-sm ", @id = "dllDatos" })
+                            <input class="btn btn-primary" type="button" id="btnAgregarDato" value="Agregar Dato" />
+                            <br /><br />
+                        </div>
+
+                        <!-- Panel que contendrá la tabla dinámica de ingenieros -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Elementos del Análisis
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="tbIngenieros" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Unidad de Medida</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Aqui se cargarán las filas dinámicamente con la información de los ingenieros -->
+                                            @foreach (var dato in Model.Analisis_Dato)
+                                            {
+                                                LAAG.Dato data = db.Dato.Find(dato.IdDato);
+                                                <tr id=@dato.IdDato>
+                                                    <td>@data.Nombre</td>
+                                                    <td>@data.unidadMedida</td>
+                                                    <td>
+                                                        <button class="remove btn btn-danger" onclick=" eliminardato(@dato.IdDato)">Quitar Dato</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+                    </div>
+                    <!--  FIN -->
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                        </div>
+                    </div>
                 </div>
-                <!-- /.panel-body -->
-            </div>
-
-        </div>
-        <!--  FIN -->
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            </div>
+            </form>
         </div>
     </div>
 }
