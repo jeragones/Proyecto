@@ -219,7 +219,7 @@ $(document).ready(function () {
     $("#formCreateCost").submit(function (eventObj) {
         var muestra = { nombre: $(".cmbName").val(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };
         var jsonDatos = { "id": lstAnalysis, "muestra": muestra };
-
+        alert(jsonDatos.id[0]);
         // Json de los ingenieros que va a tener el contrato
         $('<input />').attr('type', 'hidden')
             .attr('name', "jsonDatos")

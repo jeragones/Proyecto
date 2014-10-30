@@ -335,7 +335,8 @@ namespace LAAG.Controllers
 
              //Obtener los laboratios
             dynamic json = JsonConvert.DeserializeObject(jsonDatos);
-            Analisis analisis = db.Analisis.Find((List<Object>)json.id[0]);
+            Object tmpe = json.id[0];
+            Analisis analisis = db.Analisis.Find(json.id[0]);
 
             Object categoria = from row in db.Categoria
                             where row.IdCategoria == analisis.IdCategoria
