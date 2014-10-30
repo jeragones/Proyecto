@@ -1,42 +1,48 @@
 ﻿@model LAAG.Facturas
 
-    <fieldset>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre)
-            @Html.DropDownListFor(model => model.Nombre, new SelectList(new List<String> { }), new { @class = "cmbName form-control" })
-            @Html.ValidationMessageFor(model => model.Nombre)
-        </div>
+<fieldset>
+    <div class="container">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-0 toppad" >
+            <div class="row">
+                <div class="col-xs-10 text-left">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.DropDownListFor(model => model.Nombre, new SelectList(new List<String> { }), new { @class = "cmbName form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Provincia)
+                        @Html.DropDownListFor(model => model.Provincia, new SelectList(new List<String> { }), new { @class = "cmbProvince form-control" })
+                        @Html.ValidationMessageFor(model => model.Provincia)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Canton)
+                        @Html.DropDownListFor(model => model.Canton, new SelectList(new List<String> { }), new { @class = "cmbCanton form-control" })
+                        @Html.ValidationMessageFor(model => model.Canton)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Distrito)
+                        @Html.DropDownListFor(model => model.Distrito, new SelectList(new List<String> { }), new { @class = "cmbDistrict form-control" })
+                        @Html.ValidationMessageFor(model => model.Distrito)
+                    </div>
+                    <div class="form-group">    
+                        @Html.LabelFor(model => model.Direccion)
+                        @Html.TextAreaFor(model => model.Direccion, new { @class = "txtAddress form-control" })
+                        @Html.ValidationMessageFor(model => model.Direccion)
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="btnNext" class="btn btn-primary pull-right" value="Siguiente" />
+                    </div>
 
-        <div class="row">
-            <div class="col-xs-6 text-left">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Provincia)
-                    @Html.DropDownListFor(model => model.Provincia, new SelectList(new List<String> { }), new { @class = "cmbProvince form-control" })
-                    @Html.ValidationMessageFor(model => model.Provincia)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Canton)
-                    @Html.DropDownListFor(model => model.Canton, new SelectList(new List<String> { }), new { @class = "cmbCanton form-control" })
-                    @Html.ValidationMessageFor(model => model.Canton)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Distrito)
-                    @Html.DropDownListFor(model => model.Distrito, new SelectList(new List<String> { }), new { @class = "cmbDistrict form-control" })
-                    @Html.ValidationMessageFor(model => model.Distrito)
                 </div>
             </div>
-        </div>
-        <div class="form-group">    
-            @Html.LabelFor(model => model.Direccion)
-            @Html.TextAreaFor(model => model.Direccion, new { @class = "txtAddress form-control" })
-            @Html.ValidationMessageFor(model => model.Direccion)
-        </div>
-        <br />
-        <div class="text-right">
-            <div class="form-group">
-                <input type="button" id="btnNext" class="btn btn-primary pull-right" value="Siguiente" />
+            
+            <br />
+            <div class="text-right">
+                
             </div>
         </div>
+    </div>
 </fieldset>
 
 
