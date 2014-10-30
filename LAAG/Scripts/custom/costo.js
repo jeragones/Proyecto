@@ -50,7 +50,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             var json = $.parseJSON(data);
-            $(".cmbNombre").append("<option value='0'></option>");
+            $(".cmbName").append("<option value='0'></option>");
             jQuery.each(json, function (val, i) {
                 $(".cmbName").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
             });
@@ -191,7 +191,7 @@ $(document).ready(function () {
             success: function (data) {
                 var json = $.parseJSON(data);
                 lstAnalysis.push(json[0].id);
-
+                
                 var fila = '<tr id=' + json[0].id + '>' +
                                '<td class="tdCod" value="' + json[0].id + '">' + json[0].codigo + '</td> ' +
                                '<td class="tdNom">' + json[0].Nombre + '</td> ' +
@@ -202,7 +202,7 @@ $(document).ready(function () {
 
                 //Agrega el analisis a la tabla
                 $('#tblAnalisis').append(fila);
-
+                $(".lblCost").val(parseInt($(".lblCost").val()) + parseInt(json[0].Costo));
                 //Elimina el analisis del dropdownlist
                 $(".cmbAnalysis option:selected").remove();
             },
@@ -217,17 +217,13 @@ $(document).ready(function () {
     }
 
     $("#formCreateCost").submit(function (eventObj) {
-        var muestra = { nombre: $(".cmbName").val(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };
+        var muestra = { id: $(".cmbName").val(), nombre: $(".cmbName option:selected").text(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };
         var jsonDatos = { "id": lstAnalysis, "muestra": muestra };
-        alert(jsonDatos.id[0]);
         // Json de los ingenieros que va a tener el contrato
         $('<input />').attr('type', 'hidden')
             .attr('name', "jsonDatos")
             .attr('value', JSON.stringify(jsonDatos))
             .appendTo('#formCreateCost');
-
-
         return true;
     });
-
 });

@@ -215,20 +215,23 @@ namespace LAAG.Controllers
             String codigo = "";
             DateTime dt = DateTime.Now;
             String[] temp = categoria.Split(' ');
-            int num = Convert.ToInt32(idCategoria);
+            int num = 1;
 
-            num = (from t1 in db.Analisis
-                          join t2 in db.Muestra_Analisis
-                          on t1.IdAnalisis equals t2.IdAnalisis
-                          where t1.IdCategoria == num
-                          select t2).Count();
+            var consult = from row in db.Muestra
+                          select row;
 
             for (int i = 0; i < temp.Length; i++)
             {
                 codigo += temp[i][0];
             }
 
-            codigo += '-' + dt.Year.ToString() + '-' + (num + 1).ToString();
+            foreach (var item in consult)
+            {
+                if (codigo.Equals(item.Codigo.Split('-')[0]))
+                    num++;
+            }
+
+            codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
             
             num = Convert.ToInt32(id);
 
@@ -292,35 +295,6 @@ namespace LAAG.Controllers
         }
 
         //
-        // POST: /Costo/agregar
-        //[HttpPost]
-        /*public ActionResult Agregar(String cos, String cat)
-        {
-            String codigo = "";
-            var consult = db.Muestras.ToList();
-            DateTime dt = DateTime.Now;
-            String[] temp = cat.Split(' ');
-            //String[] canton = can.Split('_');
-            Object sample;
-
-            for (int i = 0; i < temp.Length; i++) 
-            {
-                codigo += temp[i][0];
-            }
-
-            codigo += '-'+dt.Year.ToString()+'-';
-            
-            sample = new { id = codigo, cost = cos };
-
-            //Se procede a convertir a JSON el objeto recien creado
-            var json = new JavaScriptSerializer().Serialize(sample);
-
-            //Se retorna el JSON
-            return Json(json, JsonRequestBehavior.AllowGet);
-        }
-        */
-
-        //
         // POST: /Costo/guardar
         [HttpPost]
         public ActionResult Create([Bind(Include = "jsonDatos")] string jsonDatos)
@@ -331,80 +305,76 @@ namespace LAAG.Controllers
             Muestra_Analisis muestraAnalisis = new Muestra_Analisis();
             
             String codigo = "";
+            Decimal costo = 0;
             DateTime dt = DateTime.Now;
 
              //Obtener los laboratios
             dynamic json = JsonConvert.DeserializeObject(jsonDatos);
-            Object tmpe = json.id[0];
-            Analisis analisis = db.Analisis.Find(json.id[0]);
+            Analisis analisis = db.Analisis.Find(Convert.ToInt32(json.id[0].ToString()));
 
-            Object categoria = from row in db.Categoria
-                            where row.IdCategoria == analisis.IdCategoria
-                            select row;
+            Categoria categoria = db.Categoria.Find(analisis.IdCategoria);
 
-            int num = (from t1 in db.Analisis
-                   join t2 in db.Muestra_Analisis
-                   on t1.IdAnalisis equals t2.IdAnalisis
-                   where t1.IdCategoria == ((Categoria)categoria).IdCategoria
-                   select t2).Count();
+            var consult = from row in db.Muestra
+                          select row;
+
+            int num = 1;
             
-            String[] temp = ((Categoria)categoria).Nombre.Split(' ');
+            String[] temp = categoria.Nombre.Split(' ');
 
             for (int i = 0; i < temp.Length; i++)
             {
                 codigo += temp[i][0];
             }
 
-            codigo += '-' + dt.Year.ToString() + '-' + (num + 1).ToString();
+            foreach (var item in consult)
+            {
+                if (codigo.Equals(item.Codigo.Split('-')[0]))
+                    num++;
+            }
 
-            /*
-            // creacion de la factura
-            factura.IdPersona = Convert.ToInt32(idPer);
-            factura.Fecha = DateTime.Today;
-            factura.Costo = Convert.ToInt32(cos);
-            db.Facturas.Add(factura);
-            db.SaveChanges();
-            */
+            codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
+           
             // creacion de la muestra
             String[] tmp = (json.muestra.canton).ToString().Split('_');
-            muestra.Codigo = " ";
+            muestra.Codigo = codigo;
             muestra.Campo = json.muestra.campo;
-            muestra.IdPersona = json.muestra.nombre;
+            muestra.IdPersona = json.muestra.id;
             muestra.Provincia = json.muestra.provincia;
             muestra.Canton = Convert.ToInt32(tmp[0]);
             muestra.Distrito = json.muestra.distrito;
             muestra.Direccion = json.muestra.direccion;
             db.Muestra.Add(muestra);
             db.SaveChanges();
-            /*
-            // creacion de la muestra_analisis
-            muestraAnalisis.Nombre = " ";
-            muestraAnalisis.Costo = 0;
-            muestraAnalisis.Codigo = cod;
-            muestraAnalisis.IdFactura = 0; // buscar el id de la factura
-            muestraAnalisis.IdAnalisis = Convert.ToInt32(idAna);
-            muestraAnalisis.Estado = 0;
-            */
-            return null;
-            
-            /*
-            DateTime today = DateTime.Today;
-            Persona persona = db.Personas.Find(factura.Nombre);
-            factura.IdPersona = persona.ID_Persona;
-            factura.Fecha = today;
-            db.Facturas.Add(factura);
+
+            Analisis tmpAnalisis;
+            foreach (var item in json.id)
+            {
+                tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
+                costo += tmpAnalisis.Costo;
+            }
+
+            // creacion de la factura
+            factura.IdPersona = json.muestra.id;
+            factura.Fecha = DateTime.Today;
+            factura.Costo = costo;
+            db.Factura.Add(factura);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            // creacion de un analisis para la muestra
+            foreach (var item in json.id)
+            {
+                tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
+                muestraAnalisis.Nombre = json.muestra.nombre;
+                muestraAnalisis.Costo = tmpAnalisis.Costo;
+                muestraAnalisis.Codigo = codigo;
+                muestraAnalisis.IdFactura = db.Factura.Max(f => f.IdFactura);
+                muestraAnalisis.IdAnalisis = Convert.ToInt32(item.ToString());
+                muestraAnalisis.Estado = 0;
+                db.Muestra_Analisis.Add(muestraAnalisis);
+                db.SaveChanges();
+            }
             
-
-            ViewBag.IdPersona = new SelectList(db.Personas, "ID_Persona", "Nombre", factura.IdPersona);
-            return View(factura);*/
-
-            //Se procede a convertir a JSON el objeto recien creado
-            //var json = new JavaScriptSerializer().Serialize(new { });
-
-            //Se retorna el JSON
-            //return Json(json, JsonRequestBehavior.AllowGet);
+            return null;
         }
 
         //

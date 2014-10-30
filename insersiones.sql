@@ -18,9 +18,9 @@ INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Humedad M
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Materia Orgánica', 1500, 2, 'desc')
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Químico Completo', 1500, 2, 'desc')
 
-insert into Persona values('Jorge','Rojas','Aragonés','jeragones@gmail.com','12345','86758925','24601913',0,1,'jeragones',1)
-insert into Persona values('Dany Sadrac','Luna','Baez','lunasadrac@gmail.com','12345','88979045','86889423',0,1,'lunas',1)
-insert into Persona values('Jose Daniel','Berrocal','Ramírez','jdbr1992@gmail.com','12345','89562314','24628914',0,1,'jdberrocal1',1)
+insert into Persona values('Jorge','Rojas','Aragonés','jeragones@gmail.com','12345','86758925','24601913',0,2,'jeragones',1)
+insert into Persona values('Dany Sadrac','Luna','Baez','lunasadrac@gmail.com','12345','88979045','86889423',0,2,'lunas',1)
+insert into Persona values('Jose Daniel','Berrocal','Ramírez','jdbr1992@gmail.com','12345','89562314','24628914',0,2,'jdberrocal1',1)
 insert into Persona values('Nixon Steven','Espinoza','Matamoros','nspinozam@gmail.com','12345','88956325','88952345',0,1,'nspinozam',1)
 insert into Persona values('SUADMIN','SUADMIN','SUADMIN','SUADMIN@gmail.com','suadmin','88888888','88888888',0,0,'SUADMIN',1)
 
