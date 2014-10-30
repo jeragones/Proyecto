@@ -4,19 +4,20 @@
     ViewBag.Title = "Delete";
 }
 
-<h3>Realmente desea eliminar la categoría:@Model.Nombre?</h3>
-<fieldset>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Nombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Nombre)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
+<div class="container">
+    <h3>Realmente desea eliminar la categoría: @Model.Nombre?</h3>
+    @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
         <input type="submit" value="Delete" class="btn btn-danger"/> |
-        @Html.ActionLink("Atrás", "Index")
+                @Html.ActionLink("Atras", "Index")
+        
     </p>
 }
+
+</div>
+
+
+    
+
+
