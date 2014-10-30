@@ -1,0 +1,233 @@
+﻿
+var lstAnalysis = [];
+var costo = 0;
+
+function cost(element) {
+    if (element.checked) {
+        $.ajax({
+            url: '/costo/precio',
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $(element).val(),
+                cost: $(".lblCost").val(),
+                op: "true"
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $(".lblCost").val(json);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    } else {
+        $.ajax({
+            url: '/costo/precio',
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $(element).val(),
+                cost: $(".lblCost").val(),
+                op: "false"
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $(".lblCost").val(json);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+
+    $.ajax({
+        url: '/costo/clientes',
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var json = $.parseJSON(data);
+            $(".cmbNombre").append("<option value='0'></option>");
+            jQuery.each(json, function (val, i) {
+                $(".cmbName").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+
+    $.ajax({
+        url: '/costo/provincia',
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var json = $.parseJSON(data);
+            $(".cmbProvince").append("<option value='0'></option>");
+            jQuery.each(json, function (val, i) {
+                $(".cmbProvince").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+
+    $.ajax({
+        url: '/costo/categorias',
+        type: "GET",
+        dataType: "json"
+    }).success(function (data) {
+        var json = $.parseJSON(data);
+        $(".cmbCategory").append("<option value='0'></option>");
+        jQuery.each(json, function (val, i) {
+            $(".cmbCategory").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
+        });
+    }).error(function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+    });
+
+    $(".lblCost").val("0.0");
+    $("#step-2").hide();
+
+    $("#btnNext").click(function () {
+        var percent = 50;
+        $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+        $("#step-2").show();
+        $("#step-1").hide();
+    });
+
+    $("#btnBack").click(function () {
+        var percent = 0;
+        $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+        $("#step-1").show();
+        $("#step-2").hide();
+    });
+
+    $(".cmbProvince").change(function () {
+        $.ajax({
+            url: '/costo/canton',
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $(".cmbCanton").empty();
+                $(".cmbCanton").append("<option value='0'></option>");
+                jQuery.each(json, function (val, i) {
+                    $(".cmbCanton").append("<option value='" + i.idCanton + "_" + i.idProvince + "'>" + i.nombre + "</option>");
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+
+    $(".cmbCanton").change(function () {
+        var id = $(this).val().split("_");
+        $.ajax({
+            url: '/costo/distrito',
+            type: "POST",
+            dataType: "json",
+            data: {
+                idCanton: id[0],
+                idProvince: id[1]
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $(".cmbDistrict").empty();
+                $(".cmbDistrict").append("<option value='0'></option>");
+                jQuery.each(json, function (val, i) {
+                    $(".cmbDistrict").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+
+    $(".cmbCategory").change(function () {
+        $('#tblAnalisis').empty();
+        lstAnalysis = [];
+        $(".lblCost").val("0");
+        $.ajax({
+            url: '/costo/categoria',
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $(".cmbAnalysis").empty();
+                $(".cmbAnalysis").append("<option value='0'></option>");
+                jQuery.each(json, function (val, i) {
+                    $(".cmbAnalysis").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+
+    $(".cmbAnalysis").change(function () {
+        $.ajax({
+            url: '/costo/analisis',
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $(this).val(),
+                idCategoria: $(".cmbCategory").val(),
+                categoria: $(".cmbCategory option:selected").text()
+            },
+            success: function (data) {
+                var json = $.parseJSON(data);
+                lstAnalysis.push(json[0].id);
+
+                var fila = '<tr id=' + json[0].id + '>' +
+                               '<td class="tdCod" value="' + json[0].id + '">' + json[0].codigo + '</td> ' +
+                               '<td class="tdNom">' + json[0].Nombre + '</td> ' +
+                               '<td class="tdCat">' + json[0].categoria + '</td>' +
+                               '<td class="tdCos">' + json[0].Costo + '</td>' +
+                               '<td> <button class="remove btn btn-danger" onclick=" eliminar(' + json[0].id + ')">Eliminar</button> </td>' +
+                           '</tr>';
+
+                //Agrega el analisis a la tabla
+                $('#tblAnalisis').append(fila);
+
+                //Elimina el analisis del dropdownlist
+                $(".cmbAnalysis option:selected").remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+
+    function eliminar(id) {
+        $("#" + id).parents("tr").remove();
+    }
+
+    $("#formCreateCost").submit(function (eventObj) {
+        var muestra = { nombre: $(".cmbName").val(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };
+        var jsonDatos = { "id": lstAnalysis, "muestra": muestra };
+
+        // Json de los ingenieros que va a tener el contrato
+        $('<input />').attr('type', 'hidden')
+            .attr('name', "jsonDatos")
+            .attr('value', JSON.stringify(jsonDatos))
+            .appendTo('#formCreateCost');
+
+
+        return true;
+    });
+
+});

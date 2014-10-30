@@ -204,6 +204,7 @@
       <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Annotations\AnalisisAnnotations.cs" />
+    <Compile Include="Annotations\CostoAnnotations.cs" />
     <Compile Include="Annotations\DatoAnnotations.cs" />
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
@@ -222,12 +223,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnalisisController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\CostoController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Code\MailService.cs" />
     <Compile Include="App_Code\CustomFunction.cs" />
     <Compile Include="Controllers\MyControllers\AnalisisController.cs" />
     <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
+    <Compile Include="Controllers\MyControllers\CostoController.cs" />
     <Compile Include="Controllers\MyControllers\DatosController.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Dato.cs">
@@ -348,6 +351,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom\Analisis\EditarAnalisis.js" />
     <Content Include="Scripts\custom\Analisis\MultiplesDatos.js" />
+    <Content Include="Scripts\custom\costo.js" />
     <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -442,6 +446,14 @@
     <Content Include="Views\Analisis\Edit.cshtml" />
     <Content Include="Views\Analisis\Delete.cshtml" />
     <Content Include="Views\Analisis\_ViewStart.cshtml" />
+    <Content Include="Views\Costo\Create.cshtml" />
+    <Content Include="Views\Costo\Delete.cshtml" />
+    <Content Include="Views\Costo\Details.cshtml" />
+    <Content Include="Views\Costo\Edit.cshtml" />
+    <Content Include="Views\Costo\Index.cshtml" />
+    <Content Include="Views\Costo\_CreateFormPartial1.cshtml" />
+    <Content Include="Views\Costo\_CreateFormPartial2.cshtml" />
+    <Content Include="Views\Costo\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
