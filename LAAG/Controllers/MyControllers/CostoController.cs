@@ -343,8 +343,8 @@ namespace LAAG.Controllers
             muestra.Canton = Convert.ToInt32(tmp[0]);
             muestra.Distrito = json.muestra.distrito;
             muestra.Direccion = json.muestra.direccion;
-            db.Muestra.Add(muestra);
-            db.SaveChanges();
+            //db.Muestra.Add(muestra);
+            //db.SaveChanges();
 
             Analisis tmpAnalisis;
             foreach (var item in json.id)
@@ -357,8 +357,8 @@ namespace LAAG.Controllers
             factura.IdPersona = json.muestra.id;
             factura.Fecha = DateTime.Today;
             factura.Costo = costo;
-            db.Factura.Add(factura);
-            db.SaveChanges();
+            //db.Factura.Add(factura);
+            //db.SaveChanges();
 
             // creacion de un analisis para la muestra
             foreach (var item in json.id)
@@ -370,8 +370,8 @@ namespace LAAG.Controllers
                 muestraAnalisis.IdFactura = db.Factura.Max(f => f.IdFactura);
                 muestraAnalisis.IdAnalisis = Convert.ToInt32(item.ToString());
                 muestraAnalisis.Estado = 0;
-                db.Muestra_Analisis.Add(muestraAnalisis);
-                db.SaveChanges();
+                //db.Muestra_Analisis.Add(muestraAnalisis);
+                //db.SaveChanges();
             }
             
             return null;

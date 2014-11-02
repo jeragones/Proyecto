@@ -155,6 +155,7 @@ $(document).ready(function () {
 
     $(".cmbCategory").change(function () {
         $('#tblAnalisis').empty();
+        $('#tblAnalisis').append('<tr><th>Código</th><th>Análisis</th><th>Categoría</th><th>Costo</th></tr>');
         lstAnalysis = [];
         $(".lblCost").val("0");
         $.ajax({
@@ -178,6 +179,11 @@ $(document).ready(function () {
         });
     });
 
+    function eliminar() {
+        alert("hola pavo");
+        //$("#" + id).parents("tr").remove();
+    }
+
     $(".cmbAnalysis").change(function () {
         $.ajax({
             url: '/costo/analisis',
@@ -197,7 +203,7 @@ $(document).ready(function () {
                                '<td class="tdNom">' + json[0].Nombre + '</td> ' +
                                '<td class="tdCat">' + json[0].categoria + '</td>' +
                                '<td class="tdCos">' + json[0].Costo + '</td>' +
-                               '<td> <button class="remove btn btn-danger" onclick=" eliminar(' + json[0].id + ')">Eliminar</button> </td>' +
+                               '<td> <button class="remove btn btn-danger" onclick="eliminar()">Eliminar</button> </td>' +
                            '</tr>';
 
                 //Agrega el analisis a la tabla
@@ -212,9 +218,7 @@ $(document).ready(function () {
         });
     });
 
-    function eliminar(id) {
-        $("#" + id).parents("tr").remove();
-    }
+    
 
     $("#formCreateCost").submit(function (eventObj) {
         var muestra = { id: $(".cmbName").val(), nombre: $(".cmbName option:selected").text(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };
