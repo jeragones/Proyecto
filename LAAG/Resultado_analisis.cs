@@ -25,7 +25,6 @@ namespace LAAG
         public byte Estado { get; set; }
     
         public virtual Muestra_Analisis Muestra_Analisis { get; set; }
-        public virtual Reporte Reporte { get; set; }
         public virtual ICollection<Resultado_Dato> Resultado_Dato { get; set; }
     }
 }

@@ -14,11 +14,6 @@ namespace LAAG
     
     public partial class Reporte
     {
-        public Reporte()
-        {
-            this.Resultado_Analisis = new HashSet<Resultado_Analisis>();
-        }
-    
         public int IdReporte { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Metodologia { get; set; }
@@ -27,6 +22,5 @@ namespace LAAG
         public int IdCliente { get; set; }
     
         public virtual Persona Persona { get; set; }
-        public virtual ICollection<Resultado_Analisis> Resultado_Analisis { get; set; }
     }
 }

@@ -16,8 +16,6 @@
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Muestra_Analisis" Width="1.5" PointX="5.25" PointY="7.75" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Persona" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Provincia" Width="1.5" PointX="0.75" PointY="3" />
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Reporte" Width="1.5" PointX="3" PointY="8.75" />
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Resultado_Analisis" Width="1.5" PointX="7.5" PointY="8.375" />
         <EntityTypeShape EntityType="AGRONOMICOSDBModel.Resultado_Dato" Width="1.5" PointX="9.75" PointY="8.5" />
         <AssociationConnector Association="AGRONOMICOSDBModel.FK__Analisis__IdCate__29572725" />
         <AssociationConnector Association="AGRONOMICOSDBModel.FK__Analisis__IdCate__36B12243" />
@@ -31,9 +29,10 @@
         <AssociationConnector Association="AGRONOMICOSDBModel.FK_Provincias" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idClienteMuestra" />
         <AssociationConnector Association="AGRONOMICOSDBModel.MuestraCodigo" />
+        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Reporte" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Resultado_Analisis" Width="1.5" PointX="7.5" PointY="8.25" />
         <AssociationConnector Association="AGRONOMICOSDBModel.IdMuestraAnalisis" />
         <AssociationConnector Association="AGRONOMICOSDBModel.IdCliente" />
-        <AssociationConnector Association="AGRONOMICOSDBModel.IdReporte" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idResultadoAnalisis" />
       </Diagram>
     </edmx:Diagrams>
