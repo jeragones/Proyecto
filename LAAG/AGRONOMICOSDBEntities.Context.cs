@@ -36,8 +36,8 @@ namespace LAAG
         public virtual DbSet<Muestra_Analisis> Muestra_Analisis { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
+        public virtual DbSet<Resultado_Dato> Resultado_Dato { get; set; }
         public virtual DbSet<Reporte> Reporte { get; set; }
         public virtual DbSet<Resultado_Analisis> Resultado_Analisis { get; set; }
-        public virtual DbSet<Resultado_Dato> Resultado_Dato { get; set; }
     }
 }
