@@ -20,8 +20,7 @@ namespace LAAG
         }
     
         public int ID_Canton { get; set; }
-        public int numeroCanton { get; set; }
-        public int numeroProvincia { get; set; }
+        public int ID_Provincia { get; set; }
         public string nombre { get; set; }
     
         public virtual ICollection<Distrito> Distrito { get; set; }

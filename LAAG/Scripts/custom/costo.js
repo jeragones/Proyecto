@@ -42,6 +42,26 @@ function cost(element) {
     }
 }
 
+function eliminar(id) {
+    $.ajax({
+        url: '/Costo/Agregar',
+        type: "GET",
+        dataType: "json",
+        data: {
+            id: id
+        },
+        success: function (data) {
+            var json = $.parseJSON(data);
+            $(".cmbAnalysis").append("<option value='" + json[0] + "'>" + json[1] + "</option>");
+            $('#tblAnalisis tr#' + id).remove();
+            $(".lblCost").val(parseInt($(".lblCost").val()) - parseInt(json[2]));
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    })
+}
+
 $(document).ready(function () {
 
     $.ajax({
@@ -90,7 +110,7 @@ $(document).ready(function () {
         alert(errorThrown);
     });
 
-    $(".lblCost").val("0.0");
+    $(".lblCost").val("0");
     $("#step-2").hide();
 
     $("#btnNext").click(function () {
@@ -117,10 +137,11 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var json = $.parseJSON(data);
+                alert(data);
                 $(".cmbCanton").empty();
                 $(".cmbCanton").append("<option value='0'></option>");
                 jQuery.each(json, function (val, i) {
-                    $(".cmbCanton").append("<option value='" + i.idCanton + "_" + i.idProvince + "'>" + i.nombre + "</option>");
+                    $(".cmbCanton").append("<option value='" + i.id + "'>" + i.nombre + "</option>");
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -130,17 +151,16 @@ $(document).ready(function () {
     });
 
     $(".cmbCanton").change(function () {
-        var id = $(this).val().split("_");
         $.ajax({
             url: '/costo/distrito',
             type: "POST",
             dataType: "json",
             data: {
-                idCanton: id[0],
-                idProvince: id[1]
+                id: $(this).val()
             },
             success: function (data) {
                 var json = $.parseJSON(data);
+                alert(data);
                 $(".cmbDistrict").empty();
                 $(".cmbDistrict").append("<option value='0'></option>");
                 jQuery.each(json, function (val, i) {
@@ -154,8 +174,7 @@ $(document).ready(function () {
     });
 
     $(".cmbCategory").change(function () {
-        $('#tblAnalisis').empty();
-        $('#tblAnalisis').append('<tr><th>Código</th><th>Análisis</th><th>Categoría</th><th>Costo</th></tr>');
+        $('#tblBody').empty();
         lstAnalysis = [];
         $(".lblCost").val("0");
         $.ajax({
@@ -179,11 +198,6 @@ $(document).ready(function () {
         });
     });
 
-    function eliminar() {
-        alert("hola pavo");
-        //$("#" + id).parents("tr").remove();
-    }
-
     $(".cmbAnalysis").change(function () {
         $.ajax({
             url: '/costo/analisis',
@@ -198,16 +212,17 @@ $(document).ready(function () {
                 var json = $.parseJSON(data);
                 lstAnalysis.push(json[0].id);
                 
-                var fila = '<tr id=' + json[0].id + '>' +
-                               '<td class="tdCod" value="' + json[0].id + '">' + json[0].codigo + '</td> ' +
-                               '<td class="tdNom">' + json[0].Nombre + '</td> ' +
-                               '<td class="tdCat">' + json[0].categoria + '</td>' +
-                               '<td class="tdCos">' + json[0].Costo + '</td>' +
-                               '<td> <button class="remove btn btn-danger" onclick="eliminar()">Eliminar</button> </td>' +
+                var fila = '<tr id="' + json[0].id + '">' +
+                               '<td>' + json[0].codigo + '</td> ' +
+                               '<td>' + json[0].Nombre + '</td> ' +
+                               '<td>' + json[0].categoria + '</td>' +
+                               '<td>' + json[0].Costo + '</td>' +
+                               '<td> <a class="remove btn btn-danger" onclick="eliminar(' + json[0].id + ')">Quitar</a> </td>' +
                            '</tr>';
-
+                
                 //Agrega el analisis a la tabla
-                $('#tblAnalisis').append(fila);
+                $('#tblBody:last').append(fila);
+                
                 $(".lblCost").val(parseInt($(".lblCost").val()) + parseInt(json[0].Costo));
                 //Elimina el analisis del dropdownlist
                 $(".cmbAnalysis option:selected").remove();
@@ -217,8 +232,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    
 
     $("#formCreateCost").submit(function (eventObj) {
         var muestra = { id: $(".cmbName").val(), nombre: $(".cmbName option:selected").text(), provincia: $(".cmbProvince").val(), canton: $(".cmbCanton").val(), distrito: $(".cmbDistrict").val(), direccion: $(".txtAddress").val(), campo: $(".txtField").val() };

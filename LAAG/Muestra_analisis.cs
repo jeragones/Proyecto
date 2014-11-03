@@ -27,9 +27,9 @@ namespace LAAG
         public int IdAnalisis { get; set; }
         public byte Estado { get; set; }
     
+        public virtual Muestra Muestra { get; set; }
         public virtual Analisis Analisis { get; set; }
         public virtual Factura Factura { get; set; }
-        public virtual Muestra Muestra { get; set; }
         public virtual ICollection<Resultado_Analisis> Resultado_Analisis { get; set; }
     }
 }

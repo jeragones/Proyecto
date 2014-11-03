@@ -10,28 +10,33 @@ namespace LAAG
 {
     public partial class Facturas
     {
+        [DisplayName("Código")]
+        public string Codigo { get; set; }
+
+        [Required]
         [DisplayName("Nombre")]
         public string Nombre { get; set; }
         
         [DisplayName("Costo")]
         public int Costo { get; set; }
-        
+
+        [Required]
         [DisplayName("Campo")]
         public string Campo { get; set; }
         
-        [DisplayName("Provincias")]
+        [DisplayName("Provincia")]
         public int Provincia { get; set; }
         
-        [DisplayName("Cantones")]
+        [DisplayName("Cantón")]
         public int Canton { get; set; }
         
-        [DisplayName("Distritos")]
+        [DisplayName("Distrito")]
         public int Distrito { get; set; }
         
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
         
-        [DisplayName("Categorías")]
+        [DisplayName("Categoría")]
         public int Categoria { get; set; }
 
         [DisplayName("Análisis")]

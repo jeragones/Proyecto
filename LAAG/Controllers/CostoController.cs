@@ -17,9 +17,29 @@ namespace LAAG.Controllers
 
         public ActionResult Index()
         {
-            var factura = db.Factura.Include(f => f.IdPersona);
-            //return View(factura.ToList());
-            return View();
+            List<Facturas> factura = new List<Facturas>();
+            var muestra = db.Muestra.ToList();
+            
+            foreach (var item in muestra)
+            {
+                Facturas fact = new Facturas();
+                Persona persona = db.Persona.Find(item.IdPersona);
+                fact.Codigo = item.Codigo;
+                fact.Campo = item.Campo;
+                fact.Nombre = persona.Nombre + " " + persona.Apellido1 + " " + persona.Apellido2;
+                var muestAnal = from row in db.Muestra_Analisis
+                                         where row.Codigo == item.Codigo
+                                         select new { row.IdFactura };
+                int id = 1; 
+                foreach (var x in muestAnal) {
+                    id = x.IdFactura;
+                    break;
+                }
+                
+                fact.Costo = (int)db.Factura.Find(id).Costo;
+                factura.Add(fact);
+            }
+            return View(factura);
         }
 
         //
@@ -62,14 +82,40 @@ namespace LAAG.Controllers
         //
         // GET: /Costo/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(String id)
         {
-            Factura factura = db.Factura.Find(id);
-            if (factura == null)
+            Facturas fact = new Facturas();
+            List<Analisis> analisis = new List<Analisis>();
+            int idFact = 0;
+            var muestra = from row in db.Muestra
+                             where row.Codigo == id
+                             select row;
+            
+            foreach (var item in muestra)
             {
-                return HttpNotFound();
+                Persona persona = db.Persona.Find(item.IdPersona);
+                fact.Codigo = item.Codigo;
+                fact.Campo = item.Campo;
+                fact.Nombre = persona.Nombre + " " + persona.Apellido1 + " " + persona.Apellido2;
+                ViewBag.Provincia = db.Provincia.Find(item.Provincia).nombre;
+                
+                ViewBag.Canton = db.Canton.Find(item.Canton).nombre;
+                ViewBag.Distrito = db.Distrito.Find(item.Distrito).nombre;
+                fact.Direccion = fact.Direccion;
+                var muestAnal = from row in db.Muestra_Analisis
+                                where row.Codigo == item.Codigo
+                                select row;
+                foreach(var element in muestAnal) 
+                {
+                    analisis.Add(db.Analisis.Find(element.IdAnalisis));
+                    idFact = element.IdFactura;
+                }
+                fact.Costo = (int)db.Factura.Find(idFact).Costo;
+                ViewBag.categoria = analisis[0].IdCategoria;
             }
-            return View(factura);
+            ViewBag.analisis = analisis;
+            
+            return View(fact);
         }
 
         protected override void Dispose(bool disposing)

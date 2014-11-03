@@ -16,7 +16,7 @@ namespace LAAG.Controllers
 {
     public partial class CostoController : Controller
     {        
-        //
+        // 
         // GET: /Costo/clientes
         public ActionResult Clientes()
         {
@@ -88,7 +88,7 @@ namespace LAAG.Controllers
             {
                 foreach (var item in consult)
                 {
-                    provinces.Add(new { id = item.numeroProvincia, nombre = item.nombre });
+                    provinces.Add(new { id = item.ID_Provincia, nombre = item.nombre });
                 }
             }
 
@@ -102,72 +102,36 @@ namespace LAAG.Controllers
         //
         // POST: /Costo/canton
         //[HttpPost]
-        public ActionResult Canton(String id)
+        public ActionResult Canton(int id)
         {
-            var consult = db.Canton.ToList();
-            List<Object> cantons = new List<Object>();
+            List<Object> listCantons = new List<Object>();
+            ICollection<Canton> cantons = db.Provincia.Find(id).Canton;
 
-            if (id == null)
+            foreach (var item in cantons) 
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            else 
-            {
-                if (consult == null)
-                {
-                    //Si no se encuetra una coincidencia se retorna un NotFound
-                    return HttpNotFound();
-                }
-                else 
-                {
-                    foreach (var item in consult)
-                    {
-                        if (item.numeroProvincia == Convert.ToInt32(id))
-                            cantons.Add(new { idCanton = item.numeroCanton, idProvince = item.numeroProvincia, nombre = item.nombre });
-                    }
-                }
+                listCantons.Add(new { id = item.ID_Canton, nombre = item.nombre });
             }
 
-            //Se procede a convertir a JSON el objeto recien creado
-            var json = new JavaScriptSerializer().Serialize(cantons);
+            var json = new JavaScriptSerializer().Serialize(listCantons);
 
-            //Se retorna el JSON
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         //
         // POST: /Costo/distrito
         //[HttpPost]
-        public ActionResult Distrito(String idCanton, String idProvince)
+        public ActionResult Distrito(int id)
         {
-            var consult = db.Distrito.ToList();
-            List<Object> districts = new List<Object>();
+            List<Object> listDistricts = new List<Object>();
+            ICollection<Distrito> districts = db.Canton.Find(id).Distrito;
 
-            if (idCanton == null)
+            foreach (var item in districts)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            else 
-            {
-                if (consult == null)
-                {
-                    //Si no se encuetra una coincidencia se retorna un NotFound
-                    return HttpNotFound();
-                }
-                else
-                {
-                    foreach (var item in consult)
-                    {
-                        if (item.numeroProvincia == Convert.ToInt32(idProvince) && item.numeroCanton == Convert.ToInt32(idCanton))
-                            districts.Add(new { id = item.numeroDistrito, idCan = item.numeroCanton, nombre = item.nombre });
-                    }
-                }
+                listDistricts.Add(new { id = item.ID_Distrito, nombre = item.nombre });
             }
 
-            //Se procede a convertir a JSON el objeto recien creado
-            var json = new JavaScriptSerializer().Serialize(districts);
+            var json = new JavaScriptSerializer().Serialize(listDistricts);
 
-            //Se retorna el JSON
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
@@ -216,9 +180,10 @@ namespace LAAG.Controllers
             DateTime dt = DateTime.Now;
             String[] temp = categoria.Split(' ');
             int num = 1;
-
+            /*
             var consult = from row in db.Muestra
-                          select row;
+                          select row;*/
+            var consult = db.Muestra.ToList();
 
             for (int i = 0; i < temp.Length; i++)
             {
@@ -310,71 +275,112 @@ namespace LAAG.Controllers
 
              //Obtener los laboratios
             dynamic json = JsonConvert.DeserializeObject(jsonDatos);
-            Analisis analisis = db.Analisis.Find(Convert.ToInt32(json.id[0].ToString()));
-
-            Categoria categoria = db.Categoria.Find(analisis.IdCategoria);
-
-            var consult = from row in db.Muestra
-                          select row;
-
-            int num = 1;
-            
-            String[] temp = categoria.Nombre.Split(' ');
-
-            for (int i = 0; i < temp.Length; i++)
+            //String tmp1 = ;
+            Object tmp2 = json.muestra;
+            if (!"[]".Equals(json.id.ToString())) 
             {
-                codigo += temp[i][0];
+                Analisis analisis = db.Analisis.Find(Convert.ToInt32(json.id[0].ToString()));
+
+                Categoria categoria = db.Categoria.Find(analisis.IdCategoria);
+
+                var consult = db.Muestra.ToList();
+                /*
+                var consult = from row in db.Muestra
+                              select row;*/
+
+                int num = 1;
+
+                String[] temp = categoria.Nombre.Split(' ');
+
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    codigo += temp[i][0];
+                }
+
+                foreach (var item in consult)
+                {
+                    if (codigo.Equals(item.Codigo.Split('-')[0]))
+                        num++;
+                }
+
+                codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
+
+                // creacion de la muestra
+                muestra.Codigo = codigo;
+                muestra.Campo = json.muestra.campo;
+                muestra.IdPersona = json.muestra.id;
+                muestra.Provincia = json.muestra.provincia;
+                muestra.Canton = json.muestra.canton;
+                muestra.Distrito = json.muestra.distrito;
+                muestra.Direccion = json.muestra.direccion;
+                db.Muestra.Add(muestra);
+                db.SaveChanges();
+
+                Analisis tmpAnalisis;
+                foreach (var item in json.id)
+                {
+                    tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
+                    costo += tmpAnalisis.Costo;
+                }
+
+                // creacion de la factura
+                factura.IdPersona = json.muestra.id;
+                factura.Fecha = DateTime.Today;
+                factura.Costo = costo;
+                db.Factura.Add(factura);
+                db.SaveChanges();
+
+                // creacion de un analisis para la muestra
+                foreach (var item in json.id)
+                {
+                    tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
+                    muestraAnalisis.Nombre = json.muestra.nombre;
+                    muestraAnalisis.Costo = tmpAnalisis.Costo;
+                    muestraAnalisis.Codigo = codigo;
+                    muestraAnalisis.IdFactura = db.Factura.Max(f => f.IdFactura);
+                    muestraAnalisis.IdAnalisis = Convert.ToInt32(item.ToString());
+                    muestraAnalisis.Estado = 0;
+                    db.Muestra_Analisis.Add(muestraAnalisis);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                return RedirectToAction("Create");
             }
 
-            foreach (var item in consult)
+            return RedirectToAction("Index");
+        }
+
+        // GET: Obtener un analisis
+        public ActionResult Agregar(int? id)
+        {
+            List<Object> analisis = new List<Object>();
+            if (id == null)
             {
-                if (codigo.Equals(item.Codigo.Split('-')[0]))
-                    num++;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
-           
-            // creacion de la muestra
-            String[] tmp = (json.muestra.canton).ToString().Split('_');
-            muestra.Codigo = codigo;
-            muestra.Campo = json.muestra.campo;
-            muestra.IdPersona = json.muestra.id;
-            muestra.Provincia = json.muestra.provincia;
-            muestra.Canton = Convert.ToInt32(tmp[0]);
-            muestra.Distrito = json.muestra.distrito;
-            muestra.Direccion = json.muestra.direccion;
-            //db.Muestra.Add(muestra);
-            //db.SaveChanges();
+            // SE busca el id de ingeniero en la lista de ingenieros
+            Analisis consult = db.Analisis.Find(id);
 
-            Analisis tmpAnalisis;
-            foreach (var item in json.id)
+            if (analisis == null)
             {
-                tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
-                costo += tmpAnalisis.Costo;
+                //Si no se encuetra una coincidencia se retorna un NotFound
+                return HttpNotFound();
+            }
+            else
+            {
+                analisis.Add(consult.IdAnalisis);
+                analisis.Add(consult.Nombre);
+                analisis.Add(consult.Costo);
             }
 
-            // creacion de la factura
-            factura.IdPersona = json.muestra.id;
-            factura.Fecha = DateTime.Today;
-            factura.Costo = costo;
-            //db.Factura.Add(factura);
-            //db.SaveChanges();
+            //Se procede a convertir a JSON el objeto recien creado
+            var json = new JavaScriptSerializer().Serialize(analisis);
 
-            // creacion de un analisis para la muestra
-            foreach (var item in json.id)
-            {
-                tmpAnalisis = db.Analisis.Find(Convert.ToInt32(item.ToString()));
-                muestraAnalisis.Nombre = json.muestra.nombre;
-                muestraAnalisis.Costo = tmpAnalisis.Costo;
-                muestraAnalisis.Codigo = codigo;
-                muestraAnalisis.IdFactura = db.Factura.Max(f => f.IdFactura);
-                muestraAnalisis.IdAnalisis = Convert.ToInt32(item.ToString());
-                muestraAnalisis.Estado = 0;
-                //db.Muestra_Analisis.Add(muestraAnalisis);
-                //db.SaveChanges();
-            }
-            
-            return null;
+            //Se retorna el JSON
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -395,17 +401,32 @@ namespace LAAG.Controllers
         }
 
         //
-        // POST: /Costo/Delete/5
-
+        // GET: /Costo/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id = 1) 
         {
-            Factura factura = db.Factura.Find(id);
+            int ids = 1;
+            Muestra muestra = db.Muestra.Find(id);
+            db.Muestra.Remove(muestra);
+            db.SaveChanges();
+
+            var lstAnalisis = from row in db.Muestra_Analisis
+                              where row.Codigo == muestra.Codigo
+                              select row;
+
+            foreach (var item in lstAnalisis) 
+            {
+                ids = item.IdFactura;
+                db.Muestra_Analisis.Remove(item);
+                db.SaveChanges();
+            }
+
+            Factura factura = db.Factura.Find(ids);
             db.Factura.Remove(factura);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -20,7 +20,7 @@ namespace LAAG
             this.Muestra = new HashSet<Muestra>();
         }
     
-        public int numeroProvincia { get; set; }
+        public int ID_Provincia { get; set; }
         public string nombre { get; set; }
     
         public virtual ICollection<Canton> Canton { get; set; }
