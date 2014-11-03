@@ -518,8 +518,8 @@
     <Content Include="Views\Resultado\Details.cshtml" />
     <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Index.cshtml" />
-    <Content Include="Views\Resultado\_ViewStart.cshtml" />
     <Content Include="Views\Resultado\Muestras.cshtml" />
+    <Content Include="Views\Resultado\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
