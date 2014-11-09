@@ -46,13 +46,11 @@ namespace Ejemplo_Excel
                     try
                     {
                         string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
+                       
                         FileUpload.PostedFile.SaveAs(fileName);
 
                         string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
-
-                        string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
-                        
-                        
+                     
                         using (OleDbConnection con = new OleDbConnection(conString))
                         {
                             string query = "Select [Employee ID], [Contact Tile], [Contact Name],[Contact Title],[Employee Address],[Postal Code] from [Hoja1$]";
