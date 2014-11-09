@@ -4,12 +4,19 @@
     ViewBag.Title = "Agregar";
 }
 @{ LAAG.Persona persona = (LAAG.Persona)Session["CurrentSession"];
-   }
+ List<SelectListItem> listTipo = new List<SelectListItem>();
+ listTipo.Add(new SelectListItem
+ {
+     Text = "Usuario",
+     Value = "1"
+ });
+ listTipo.Add(new SelectListItem
+ {
+     Text = "Cliente",
+     Value = "2"
+ });
 
-
-
-<h2>Agregar</h2>
-
+}
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -60,8 +67,6 @@
                     </div>
 
                 @Html.HiddenFor(model => model.Clave, new { @Value="afrdgftghjgh"})
-
-                @Html.HiddenFor(model => model.FechaCreacion)
             
                 <div class="form-group">
                     @Html.LabelFor(model => model.Telefono1)
@@ -80,20 +85,15 @@
                         <span class="input-group-addon"></span>  
                     </div>
                 </div>
-            
-                @Html.HiddenFor(model => model.UsuarioCreacion)
-            
-                @Html.HiddenFor(model => model.FechaActualizacion)
-            
-                @Html.HiddenFor(model => model.UsuarioActualizacion)  
+  
 
                 @Html.HiddenFor(model => model.Estado, new { @Value=0}) 
     
                 <div class="form-group">
                     @Html.LabelFor(model => model.Tipo)
-            
+
                     <div class="input-group">
-                         @Html.TextBoxFor(model => model.Tipo, new { @class = "form-control",type="number", placeholder = "Tipo",@required = "required"} )
+                        @Html.DropDownListFor(model => model.Tipo, listTipo, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Tipo)
                         <span class="input-group-addon"></span>
                     </div>
@@ -122,7 +122,7 @@
 }
 
 <div>
-    @Html.ActionLink("Atrás", "Index")
+    
 </div>
 
 @section Scripts {

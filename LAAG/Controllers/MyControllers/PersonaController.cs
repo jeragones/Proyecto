@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using LAAG;
 using System.Linq;
 using System.Web;
@@ -24,7 +22,6 @@ namespace LAAG.Controllers
         public ActionResult Create(Persona persona)
         {
             persona.Clave = insFunction.codeGenerator();
-            persona.FechaCreacion = DateTime.Now;
             db.Persona.Add(persona);
             db.SaveChanges();
             insMail.registrationEmail(persona.Correo, persona.NombreUsuario, persona.Clave);
@@ -41,7 +38,7 @@ namespace LAAG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(persona).State = EntityState.Modified;
+                db.Entry(persona).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","Home");
             }

@@ -1,0 +1,51 @@
+﻿@model LAAG.Dato
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<fieldset>
+
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 " >
+            <h2 >Detalles</h2>
+        
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              
+            </div>
+            <div class="panel-body">
+              
+                
+                <div class=" col-md-3 col-lg-12 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Nombre):</td>
+                        <td> @Html.DisplayFor(model => model.Nombre)</td>
+                      </tr>
+                       
+                      <tr>
+                        <td>@Html.DisplayNameFor(model => model.unidadMedida):</td>
+                        <td>@Html.DisplayFor(model => model.unidadMedida)</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  
+                  
+                </div>
+              </div>
+              <div class="panel-footer">
+                        
+                    </div>
+            </div>
+                 
+            
+         <p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.IdDato }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>
+        </div>
+    
+ </fieldset>   

@@ -35,8 +35,6 @@ namespace LAAG
             [DisplayName("Contraseña")]
             public string Clave { get; set; }
 
-            [DisplayName("Fecha de Creación")]
-            public Nullable<System.DateTime> FechaCreacion { get; set; }
 
             [DisplayName("Teléfono")]
             public string Telefono1 { get; set; }

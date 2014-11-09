@@ -1,0 +1,53 @@
+﻿@model LAAG.Dato
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Agregar Dato</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="container">
+        <div class="row">
+            <form role="form">
+                <div class="col-lg-6">
+
+                    @Html.HiddenFor(model => model.IdDato)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Nombre", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.unidadMedida)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.unidadMedida, new { @class = "form-control", placeholder = "Simbología", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Guardar" class="btn btn-primary pull-right" />
+                    </p>
+
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

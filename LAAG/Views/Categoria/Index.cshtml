@@ -1,11 +1,9 @@
-﻿@model IEnumerable<LAAG.Categorias>
+﻿@model IEnumerable<LAAG.Categoria>
 
 @{
     ViewBag.Title = "Index";
 }
 <!--Deberíamos de enviar y recibir la acción por el viewbag-->
-<h2>Categorías</h2>
-
 <p>
     @Html.ActionLink("Agregar", "Create")
 </p>
@@ -22,7 +20,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Nombre)
                         </th>
-                        <th></th>
+                        <th> Acciones </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,9 +31,9 @@
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.idCategoria }) |
-                                @Html.ActionLink("Detalles", "Details", new { id = item.idCategoria }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.idCategoria })
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria }) |
+                                <!--@Html.ActionLink("Detalles", "Details", new { id = item.IdCategoria }) |-->
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCategoria })
                             </td>
                         </tr>
                     }

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LAAG.Resultado_Dato>
+
+@{
+    ViewBag.Title = "Create";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
+    LAAG.Muestra_Analisis muestra_analisis = db.Muestra_Analisis.Find(ViewBag.IdMuestraAnalisis);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "formCreateContract", id = "formCreateContract" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Generar Resultado del Análisis</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*Html.HiddenFor(model => model.IdMuestraAnalisis)
+        @Html.HiddenFor(model => model.IdReporte)
+        @Html.HiddenFor(model => model.Estado)*@
+
+
+        <div class="container">
+            <div class="row">
+                <form role="form">
+                    <div class="col-lg-6">
+                        @{for (int i = 0; i < Model.Count(); i++ )
+                          {
+                              LAAG.Dato data = db.Dato.Find(Model.ElementAt(i).IdDato);
+                            <div class="form-group">
+                                @Html.Label(data.Nombre)
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => Model.ElementAt(i).Resultado, new { @class = "form-control", placeholder = "Valor del Análisis", @required = "required", @disabled = "disabled" })
+                                    @Html.Hidden("IdDato", data.IdDato)
+                                    <span class="input-group-addon"></span>
+                                </div>
+                            </div>
+                          }
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+    <script> var jsAnalisis = '@ViewBag.IdMuestraAnalisis' </script>
+    <script src="~/Scripts/custom/ResultadosDatos/MultiplesDatos.js"></script>
+}

@@ -1,0 +1,82 @@
+﻿@model LAAG.Analisis
+
+@{
+    ViewBag.Title = "Details";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
+}
+
+   
+
+
+
+<fieldset>
+
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 " >
+            <h2 >Detalles</h2>
+        
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              
+            </div>
+            <div class="panel-body">
+              
+                
+                <div class=" col-md-3 col-lg-12 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Nombre):</td>
+                        <td> @Html.DisplayFor(model => model.Nombre)</td>
+                      </tr>
+                       
+                      <tr>
+                        <td>Categoria:</td>
+                        <td>@Html.DisplayFor(model => model.Categoria.Nombre)</td>
+                      </tr>
+                      
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Descripcion):</td>
+                        <td>@Html.DisplayFor(model => model.Descripcion)</td>
+                      </tr>
+
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Costo):</td>
+                        <td>@Html.DisplayFor(model => model.Costo)</td>
+                      </tr>
+
+
+                        <tr>
+                        <td>Datos:</td>
+                        <td>
+
+                             @foreach (var dato in Model.Analisis_Dato)
+                                            {
+                                                LAAG.Dato data = db.Dato.Find(dato.IdDato);
+                                                
+                                                   @data.Nombre
+                                                   <br>
+                                            }
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+                  
+                  
+                </div>
+              </div>
+              <div class="panel-footer">
+                        
+                    </div>
+            </div>
+                 
+            
+         <p>
+    
+    @Html.ActionLink("Atrás", "Index")
+</p>
+        </div>
+    
+ </fieldset>   

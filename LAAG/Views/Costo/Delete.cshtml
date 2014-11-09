@@ -1,0 +1,76 @@
+﻿@model LAAG.Facturas
+
+@{
+    ViewBag.Title = "Eliminar Muestra";
+    LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
+    List<LAAG.Analisis> analisis = ViewBag.analisis;
+}
+
+<div class="container">
+    
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2>Realmente desea eliminar la muestra: @Html.DisplayFor(model => model.Codigo)</h2>
+            </div>
+            <div class="panel-body">
+                <div class=" col-md-3 col-lg-12 ">
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Cliente:</td>
+                                <td> @Html.DisplayFor(model => model.Nombre)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Campo):</td>
+                                <td>@Html.DisplayFor(model => model.Campo)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Costo):</td>
+                                <td>@Html.DisplayFor(model => model.Costo)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Categoria):</td>
+                                <td>@ViewBag.categoria</td>
+                            </tr>
+                            <tr>
+                                <td>Análisis</td>
+                                <td>
+                                    <div class="row">
+                                        @foreach (var item in analisis)
+                                        {
+                                            <div class="btn btn-success">@Html.DisplayFor(modelItem => item.Nombre)</div>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Provincia):</td>
+                                <td>@ViewBag.provincia</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Canton):</td>
+                                <td>@ViewBag.canton</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Distrito):</td>
+                                <td>@ViewBag.distrito</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Direccion):</td>
+                                <td>@Html.DisplayFor(model => model.Direccion)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <p>
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    @Html.ActionLink("Atrás", "Index")
+                </p>
+            }
+            <div class="panel-footer"></div>
+        </div>
+</div>

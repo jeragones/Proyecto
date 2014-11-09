@@ -17,7 +17,7 @@ namespace LAAG.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Categorias.ToList());
+            return View(db.Categoria.ToList());
         }
 
         //
@@ -25,7 +25,7 @@ namespace LAAG.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Categorias categorias = db.Categorias.Find(id);
+            Categoria categorias = db.Categoria.Find(id);
             if (categorias == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace LAAG.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Categorias categorias = db.Categorias.Find(id);
+            Categoria categorias = db.Categoria.Find(id);
             if (categorias == null)
             {
                 return HttpNotFound();
@@ -59,7 +59,7 @@ namespace LAAG.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Categorias categorias = db.Categorias.Find(id);
+            Categoria categorias = db.Categoria.Find(id);
             if (categorias == null)
             {
                 return HttpNotFound();

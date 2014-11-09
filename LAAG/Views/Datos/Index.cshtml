@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LAAG.Dato>
+
+@{
+    ViewBag.Title = "Datos";
+}
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Datos
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="tbDatos" class="order-column">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.unidadMedida)
+                        </th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.unidadMedida)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdDato }) |
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdDato }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdDato })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/jquery-1.11.1.js")
+    <link rel="stylesheet" href="~/Content/jquery.dataTables.min.css" />
+    <script src="~/Scripts/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tbDatos').dataTable({
+                "language": {
+                    "url": "/Scripts/plugins/dataTables/Spanish.txt"
+                }
+            });
+        })
+    </script>
+}

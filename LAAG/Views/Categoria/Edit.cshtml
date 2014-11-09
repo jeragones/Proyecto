@@ -1,4 +1,4 @@
-﻿@model LAAG.Categorias
+﻿@model LAAG.Categoria
 
 @{
     ViewBag.Title = "Edit";
@@ -14,7 +14,7 @@
         <h4> </h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idCategoria, new { @class = "form-control" })
+        @Html.HiddenFor(model => model.IdCategoria, new { @class = "form-control" })
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-1" })

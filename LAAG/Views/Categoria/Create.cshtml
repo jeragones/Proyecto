@@ -1,4 +1,4 @@
-﻿@model LAAG.Categorias
+﻿@model LAAG.Categoria
 
 @{
     ViewBag.Title = "Agregar Categoría";
@@ -16,7 +16,7 @@
                 <form role="form">
                     <div class="col-lg-6">
 
-                        @Html.HiddenFor(model => model.idCategoria)
+                        @Html.HiddenFor(model => model.IdCategoria)
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Nombre)
