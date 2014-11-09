@@ -15,7 +15,9 @@ namespace LAAG
     public partial class Distrito
     {
         public int ID_Distrito { get; set; }
-        public int ID_Canton { get; set; }
+        public int numeroDistrito { get; set; }
+        public int numeroCanton { get; set; }
+        public int numeroProvincia { get; set; }
         public string nombre { get; set; }
     
         public virtual Canton Canton { get; set; }

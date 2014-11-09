@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Resultados de las Muestras";
     LAAG.AGRONOMICOSDBEntities db = new LAAG.AGRONOMICOSDBEntities();
+    LAAG.Persona personaT = (LAAG.Persona)Session["CurrentSession"];
     int listos = db.Muestra_Analisis.Where(x => x.Estado == 1).Count();
     int pendientes = db.Muestra_Analisis.Where(x => x.Estado == 0).Count();
 }
@@ -40,7 +41,17 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Analisis.Nombre)
                             </td>
-                            <td>@Html.ActionLink("Analizar Muestra","Create", new { analisis = item.IdMuestraAnalisis})</td>
+                            @if(ViewBag.Estado==0 && personaT.Tipo!=2){
+                                <td>@Html.ActionLink("Analizar Muestra","Create", new { analisis = item.IdMuestraAnalisis})</td>
+                            }
+                            else if (ViewBag.Estado == 1 && personaT.Tipo != 2)
+                            {
+                                <td>@Html.ActionLink("Editar Muestra","Edit", new { analisis = item.IdMuestraAnalisis})</td>
+                            }
+                            else if (personaT.Tipo == 2)
+                            {
+                                <td>@Html.ActionLink("Ver Resultado", "Details", new { analisis = item.IdMuestraAnalisis })</td>
+                            }
 
                         </tr>
 

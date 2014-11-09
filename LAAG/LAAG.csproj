@@ -216,6 +216,7 @@
     <Compile Include="Annotations\DatoAnnotations.cs" />
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
+    <Content Include="App_Code\LoadFileService.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -507,8 +508,6 @@
     <Content Include="Views\Analisis\_ViewStart.cshtml" />
     <Content Include="Views\Resultado\Create.cshtml" />
     <Content Include="Views\Resultado\Delete.cshtml" />
-    <Content Include="Views\Resultado\Details.cshtml" />
-    <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Index.cshtml" />
     <Content Include="Views\Resultado\Muestras.cshtml" />
     <Content Include="Views\Resultado\_ViewStart.cshtml" />
@@ -520,6 +519,8 @@
     <Content Include="Views\Costo\_CreateFormPartial1.cshtml" />
     <Content Include="Views\Costo\_CreateFormPartial2.cshtml" />
     <Content Include="Views\Costo\_ViewStart.cshtml" />
+    <Content Include="Views\Resultado\Edit.cshtml" />
+    <Content Include="Views\Resultado\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

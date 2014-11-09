@@ -1,69 +1,39 @@
-﻿using Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.OleDb;
-using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace Ejemplo_Excel
+namespace LAAG.App_Code
 {
-    public partial class _Default : Page
+    public class LoadFileService
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-           /* if (!IsPostBack)
-            {
-                PopulateData();
-                lblMessage.Text = "current Database Data!";
-            }*/
-        }
+        public List<object> loadFile(FileUpload file, List<string> columns) { 
+            List<object> data = new List<object>();
 
-        private void PopulateData() 
-        {
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
-            {
-                gvData.DataSource = dc.EmployeeMaster.ToList();
-                gvData.DataBind();
-            }
- 
-        }
-
-       
-
-        protected void btnImport_Click1(object sender, EventArgs e)
-        {
             string ExcelContentType = "application/vnd.ms-excel";
             string Excel2010ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            if (FileUpload.HasFile)
+            if (file.HasFile)
             {
-                if (FileUpload.PostedFile.ContentType == ExcelContentType || FileUpload.PostedFile.ContentType == Excel2010ContentType) 
+                if (file.PostedFile.ContentType == ExcelContentType || file.PostedFile.ContentType == Excel2010ContentType)
                 {
                     try
                     {
-                        
-                        string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
-                       
-                        FileUpload.PostedFile.SaveAs(fileName);
-                        string named = FileUpload.PostedFile.ToString();
-                        string fimba = System.IO.Path.GetFileName(FileUpload.PostedFile.FileName);
-                        string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
-<<<<<<< HEAD
-                     
-=======
 
-                        //string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
-                        
-                        
->>>>>>> f4fb7993924266a9ee3e6c2c7dca316843fc8339
+                        string fileName = string.Concat(Server.MapPath("~/TempFiles/"), file.FileName);
+                        FileUpload.PostedFile.SaveAs(fileName);
+                        string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
+
                         using (OleDbConnection con = new OleDbConnection(conString))
                         {
-                            // CAMBIA ESTO
-                            string query = "Select [Employee ID], [Contact Tile], [Contact Name],[Contact Title],[Employee Address],[Postal Code] from [Hoja1$]";
+                            string query = "Select";
+                            for (int i = 0; i < columns.Count; i++) 
+                            {
+                                if (i > 0)
+                                    query += ",";
+                                query += " [" + columns[i] + "]";
+                            }
+                            query += "from [Hoja1$]";
+                            //string query = "Select [Employee ID], [Contact Tile], [Contact Name],[Contact Title],[Employee Address],[Postal Code] from [Hoja1$]";
 
                             OleDbCommand cmd = new OleDbCommand(query, con);
                             if (con.State == System.Data.ConnectionState.Closed)
@@ -82,7 +52,6 @@ namespace Ejemplo_Excel
                             {
                                 foreach (DataRow dr in ds.Tables[0].Rows)
                                 {
-                                    
                                     string empID = dr["Employee Id"].ToString();
                                     int y = 0;
                                     /*
@@ -117,13 +86,13 @@ namespace Ejemplo_Excel
                             }
                             PopulateData();
                             lblMessage.Text = "Successfully data import done!";
-                            
-                        }
-                        
-                        
-                        
 
-                       
+                        }
+
+
+
+
+
 
                     }
                     catch (Exception ex)
@@ -133,8 +102,7 @@ namespace Ejemplo_Excel
                 }
             }
 
-            
-
+            return null;
         }
     }
 }

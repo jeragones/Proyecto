@@ -16,14 +16,14 @@ namespace LAAG
     {
         public Provincia()
         {
-            this.Canton = new HashSet<Canton>();
             this.Muestra = new HashSet<Muestra>();
+            this.Canton = new HashSet<Canton>();
         }
     
-        public int ID_Provincia { get; set; }
+        public int numeroProvincia { get; set; }
         public string nombre { get; set; }
     
-        public virtual ICollection<Canton> Canton { get; set; }
         public virtual ICollection<Muestra> Muestra { get; set; }
+        public virtual ICollection<Canton> Canton { get; set; }
     }
 }

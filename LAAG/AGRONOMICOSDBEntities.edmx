@@ -28,7 +28,8 @@
             <PropertyRef Name="ID_Canton" />
           </Key>
           <Property Name="ID_Canton" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_Provincia" Type="int" Nullable="false" />
+          <Property Name="numeroCanton" Type="int" Nullable="false" />
+          <Property Name="numeroProvincia" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Categoria">
@@ -51,7 +52,9 @@
             <PropertyRef Name="ID_Distrito" />
           </Key>
           <Property Name="ID_Distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_Canton" Type="int" Nullable="false" />
+          <Property Name="numeroDistrito" Type="int" Nullable="false" />
+          <Property Name="numeroCanton" Type="int" Nullable="false" />
+          <Property Name="numeroProvincia" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Factura">
@@ -106,9 +109,9 @@
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
-            <PropertyRef Name="ID_Provincia" />
+            <PropertyRef Name="numeroProvincia" />
           </Key>
-          <Property Name="ID_Provincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Reporte">
@@ -172,7 +175,7 @@
               <PropertyRef Name="ID_Canton" />
             </Principal>
             <Dependent Role="Distrito">
-              <PropertyRef Name="ID_Canton" />
+              <PropertyRef Name="numeroCanton" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -181,10 +184,10 @@
           <End Role="Canton" Type="Self.Canton" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincia">
-              <PropertyRef Name="ID_Provincia" />
+              <PropertyRef Name="numeroProvincia" />
             </Principal>
             <Dependent Role="Canton">
-              <PropertyRef Name="ID_Provincia" />
+              <PropertyRef Name="numeroProvincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -193,7 +196,7 @@
           <End Role="Muestra" Type="Self.Muestra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincia">
-              <PropertyRef Name="ID_Provincia" />
+              <PropertyRef Name="numeroProvincia" />
             </Principal>
             <Dependent Role="Muestra">
               <PropertyRef Name="Provincia" />
@@ -440,9 +443,13 @@
             <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
             <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
+          <EntitySet Name="Provincia" EntityType="AGRONOMICOSDBModel.Provincia" />
+          <AssociationSet Name="FK_Provincias" Association="AGRONOMICOSDBModel.FK_Provincias">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Muestra" EntitySet="Muestra" />
+          </AssociationSet>
           <EntitySet Name="Canton" EntityType="AGRONOMICOSDBModel.Canton" />
           <EntitySet Name="Distrito" EntityType="AGRONOMICOSDBModel.Distrito" />
-          <EntitySet Name="Provincia" EntityType="AGRONOMICOSDBModel.Provincia" />
           <AssociationSet Name="FK_Canton" Association="AGRONOMICOSDBModel.FK_Canton">
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
@@ -451,11 +458,7 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
           </AssociationSet>
-          <AssociationSet Name="FK_Provincias" Association="AGRONOMICOSDBModel.FK_Provincias">
-            <End Role="Provincia" EntitySet="Provincia" />
-            <End Role="Muestra" EntitySet="Muestra" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Muestra">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -723,12 +726,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="numeroProvincia" />
+          </Key>
+          <Property Name="numeroProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Provincia" ToRole="Muestra" />
+          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Provincia" ToRole="Canton" />
+        </EntityType>
+        <Association Name="FK_Provincias">
+          <End Type="AGRONOMICOSDBModel.Provincia" Role="Provincia" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="numeroProvincia" />
+            </Principal>
+            <Dependent Role="Muestra">
+              <PropertyRef Name="Provincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Canton">
           <Key>
             <PropertyRef Name="ID_Canton" />
           </Key>
           <Property Name="ID_Canton" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Provincia" Type="Int32" Nullable="false" />
+          <Property Name="numeroCanton" Type="Int32" Nullable="false" />
+          <Property Name="numeroProvincia" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Distrito" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Canton" ToRole="Distrito" />
           <NavigationProperty Name="Provincia" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Canton" ToRole="Provincia" />
@@ -738,18 +763,11 @@
             <PropertyRef Name="ID_Distrito" />
           </Key>
           <Property Name="ID_Distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Canton" Type="Int32" Nullable="false" />
+          <Property Name="numeroDistrito" Type="Int32" Nullable="false" />
+          <Property Name="numeroCanton" Type="Int32" Nullable="false" />
+          <Property Name="numeroProvincia" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Distrito" ToRole="Canton" />
-        </EntityType>
-        <EntityType Name="Provincia">
-          <Key>
-            <PropertyRef Name="ID_Provincia" />
-          </Key>
-          <Property Name="ID_Provincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Provincia" ToRole="Canton" />
-          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Provincia" ToRole="Muestra" />
         </EntityType>
         <Association Name="FK_Canton">
           <End Type="AGRONOMICOSDBModel.Canton" Role="Canton" Multiplicity="1" />
@@ -759,7 +777,7 @@
               <PropertyRef Name="ID_Canton" />
             </Principal>
             <Dependent Role="Distrito">
-              <PropertyRef Name="ID_Canton" />
+              <PropertyRef Name="numeroCanton" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -768,22 +786,10 @@
           <End Type="AGRONOMICOSDBModel.Canton" Role="Canton" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincia">
-              <PropertyRef Name="ID_Provincia" />
+              <PropertyRef Name="numeroProvincia" />
             </Principal>
             <Dependent Role="Canton">
-              <PropertyRef Name="ID_Provincia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Provincias">
-          <End Type="AGRONOMICOSDBModel.Provincia" Role="Provincia" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provincia">
-              <PropertyRef Name="ID_Provincia" />
-            </Principal>
-            <Dependent Role="Muestra">
-              <PropertyRef Name="Provincia" />
+              <PropertyRef Name="numeroProvincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -916,11 +922,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="numeroProvincia" ColumnName="numeroProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Canton">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Canton">
               <MappingFragment StoreEntitySet="Canton">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
+                <ScalarProperty Name="numeroProvincia" ColumnName="numeroProvincia" />
+                <ScalarProperty Name="numeroCanton" ColumnName="numeroCanton" />
                 <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -929,16 +944,10 @@
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Distrito">
               <MappingFragment StoreEntitySet="Distrito">
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
+                <ScalarProperty Name="numeroProvincia" ColumnName="numeroProvincia" />
+                <ScalarProperty Name="numeroCanton" ColumnName="numeroCanton" />
+                <ScalarProperty Name="numeroDistrito" ColumnName="numeroDistrito" />
                 <ScalarProperty Name="ID_Distrito" ColumnName="ID_Distrito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provincia">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Provincia">
-              <MappingFragment StoreEntitySet="Provincia">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
