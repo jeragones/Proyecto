@@ -25,22 +25,28 @@ namespace LAAG.Controllers
         public ActionResult Muestras(int? estado)
         {
             var res = db.Muestra_Analisis.Where(x=>x.Estado==estado).ToList();
+            ViewBag.Estado = estado;
             return View(res);
         }
 
         // GET: Resultado/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? analisis)
         {
-            if (id == null)
+            if (analisis == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resultado_Analisis resultado_Analisis = db.Resultado_Analisis.Find(id);
+            Muestra_Analisis mAnalisis = db.Muestra_Analisis.Find(analisis);
+            var resAnalisis = db.Resultado_Analisis.Where(x => x.IdMuestraAnalisis == mAnalisis.IdMuestraAnalisis);
+            Resultado_Analisis resultado_Analisis = mAnalisis.Resultado_Analisis.First();
             if (resultado_Analisis == null)
             {
                 return HttpNotFound();
             }
-            return View(resultado_Analisis);
+            IEnumerable<Resultado_Dato> resDatos = db.Resultado_Dato.Where(i => i.IdResultadoAnalisis == resultado_Analisis.IdResultadoAnalisis).ToList();
+            ViewBag.Datos = resDatos;
+            ViewBag.IdMuestraAnalisis = analisis;
+            return View(resDatos);
         }
 
         // GET: Resultado/Create
@@ -52,20 +58,23 @@ namespace LAAG.Controllers
 
 
         // GET: Resultado/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? analisis)
         {
-            if (id == null)
+            if (analisis == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resultado_Analisis resultado_Analisis = db.Resultado_Analisis.Find(id);
+            Muestra_Analisis mAnalisis = db.Muestra_Analisis.Find(analisis);
+            var resAnalisis = db.Resultado_Analisis.Where(x=> x.IdMuestraAnalisis == mAnalisis.IdMuestraAnalisis);
+            Resultado_Analisis resultado_Analisis = mAnalisis.Resultado_Analisis.First();
             if (resultado_Analisis == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdMuestraAnalisis = new SelectList(db.Muestra_Analisis, "IdMuestraAnalisis", "Nombre", resultado_Analisis.IdMuestraAnalisis);
-            ViewBag.IdReporte = new SelectList(db.Reporte, "IdReporte", "Metodologia", resultado_Analisis.IdReporte);
-            return View(resultado_Analisis);
+            IEnumerable<Resultado_Dato> resDatos = db.Resultado_Dato.Where(i => i.IdResultadoAnalisis == resultado_Analisis.IdResultadoAnalisis).ToList();
+            ViewBag.Datos = resDatos;
+            ViewBag.IdMuestraAnalisis = analisis;
+            return View(resDatos);
         }
 
 

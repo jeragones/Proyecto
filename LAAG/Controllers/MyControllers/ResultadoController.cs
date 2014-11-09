@@ -27,26 +27,19 @@ namespace LAAG.Controllers
                 Resultado_Analisis resAnalisis = new Resultado_Analisis();
 
                 resAnalisis.IdMuestraAnalisis = analisis.analisis;
-
-                //Reporte reporte = new Reporte();
-                //reporte.IdUsuario = 1;
-                //reporte.Metodologia = "temp";
-                //reporte.Observaciones = "temp";
-                //reporte.Persona = db.Persona.Find(8);
-                //reporte.IdReporte = 1;
-                //db.Reporte.Add(reporte);
-                //db.SaveChanges();
+                Muestra_Analisis mAnalisis = db.Muestra_Analisis.Find(resAnalisis.IdMuestraAnalisis);
+                mAnalisis.Estado = 1;
 
                 dynamic json = JsonConvert.DeserializeObject(jsonDatos);
 
                 resAnalisis.IdReporte = 1;
+                resAnalisis.Estado = 1;
 
                 db.Resultado_Analisis.Add(resAnalisis);
                 db.SaveChanges();
                 
                 foreach (var child in json.Datos.Children())
                 {
-                    //Creación del ingeniero-contrato.
                     Resultado_Dato analisis_dato = new Resultado_Dato();
                     analisis_dato.IdDato = child.id;
                     analisis_dato.Resultado = child.valor;
@@ -68,17 +61,31 @@ namespace LAAG.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdResultadoAnalisis,IdMuestraAnalisis,IdReporte,Estado")] Resultado_Analisis resultado_Analisis)
+        public ActionResult Edit([Bind(Include = "jsonDatos")] string jsonDatos,
+            [Bind(Include = "jsonAnalisis")] string jsonAnalisis)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(resultado_Analisis).State = EntityState.Modified;
-                db.SaveChanges();
+                dynamic analisis = JsonConvert.DeserializeObject(jsonAnalisis);
+                Resultado_Analisis resAnalisis = db.Resultado_Analisis.Find(Convert.ToInt32(analisis.analisis));
+
+                dynamic json = JsonConvert.DeserializeObject(jsonDatos);
+
+                db.Resultado_Dato.RemoveRange(resAnalisis.Resultado_Dato);
+
+                foreach (var child in json.Datos.Children())
+                {
+                    Resultado_Dato analisis_dato = new Resultado_Dato();
+                    analisis_dato.IdDato = child.id;
+                    analisis_dato.Resultado = child.valor;
+                    analisis_dato.IdResultadoAnalisis = resAnalisis.IdResultadoAnalisis;
+                    db.Resultado_Dato.Add(analisis_dato);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.IdMuestraAnalisis = new SelectList(db.Muestra_Analisis, "IdMuestraAnalisis", "Nombre", resultado_Analisis.IdMuestraAnalisis);
-            ViewBag.IdReporte = new SelectList(db.Reporte, "IdReporte", "Metodologia", resultado_Analisis.IdReporte);
-            return View(resultado_Analisis);
+           
+           return View();
         }
 
        
