@@ -216,6 +216,7 @@
     <Compile Include="Annotations\DatoAnnotations.cs" />
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
+    <Content Include="App_Code\LoadFileService.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
