@@ -47,14 +47,19 @@ namespace Ejemplo_Excel
                     {
                         object h = FileUpload.GetType();
                         string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
+                       
                         FileUpload.PostedFile.SaveAs(fileName);
                         string named = FileUpload.PostedFile.ToString();
                         string fimba = System.IO.Path.GetFileName(FileUpload.PostedFile.FileName);
                         string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
+<<<<<<< HEAD
+                     
+=======
 
                         //string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
                         
                         
+>>>>>>> f4fb7993924266a9ee3e6c2c7dca316843fc8339
                         using (OleDbConnection con = new OleDbConnection(conString))
                         {
                             // CAMBIA ESTO
