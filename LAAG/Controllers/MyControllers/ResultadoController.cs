@@ -133,13 +133,13 @@ namespace LAAG.Controllers
                             Muestra muestra = db.Muestra.Find((analisis.ItemArray[3]).ToString()); // TIESO
                             if (muestra != null) 
                             {
-                                var muest_anal = from row in db.Muestra_Analisis
+                                var muest_anal = (from row in db.Muestra_Analisis
                                                where row.Codigo == muestra.Codigo && row.Estado == 0
-                                               select row;
-                                
-                                foreach (var ma in muest_anal) 
+                                               select row).ToList();
+                                //muest_anal.ToList();
+                                for (int x=0; x<muest_anal.Count(); x++) 
                                 {
-                                    int idAnal = db.Analisis.Find(ma.IdAnalisis).IdAnalisis;
+                                    int idAnal = db.Analisis.Find(muest_anal[x].IdAnalisis).IdAnalisis;
                                     List<string> columns = new List<string>();
                                     switch(idAnal) {                                               // TIESO
                                         case 2:
@@ -148,7 +148,7 @@ namespace LAAG.Controllers
                                     }
                                         
                                     var ra= from row in db.Resultado_Analisis
-                                            where row.IdMuestraAnalisis == ma.IdMuestraAnalisis
+                                            where row.IdMuestraAnalisis == muest_anal.ElementAt(x).IdMuestraAnalisis
                                             select row.IdResultadoAnalisis;
                                     
                                     /*var rd = (from row in db.Resultado_Dato
@@ -166,6 +166,7 @@ namespace LAAG.Controllers
 
                                     Muestra_Analisis mAnalisis = db.Muestra_Analisis.Find(resAnalisis.IdMuestraAnalisis);
                                     mAnalisis.Estado = 1;
+                                    db.SaveChanges();
                                     resAnalisis.IdReporte = 1;
                                     resAnalisis.Estado = 1;
 
