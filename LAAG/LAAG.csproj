@@ -216,7 +216,6 @@
     <Compile Include="Annotations\DatoAnnotations.cs" />
     <Compile Include="Annotations\CategoriaAnnotations.cs" />
     <Compile Include="Annotations\PersonaAnnotations.cs" />
-    <Content Include="App_Code\LoadFileService.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -241,6 +240,7 @@
     <Compile Include="Controllers\MyControllers\CategoriaController.cs" />
     <Compile Include="Controllers\MyControllers\CostoController.cs" />
     <Compile Include="Controllers\MyControllers\DatosController.cs" />
+    <Compile Include="App_Code\LoadFileService.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Controllers\MyControllers\ResultadoController.cs" />
     <Compile Include="Controllers\ResultadoController.cs" />
@@ -524,6 +524,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="TempFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

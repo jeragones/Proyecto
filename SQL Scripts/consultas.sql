@@ -8,4 +8,5 @@ select * from Factura
 select * from Muestra_Analisis
 select * from Provincia
 */
-select * from Muestra
+select * from Analisis
+select * from Dato

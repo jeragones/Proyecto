@@ -88,7 +88,7 @@ namespace LAAG.Controllers
             {
                 foreach (var item in consult)
                 {
-                    provinces.Add(new { id = item.numeroProvincia, nombre = item.nombre });
+                    provinces.Add(new { id = item.ID_Provincia, nombre = item.nombre });
                 }
             }
 

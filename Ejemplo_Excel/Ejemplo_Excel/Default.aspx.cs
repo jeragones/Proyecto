@@ -45,7 +45,7 @@ namespace Ejemplo_Excel
                 {
                     try
                     {
-                        
+                        object h = FileUpload.GetType();
                         string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
                         FileUpload.PostedFile.SaveAs(fileName);
                         string named = FileUpload.PostedFile.ToString();

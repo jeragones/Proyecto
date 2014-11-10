@@ -8,10 +8,16 @@
     int pendientes = db.Muestra_Analisis.Where(x => x.Estado == 0).Count();
 }
 
-<h2></h2>
-
-
 <div class="panel panel-default">
+    
+    @using (Html.BeginForm("Muestras", "Resultado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-actions no-color">
+            <input type="file" name="file" />
+            <input id="btnUpload" type="submit" value="Subir" />
+        </div>
+    }
     <div class="panel-heading">
         Listado de Muestras
     </div>
@@ -80,7 +86,46 @@
                     "url": "/Scripts/plugins/dataTables/Spanish.txt"
                 }
             });
-        })
+
+            /*
+            $('#btnUpload').click(function (event) {
+                event.preventDefault();
+                var fileOptions = {
+                    success: res,
+                    dataType: "json"
+                }
+                $("#frmUpload").ajaxSubmit(fileOptions);
+            });
+            */
+            $("#formUpload").submit(function (event) {
+                
+                /*
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "file")
+                    .attr('value', JSON.stringify({$("#file")}))
+                    .appendTo('#formUpload');
+                return true;*/
+
+                
+                var fileOptions = {
+                    success: res,
+                    dataType: "json"
+                }
+                $("#frmUpload").ajaxSubmit(fileOptions);
+                
+            });
+            /*
+            $("#formUpload").submit(function (event) {
+                var jsonDatos = { "file": $('#file').val() };
+                // Json de los ingenieros que va a tener el contrato
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "jsonDatos")
+                    .attr('value', JSON.stringify(jsonDatos))
+                    .appendTo('#formUpload');
+                return true;
+            });
+            */
+        });
 
 
     </script>
