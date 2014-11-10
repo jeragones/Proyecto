@@ -386,19 +386,19 @@ namespace LAAG.Controllers
         //
         // POST: /Costo/Edit/5
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Factura factura)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(factura).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdPersona = new SelectList(db.Persona, "ID_Persona", "Nombre", factura.IdPersona);
-            return View(factura);
-        }
+        /* [HttpPost]
+         [ValidateAntiForgeryToken]
+         public ActionResult Edit(Factura factura)
+         {
+             if (ModelState.IsValid)
+             {
+                 db.Entry(factura).State = EntityState.Modified;
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
+             }
+             ViewBag.IdPersona = new SelectList(db.Persona, "ID_Persona", "Nombre", factura.IdPersona);
+             return View(factura);
+         }*/
 
         //
         // GET: /Costo/Delete/
