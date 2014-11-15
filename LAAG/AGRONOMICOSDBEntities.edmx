@@ -385,29 +385,32 @@
     <edmx:ConceptualModels>
       <Schema Namespace="AGRONOMICOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AGRONOMICOSDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Muestra" EntityType="AGRONOMICOSDBModel.Muestra" />
-          <EntitySet Name="Muestra_Analisis" EntityType="AGRONOMICOSDBModel.Muestra_Analisis" />
           <EntitySet Name="Persona" EntityType="AGRONOMICOSDBModel.Persona" />
-          <AssociationSet Name="idClienteMuestra" Association="AGRONOMICOSDBModel.idClienteMuestra">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Muestra" EntitySet="Muestra" />
-          </AssociationSet>
-          <AssociationSet Name="MuestraCodigo" Association="AGRONOMICOSDBModel.MuestraCodigo">
-            <End Role="Muestra" EntitySet="Muestra" />
-            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
-          </AssociationSet>
           <EntitySet Name="Analisis" EntityType="AGRONOMICOSDBModel.Analisis" />
-          <EntitySet Name="Analisis_Dato" EntityType="AGRONOMICOSDBModel.Analisis_Dato" />
           <EntitySet Name="Categoria" EntityType="AGRONOMICOSDBModel.Categoria" />
-          <EntitySet Name="Dato" EntityType="AGRONOMICOSDBModel.Dato" />
           <EntitySet Name="Factura" EntityType="AGRONOMICOSDBModel.Factura" />
           <EntitySet Name="Reporte" EntityType="AGRONOMICOSDBModel.Reporte" />
-          <EntitySet Name="Resultado_Analisis" EntityType="AGRONOMICOSDBModel.Resultado_Analisis" />
-          <EntitySet Name="Resultado_Dato" EntityType="AGRONOMICOSDBModel.Resultado_Dato" />
           <AssociationSet Name="FK__Analisis__IdCate__2A4B4B5E" Association="AGRONOMICOSDBModel.FK__Analisis__IdCate__2A4B4B5E">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Analisis" EntitySet="Analisis" />
           </AssociationSet>
+          <AssociationSet Name="idClienteFactura" Association="AGRONOMICOSDBModel.idClienteFactura">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="IdCliente" Association="AGRONOMICOSDBModel.IdCliente">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Reporte" EntitySet="Reporte" />
+          </AssociationSet>
+          <EntitySet Name="Analisis_Dato" EntityType="AGRONOMICOSDBModel.Analisis_Dato" />
+          <EntitySet Name="Canton" EntityType="AGRONOMICOSDBModel.Canton" />
+          <EntitySet Name="Dato" EntityType="AGRONOMICOSDBModel.Dato" />
+          <EntitySet Name="Distrito" EntityType="AGRONOMICOSDBModel.Distrito" />
+          <EntitySet Name="Muestra" EntityType="AGRONOMICOSDBModel.Muestra" />
+          <EntitySet Name="Muestra_Analisis" EntityType="AGRONOMICOSDBModel.Muestra_Analisis" />
+          <EntitySet Name="Provincia" EntityType="AGRONOMICOSDBModel.Provincia" />
+          <EntitySet Name="Resultado_Analisis" EntityType="AGRONOMICOSDBModel.Resultado_Analisis" />
+          <EntitySet Name="Resultado_Dato" EntityType="AGRONOMICOSDBModel.Resultado_Dato" />
           <AssociationSet Name="FK_Analisis_Dato_Analisis" Association="AGRONOMICOSDBModel.FK_Analisis_Dato_Analisis">
             <End Role="Analisis" EntitySet="Analisis" />
             <End Role="Analisis_Dato" EntitySet="Analisis_Dato" />
@@ -416,30 +419,43 @@
             <End Role="Analisis" EntitySet="Analisis" />
             <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
+          <AssociationSet Name="FK_Canton" Association="AGRONOMICOSDBModel.FK_Canton">
+            <End Role="Canton" EntitySet="Canton" />
+            <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia" Association="AGRONOMICOSDBModel.FK_Provincia">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Canton" EntitySet="Canton" />
+          </AssociationSet>
           <AssociationSet Name="FK_Resultado_Dato_Dato" Association="AGRONOMICOSDBModel.FK_Resultado_Dato_Dato">
             <End Role="Dato" EntitySet="Dato" />
             <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
-          <AssociationSet Name="idClienteFactura" Association="AGRONOMICOSDBModel.idClienteFactura">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Factura" EntitySet="Factura" />
-          </AssociationSet>
           <AssociationSet Name="IdFactura" Association="AGRONOMICOSDBModel.IdFactura">
             <End Role="Factura" EntitySet="Factura" />
+            <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincias" Association="AGRONOMICOSDBModel.FK_Provincias">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Muestra" EntitySet="Muestra" />
+          </AssociationSet>
+          <AssociationSet Name="idClienteMuestra" Association="AGRONOMICOSDBModel.idClienteMuestra">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Muestra" EntitySet="Muestra" />
+          </AssociationSet>
+          <AssociationSet Name="MuestraCodigo" Association="AGRONOMICOSDBModel.MuestraCodigo">
+            <End Role="Muestra" EntitySet="Muestra" />
             <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
           </AssociationSet>
           <AssociationSet Name="IdMuestraAnalisis" Association="AGRONOMICOSDBModel.IdMuestraAnalisis">
             <End Role="Muestra_Analisis" EntitySet="Muestra_Analisis" />
             <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
           </AssociationSet>
-          <AssociationSet Name="IdCliente" Association="AGRONOMICOSDBModel.IdCliente">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Reporte" EntitySet="Reporte" />
-          </AssociationSet>
           <AssociationSet Name="idResultadoAnalisis" Association="AGRONOMICOSDBModel.idResultadoAnalisis">
             <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
             <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
+<<<<<<< HEAD
           <EntitySet Name="Canton" EntityType="AGRONOMICOSDBModel.Canton" />
           <EntitySet Name="Distrito" EntityType="AGRONOMICOSDBModel.Distrito" />
           <EntitySet Name="Provincia" EntityType="AGRONOMICOSDBModel.Provincia" />
@@ -455,38 +471,9 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Muestra" EntitySet="Muestra" />
           </AssociationSet>
+=======
+>>>>>>> nspinozam
           </EntityContainer>
-        <EntityType Name="Muestra">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Campo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="IdPersona" Type="Int32" Nullable="false" />
-          <Property Name="Provincia" Type="Int32" Nullable="false" />
-          <Property Name="Canton" Type="Int32" Nullable="false" />
-          <Property Name="Distrito" Type="Int32" Nullable="false" />
-          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Persona" Relationship="AGRONOMICOSDBModel.idClienteMuestra" FromRole="Muestra" ToRole="Persona" />
-          <NavigationProperty Name="Muestra_Analisis" Relationship="AGRONOMICOSDBModel.MuestraCodigo" FromRole="Muestra" ToRole="Muestra_Analisis" />
-          <NavigationProperty Name="Provincia1" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Muestra" ToRole="Provincia" />
-        </EntityType>
-        <EntityType Name="Muestra_Analisis">
-          <Key>
-            <PropertyRef Name="IdMuestraAnalisis" />
-          </Key>
-          <Property Name="IdMuestraAnalisis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Costo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IdFactura" Type="Int32" Nullable="false" />
-          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.MuestraCodigo" FromRole="Muestra_Analisis" ToRole="Muestra" />
-          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Muestra_Analisis" ToRole="Analisis" />
-          <NavigationProperty Name="Factura" Relationship="AGRONOMICOSDBModel.IdFactura" FromRole="Muestra_Analisis" ToRole="Factura" />
-          <NavigationProperty Name="Resultado_Analisis" Relationship="AGRONOMICOSDBModel.IdMuestraAnalisis" FromRole="Muestra_Analisis" ToRole="Resultado_Analisis" />
-        </EntityType>
         <EntityType Name="Persona">
           <Key>
             <PropertyRef Name="ID_Persona" />
@@ -503,34 +490,10 @@
           <Property Name="Tipo" Type="Byte" Nullable="false" />
           <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="PasswordChange" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.idClienteMuestra" FromRole="Persona" ToRole="Muestra" />
           <NavigationProperty Name="Factura" Relationship="AGRONOMICOSDBModel.idClienteFactura" FromRole="Persona" ToRole="Factura" />
           <NavigationProperty Name="Reporte" Relationship="AGRONOMICOSDBModel.IdCliente" FromRole="Persona" ToRole="Reporte" />
+          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.idClienteMuestra" FromRole="Persona" ToRole="Muestra" />
         </EntityType>
-        <Association Name="idClienteMuestra">
-          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="ID_Persona" />
-            </Principal>
-            <Dependent Role="Muestra">
-              <PropertyRef Name="IdPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="MuestraCodigo">
-          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Muestra">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Muestra_Analisis">
-              <PropertyRef Name="Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Analisis">
           <Key>
             <PropertyRef Name="IdAnalisis" />
@@ -544,15 +507,6 @@
           <NavigationProperty Name="Analisis_Dato" Relationship="AGRONOMICOSDBModel.FK_Analisis_Dato_Analisis" FromRole="Analisis" ToRole="Analisis_Dato" />
           <NavigationProperty Name="Muestra_Analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Analisis" ToRole="Muestra_Analisis" />
         </EntityType>
-        <EntityType Name="Analisis_Dato">
-          <Key>
-            <PropertyRef Name="IdAnalisisDato" />
-          </Key>
-          <Property Name="IdAnalisisDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
-          <Property Name="IdDato" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK_Analisis_Dato_Analisis" FromRole="Analisis_Dato" ToRole="Analisis" />
-        </EntityType>
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -560,15 +514,6 @@
           <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK__Analisis__IdCate__2A4B4B5E" FromRole="Categoria" ToRole="Analisis" />
-        </EntityType>
-        <EntityType Name="Dato">
-          <Key>
-            <PropertyRef Name="IdDato" />
-          </Key>
-          <Property Name="IdDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Resultado_Dato" Relationship="AGRONOMICOSDBModel.FK_Resultado_Dato_Dato" FromRole="Dato" ToRole="Resultado_Dato" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -593,6 +538,139 @@
           <Property Name="IdCliente" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="AGRONOMICOSDBModel.IdCliente" FromRole="Reporte" ToRole="Persona" />
         </EntityType>
+        <Association Name="FK__Analisis__IdCate__2A4B4B5E">
+          <End Type="AGRONOMICOSDBModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Analisis">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idClienteFactura">
+          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdCliente">
+          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Reporte" Role="Reporte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="Reporte">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+<<<<<<< HEAD
+        <Association Name="idResultadoAnalisis">
+          <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resultado_Analisis">
+              <PropertyRef Name="IdResultadoAnalisis" />
+            </Principal>
+            <Dependent Role="Resultado_Dato">
+              <PropertyRef Name="IdResultadoAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+=======
+        <EntityType Name="Analisis_Dato">
+          <Key>
+            <PropertyRef Name="IdAnalisisDato" />
+          </Key>
+          <Property Name="IdAnalisisDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
+          <Property Name="IdDato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK_Analisis_Dato_Analisis" FromRole="Analisis_Dato" ToRole="Analisis" />
+        </EntityType>
+>>>>>>> nspinozam
+        <EntityType Name="Canton">
+          <Key>
+            <PropertyRef Name="ID_Canton" />
+          </Key>
+          <Property Name="ID_Canton" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Provincia" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Distrito" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Canton" ToRole="Distrito" />
+          <NavigationProperty Name="Provincia" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Canton" ToRole="Provincia" />
+        </EntityType>
+        <EntityType Name="Dato">
+          <Key>
+            <PropertyRef Name="IdDato" />
+          </Key>
+          <Property Name="IdDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Resultado_Dato" Relationship="AGRONOMICOSDBModel.FK_Resultado_Dato_Dato" FromRole="Dato" ToRole="Resultado_Dato" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="ID_Distrito" />
+          </Key>
+          <Property Name="ID_Distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Canton" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Distrito" ToRole="Canton" />
+        </EntityType>
+<<<<<<< HEAD
+=======
+        <EntityType Name="Muestra">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Campo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="Provincia" Type="Int32" Nullable="false" />
+          <Property Name="Canton" Type="Int32" Nullable="false" />
+          <Property Name="Distrito" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Provincia1" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Muestra" ToRole="Provincia" />
+          <NavigationProperty Name="Persona" Relationship="AGRONOMICOSDBModel.idClienteMuestra" FromRole="Muestra" ToRole="Persona" />
+          <NavigationProperty Name="Muestra_Analisis" Relationship="AGRONOMICOSDBModel.MuestraCodigo" FromRole="Muestra" ToRole="Muestra_Analisis" />
+        </EntityType>
+        <EntityType Name="Muestra_Analisis">
+          <Key>
+            <PropertyRef Name="IdMuestraAnalisis" />
+          </Key>
+          <Property Name="IdMuestraAnalisis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Costo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdFactura" Type="Int32" Nullable="false" />
+          <Property Name="IdAnalisis" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.IdAnalisi" FromRole="Muestra_Analisis" ToRole="Analisis" />
+          <NavigationProperty Name="Factura" Relationship="AGRONOMICOSDBModel.IdFactura" FromRole="Muestra_Analisis" ToRole="Factura" />
+          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.MuestraCodigo" FromRole="Muestra_Analisis" ToRole="Muestra" />
+          <NavigationProperty Name="Resultado_Analisis" Relationship="AGRONOMICOSDBModel.IdMuestraAnalisis" FromRole="Muestra_Analisis" ToRole="Resultado_Analisis" />
+        </EntityType>
+>>>>>>> nspinozam
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="ID_Provincia" />
+          </Key>
+          <Property Name="ID_Provincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Provincia" ToRole="Canton" />
+          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Provincia" ToRole="Muestra" />
+        </EntityType>
+<<<<<<< HEAD
+=======
         <EntityType Name="Resultado_Analisis">
           <Key>
             <PropertyRef Name="IdResultadoAnalisis" />
@@ -615,18 +693,6 @@
           <NavigationProperty Name="Dato" Relationship="AGRONOMICOSDBModel.FK_Resultado_Dato_Dato" FromRole="Resultado_Dato" ToRole="Dato" />
           <NavigationProperty Name="Resultado_Analisis" Relationship="AGRONOMICOSDBModel.idResultadoAnalisis" FromRole="Resultado_Dato" ToRole="Resultado_Analisis" />
         </EntityType>
-        <Association Name="FK__Analisis__IdCate__2A4B4B5E">
-          <End Type="AGRONOMICOSDBModel.Categoria" Role="Categoria" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="Analisis">
-              <PropertyRef Name="IdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Analisis_Dato_Analisis">
           <End Type="AGRONOMICOSDBModel.Analisis" Role="Analisis" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Analisis_Dato" Role="Analisis_Dato" Multiplicity="*" />
@@ -651,106 +717,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Resultado_Dato_Dato">
-          <End Type="AGRONOMICOSDBModel.Dato" Role="Dato" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dato">
-              <PropertyRef Name="IdDato" />
-            </Principal>
-            <Dependent Role="Resultado_Dato">
-              <PropertyRef Name="IdDato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idClienteFactura">
-          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Factura" Role="Factura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="ID_Persona" />
-            </Principal>
-            <Dependent Role="Factura">
-              <PropertyRef Name="IdPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="IdFactura">
-          <End Type="AGRONOMICOSDBModel.Factura" Role="Factura" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="IdFactura" />
-            </Principal>
-            <Dependent Role="Muestra_Analisis">
-              <PropertyRef Name="IdFactura" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="IdMuestraAnalisis">
-          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Muestra_Analisis">
-              <PropertyRef Name="IdMuestraAnalisis" />
-            </Principal>
-            <Dependent Role="Resultado_Analisis">
-              <PropertyRef Name="IdMuestraAnalisis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="IdCliente">
-          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Reporte" Role="Reporte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="ID_Persona" />
-            </Principal>
-            <Dependent Role="Reporte">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idResultadoAnalisis">
-          <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="1" />
-          <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resultado_Analisis">
-              <PropertyRef Name="IdResultadoAnalisis" />
-            </Principal>
-            <Dependent Role="Resultado_Dato">
-              <PropertyRef Name="IdResultadoAnalisis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Canton">
-          <Key>
-            <PropertyRef Name="ID_Canton" />
-          </Key>
-          <Property Name="ID_Canton" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Provincia" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Distrito" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Canton" ToRole="Distrito" />
-          <NavigationProperty Name="Provincia" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Canton" ToRole="Provincia" />
-        </EntityType>
-        <EntityType Name="Distrito">
-          <Key>
-            <PropertyRef Name="ID_Distrito" />
-          </Key>
-          <Property Name="ID_Distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Canton" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Distrito" ToRole="Canton" />
-        </EntityType>
-        <EntityType Name="Provincia">
-          <Key>
-            <PropertyRef Name="ID_Provincia" />
-          </Key>
-          <Property Name="ID_Provincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Provincia" ToRole="Canton" />
-          <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Provincia" ToRole="Muestra" />
-        </EntityType>
+>>>>>>> nspinozam
         <Association Name="FK_Canton">
           <End Type="AGRONOMICOSDBModel.Canton" Role="Canton" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Distrito" Role="Distrito" Multiplicity="*" />
@@ -775,6 +742,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< HEAD
+=======
+        <Association Name="FK_Resultado_Dato_Dato">
+          <End Type="AGRONOMICOSDBModel.Dato" Role="Dato" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dato">
+              <PropertyRef Name="IdDato" />
+            </Principal>
+            <Dependent Role="Resultado_Dato">
+              <PropertyRef Name="IdDato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdFactura">
+          <End Type="AGRONOMICOSDBModel.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="IdFactura" />
+            </Principal>
+            <Dependent Role="Muestra_Analisis">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+>>>>>>> nspinozam
         <Association Name="FK_Provincias">
           <End Type="AGRONOMICOSDBModel.Provincia" Role="Provincia" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
@@ -784,6 +778,57 @@
             </Principal>
             <Dependent Role="Muestra">
               <PropertyRef Name="Provincia" />
+<<<<<<< HEAD
+=======
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idClienteMuestra">
+          <End Type="AGRONOMICOSDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="Muestra">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MuestraCodigo">
+          <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Muestra">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Muestra_Analisis">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdMuestraAnalisis">
+          <End Type="AGRONOMICOSDBModel.Muestra_Analisis" Role="Muestra_Analisis" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Muestra_Analisis">
+              <PropertyRef Name="IdMuestraAnalisis" />
+            </Principal>
+            <Dependent Role="Resultado_Analisis">
+              <PropertyRef Name="IdMuestraAnalisis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idResultadoAnalisis">
+          <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="1" />
+          <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resultado_Analisis">
+              <PropertyRef Name="IdResultadoAnalisis" />
+            </Principal>
+            <Dependent Role="Resultado_Dato">
+              <PropertyRef Name="IdResultadoAnalisis" />
+>>>>>>> nspinozam
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -793,32 +838,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AGRONOMICOSDBModelStoreContainer" CdmEntityContainer="AGRONOMICOSDBEntities">
-          <EntitySetMapping Name="Muestra">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra">
-              <MappingFragment StoreEntitySet="Muestra">
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
-                <ScalarProperty Name="Canton" ColumnName="Canton" />
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="Campo" ColumnName="Campo" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Muestra_Analisis">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra_Analisis">
-              <MappingFragment StoreEntitySet="Muestra_Analisis">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
-                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Costo" ColumnName="Costo" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdMuestraAnalisis" ColumnName="IdMuestraAnalisis" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
@@ -848,29 +867,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Analisis_Dato">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis_Dato">
-              <MappingFragment StoreEntitySet="Analisis_Dato">
-                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
-                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
-                <ScalarProperty Name="IdAnalisisDato" ColumnName="IdAnalisisDato" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categoria">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Categoria">
               <MappingFragment StoreEntitySet="Categoria">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Dato">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Dato">
-              <MappingFragment StoreEntitySet="Dato">
-                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -896,6 +897,85 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Analisis_Dato">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis_Dato">
+              <MappingFragment StoreEntitySet="Analisis_Dato">
+                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
+<<<<<<< HEAD
+                <ScalarProperty Name="IdResultadoDato" ColumnName="IdResultadoDato" />
+=======
+                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
+                <ScalarProperty Name="IdAnalisisDato" ColumnName="IdAnalisisDato" />
+>>>>>>> nspinozam
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Canton">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Canton">
+              <MappingFragment StoreEntitySet="Canton">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
+                <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dato">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Dato">
+              <MappingFragment StoreEntitySet="Dato">
+                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdDato" ColumnName="IdDato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
+                <ScalarProperty Name="ID_Distrito" ColumnName="ID_Distrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+<<<<<<< HEAD
+=======
+          <EntitySetMapping Name="Muestra">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra">
+              <MappingFragment StoreEntitySet="Muestra">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="Canton" ColumnName="Canton" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Muestra_Analisis">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra_Analisis">
+              <MappingFragment StoreEntitySet="Muestra_Analisis">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdMuestraAnalisis" ColumnName="IdMuestraAnalisis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+>>>>>>> nspinozam
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+<<<<<<< HEAD
+=======
           <EntitySetMapping Name="Resultado_Analisis">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_Analisis">
               <MappingFragment StoreEntitySet="Resultado_Analisis">
@@ -916,32 +996,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Canton">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Canton">
-              <MappingFragment StoreEntitySet="Canton">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
-                <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Distrito">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Distrito">
-              <MappingFragment StoreEntitySet="Distrito">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Canton" ColumnName="ID_Canton" />
-                <ScalarProperty Name="ID_Distrito" ColumnName="ID_Distrito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provincia">
-            <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Provincia">
-              <MappingFragment StoreEntitySet="Provincia">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="ID_Provincia" ColumnName="ID_Provincia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+>>>>>>> nspinozam
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

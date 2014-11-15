@@ -27,8 +27,8 @@ namespace LAAG
         public int Distrito { get; set; }
         public string Direccion { get; set; }
     
+        public virtual Provincia Provincia1 { get; set; }
         public virtual Persona Persona { get; set; }
         public virtual ICollection<Muestra_Analisis> Muestra_Analisis { get; set; }
-        public virtual Provincia Provincia1 { get; set; }
     }
 }

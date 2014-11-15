@@ -16,9 +16,9 @@ namespace LAAG
     {
         public Persona()
         {
-            this.Muestra = new HashSet<Muestra>();
             this.Factura = new HashSet<Factura>();
             this.Reporte = new HashSet<Reporte>();
+            this.Muestra = new HashSet<Muestra>();
         }
     
         public int ID_Persona { get; set; }
@@ -34,8 +34,8 @@ namespace LAAG
         public string NombreUsuario { get; set; }
         public bool PasswordChange { get; set; }
     
-        public virtual ICollection<Muestra> Muestra { get; set; }
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual ICollection<Reporte> Reporte { get; set; }
+        public virtual ICollection<Muestra> Muestra { get; set; }
     }
 }

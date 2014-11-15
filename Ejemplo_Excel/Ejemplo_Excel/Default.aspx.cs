@@ -45,16 +45,24 @@ namespace Ejemplo_Excel
                 {
                     try
                     {
+                        object h = FileUpload.GetType();
                         string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
+                       
                         FileUpload.PostedFile.SaveAs(fileName);
-
+                        string named = FileUpload.PostedFile.ToString();
+                        string fimba = System.IO.Path.GetFileName(FileUpload.PostedFile.FileName);
                         string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
+<<<<<<< HEAD
+                     
+=======
 
-                        string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
+                        //string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
                         
                         
+>>>>>>> f4fb7993924266a9ee3e6c2c7dca316843fc8339
                         using (OleDbConnection con = new OleDbConnection(conString))
                         {
+                            // CAMBIA ESTO
                             string query = "Select [Employee ID], [Contact Tile], [Contact Name],[Contact Title],[Employee Address],[Postal Code] from [Hoja1$]";
 
                             OleDbCommand cmd = new OleDbCommand(query, con);
@@ -74,8 +82,10 @@ namespace Ejemplo_Excel
                             {
                                 foreach (DataRow dr in ds.Tables[0].Rows)
                                 {
+                                    
                                     string empID = dr["Employee Id"].ToString();
-
+                                    int y = 0;
+                                    /*
                                     var v = dc.EmployeeMaster.Where(a => a.EmployeeID.Equals(empID)).FirstOrDefault();
                                     if (v != null)
                                     {
@@ -101,6 +111,7 @@ namespace Ejemplo_Excel
                                         });
 
                                     }
+                                     */
                                 }
                                 dc.SaveChanges();
                             }
