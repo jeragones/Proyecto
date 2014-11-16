@@ -137,7 +137,6 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var json = $.parseJSON(data);
-                alert(data);
                 $(".cmbCanton").empty();
                 $(".cmbCanton").append("<option value='0'></option>");
                 jQuery.each(json, function (val, i) {
@@ -160,7 +159,6 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var json = $.parseJSON(data);
-                alert(data);
                 $(".cmbDistrict").empty();
                 $(".cmbDistrict").append("<option value='0'></option>");
                 jQuery.each(json, function (val, i) {
