@@ -1,0 +1,20 @@
+{  bromatologicos: [
+	{ nombre: Materia Seca,
+	  hoja: hoja1,
+	  codigo: 0,
+	  valor: 0 },
+	{ nombre: Nitrogeno Total,
+	  hoja: samples,
+	  codigo: 3,
+	  valor: 0 },
+	{ nombre: Digestivilidad in Vitro,
+	  hoja: hoja1,
+	  codigo: 0,
+	  valor: 0 }
+   ],
+   foliares: [
+   ]
+}
+
+,
+

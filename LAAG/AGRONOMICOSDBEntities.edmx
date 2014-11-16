@@ -455,7 +455,7 @@
             <End Role="Resultado_Analisis" EntitySet="Resultado_Analisis" />
             <End Role="Resultado_Dato" EntitySet="Resultado_Dato" />
           </AssociationSet>
-<<<<<<< HEAD
+<!--
           <EntitySet Name="Canton" EntityType="AGRONOMICOSDBModel.Canton" />
           <EntitySet Name="Distrito" EntityType="AGRONOMICOSDBModel.Distrito" />
           <EntitySet Name="Provincia" EntityType="AGRONOMICOSDBModel.Provincia" />
@@ -471,8 +471,7 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Muestra" EntitySet="Muestra" />
           </AssociationSet>
-=======
->>>>>>> nspinozam
+-->
           </EntityContainer>
         <EntityType Name="Persona">
           <Key>
@@ -574,7 +573,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-<<<<<<< HEAD
+<!--
         <Association Name="idResultadoAnalisis">
           <End Type="AGRONOMICOSDBModel.Resultado_Analisis" Role="Resultado_Analisis" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
@@ -587,7 +586,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-=======
+-->
         <EntityType Name="Analisis_Dato">
           <Key>
             <PropertyRef Name="IdAnalisisDato" />
@@ -597,7 +596,6 @@
           <Property Name="IdDato" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Analisis" Relationship="AGRONOMICOSDBModel.FK_Analisis_Dato_Analisis" FromRole="Analisis_Dato" ToRole="Analisis" />
         </EntityType>
->>>>>>> nspinozam
         <EntityType Name="Canton">
           <Key>
             <PropertyRef Name="ID_Canton" />
@@ -626,8 +624,6 @@
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Canton" FromRole="Distrito" ToRole="Canton" />
         </EntityType>
-<<<<<<< HEAD
-=======
         <EntityType Name="Muestra">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -659,7 +655,6 @@
           <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.MuestraCodigo" FromRole="Muestra_Analisis" ToRole="Muestra" />
           <NavigationProperty Name="Resultado_Analisis" Relationship="AGRONOMICOSDBModel.IdMuestraAnalisis" FromRole="Muestra_Analisis" ToRole="Resultado_Analisis" />
         </EntityType>
->>>>>>> nspinozam
         <EntityType Name="Provincia">
           <Key>
             <PropertyRef Name="ID_Provincia" />
@@ -669,8 +664,6 @@
           <NavigationProperty Name="Canton" Relationship="AGRONOMICOSDBModel.FK_Provincia" FromRole="Provincia" ToRole="Canton" />
           <NavigationProperty Name="Muestra" Relationship="AGRONOMICOSDBModel.FK_Provincias" FromRole="Provincia" ToRole="Muestra" />
         </EntityType>
-<<<<<<< HEAD
-=======
         <EntityType Name="Resultado_Analisis">
           <Key>
             <PropertyRef Name="IdResultadoAnalisis" />
@@ -717,7 +710,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
->>>>>>> nspinozam
         <Association Name="FK_Canton">
           <End Type="AGRONOMICOSDBModel.Canton" Role="Canton" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Distrito" Role="Distrito" Multiplicity="*" />
@@ -742,8 +734,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-<<<<<<< HEAD
-=======
         <Association Name="FK_Resultado_Dato_Dato">
           <End Type="AGRONOMICOSDBModel.Dato" Role="Dato" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Resultado_Dato" Role="Resultado_Dato" Multiplicity="*" />
@@ -768,7 +758,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
->>>>>>> nspinozam
         <Association Name="FK_Provincias">
           <End Type="AGRONOMICOSDBModel.Provincia" Role="Provincia" Multiplicity="1" />
           <End Type="AGRONOMICOSDBModel.Muestra" Role="Muestra" Multiplicity="*" />
@@ -778,8 +767,6 @@
             </Principal>
             <Dependent Role="Muestra">
               <PropertyRef Name="Provincia" />
-<<<<<<< HEAD
-=======
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -828,7 +815,6 @@
             </Principal>
             <Dependent Role="Resultado_Dato">
               <PropertyRef Name="IdResultadoAnalisis" />
->>>>>>> nspinozam
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -901,12 +887,11 @@
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Analisis_Dato">
               <MappingFragment StoreEntitySet="Analisis_Dato">
                 <ScalarProperty Name="IdDato" ColumnName="IdDato" />
-<<<<<<< HEAD
+<!--
                 <ScalarProperty Name="IdResultadoDato" ColumnName="IdResultadoDato" />
-=======
+-->
                 <ScalarProperty Name="IdAnalisis" ColumnName="IdAnalisis" />
                 <ScalarProperty Name="IdAnalisisDato" ColumnName="IdAnalisisDato" />
->>>>>>> nspinozam
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -937,8 +922,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-<<<<<<< HEAD
-=======
           <EntitySetMapping Name="Muestra">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Muestra">
               <MappingFragment StoreEntitySet="Muestra">
@@ -965,7 +948,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
->>>>>>> nspinozam
           <EntitySetMapping Name="Provincia">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Provincia">
               <MappingFragment StoreEntitySet="Provincia">
@@ -974,8 +956,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-<<<<<<< HEAD
-=======
           <EntitySetMapping Name="Resultado_Analisis">
             <EntityTypeMapping TypeName="AGRONOMICOSDBModel.Resultado_Analisis">
               <MappingFragment StoreEntitySet="Resultado_Analisis">
@@ -996,7 +976,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
->>>>>>> nspinozam
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

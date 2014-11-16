@@ -108,8 +108,6 @@ namespace LAAG.Controllers
         //public ActionResult Muestras(HttpPostedFileBase file)
         public ActionResult Muestras()
         {
-            int y = 0;
-
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];

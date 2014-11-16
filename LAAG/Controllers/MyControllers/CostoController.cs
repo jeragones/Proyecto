@@ -303,7 +303,7 @@ namespace LAAG.Controllers
                         num++;
                 }
 
-                codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
+                codigo += (dt.Year.ToString()).Substring(2) +'-' + num.ToString();
 
                 // creacion de la muestra
                 muestra.Codigo = codigo;
