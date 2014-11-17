@@ -123,124 +123,83 @@ namespace LAAG.Controllers
                         var path = Path.Combine(Server.MapPath("~/TempFiles/"), fileName);
                         file.SaveAs(path);
                         LoadFileService insLoadFile = new LoadFileService();
-                        List<string> columns = new List<string>();
-                        
-                        // DEPENDIENDO DEL ARCHIVO ESTO CAMBIA
-                        columns.Add("Employee ID");
-                        columns.Add("Contact Name");
-                        columns.Add("Contact Title");
-                        columns.Add("Employee Address");
-                        columns.Add("Postal Code");
+                        var configFile = Path.Combine(Server.MapPath("~/"), "LAAG_config.json");
 
-                        List<object> data = insLoadFile.loadFile(path, columns);
-                        foreach (List<string> analisis in data) 
+                        StreamReader r = new StreamReader(configFile);
+                        string json = r.ReadToEnd();
+                        dynamic categories = JsonConvert.DeserializeObject(json);
+                        
+                        foreach (var category in categories) 
                         {
-                            db.Muestra.Find(analisis[0]); // asumiendo que la posicion 0 es el codigo
-                            /*
-                             SACAR LOS DATOS DE LA LISTA
-                             BUSCAR LA MUESTRA POR EL CODIGO
-                             BUSCAR LOS ANALISIS PENDIENTES DE ESA MUESTRA
-                             BUSCAR LOS DATOS DE LA LISTA EN LOS ANALISIS PENDIENTES
-                             ASIGNARLE EL VALOR AL DATO DE LA BD
-                             */
-                        }
-
-                    }
-                }
-            }
-            /*
-                string ExcelContentType = "application/vnd.ms-excel";
-            string Excel2010ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            if (FileUpload.HasFile)
-            {
-                if (FileUpload.PostedFile.ContentType == ExcelContentType || FileUpload.PostedFile.ContentType == Excel2010ContentType) 
-                {
-                    try
-                    {
-                        
-                        string fileName = string.Concat(Server.MapPath("~/TempFiles/"), FileUpload.FileName);
-                        FileUpload.PostedFile.SaveAs(fileName);
-                        string named = FileUpload.PostedFile.ToString();
-                        string fimba = System.IO.Path.GetFileName(FileUpload.PostedFile.FileName);
-                        string conString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 8.0", fileName);
-
-                        //string ext = Path.GetExtension(FileUpload.PostedFile.FileName);
-                        
-                        
-                        using (OleDbConnection con = new OleDbConnection(conString))
-                        {
-                            // CAMBIA ESTO
-                            string query = "Select [Employee ID], [Contact Tile], [Contact Name],[Contact Title],[Employee Address],[Postal Code] from [Hoja1$]";
-
-                            OleDbCommand cmd = new OleDbCommand(query, con);
-                            if (con.State == System.Data.ConnectionState.Closed)
+                            foreach (var analysis in category.analisis) 
                             {
-                                con.Open();
-                            }
-                            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-
-                            DataSet ds = new DataSet();
-                            da.Fill(ds);
-                            da.Dispose();
-                            con.Close();
-                            con.Dispose();
-                            //Import to Database
-                            using (MyDatabaseEntities dc = new MyDatabaseEntities())
-                            {
-                                foreach (DataRow dr in ds.Tables[0].Rows)
+                                var nomAnalysis = analysis.nombre.ToString();
+                                List<DataRow> data = insLoadFile.loadFile(path, analysis.hoja.ToString());
+                                if (data.Count > 0) 
                                 {
-                                    
-                                    string empID = dr["Employee Id"].ToString();
-                                    int y = 0;
-                                    
-                                    var v = dc.EmployeeMaster.Where(a => a.EmployeeID.Equals(empID)).FirstOrDefault();
-                                    if (v != null)
+                                    foreach (DataRow analisis in data)
                                     {
-                                        // Update here
-                                        v.CompanyName = dr["Contact Tile"].ToString();
-                                        v.ContactName = dr["Contact Name"].ToString();
-                                        v.ContactTitle = dr["Contact Title"].ToString();
-                                        v.EmployeeAddress = dr["Employee Address"].ToString();
-                                        v.PostaCode = dr["Postal Code"].ToString();
-                                    }
-                                    else
-                                    {
-                                        //insert
-                                        dc.EmployeeMaster.Add(new EmployeeMaster
+                                        string column = analysis.codigo.ToString();
+                                        Muestra muestra = db.Muestra.Find((analisis[column]).ToString());
+                                        if (muestra != null)
                                         {
-                                            EmployeeID = dr["Employee Id"].ToString(),
-                                            CompanyName = dr["Contact Tile"].ToString(),
-                                            ContactName = dr["Contact Name"].ToString(),
-                                            ContactTitle = dr["Contact Title"].ToString(),
-                                            EmployeeAddress = dr["Employee Address"].ToString(),
-                                            PostaCode = dr["Postal Code"].ToString()
+                                            var muest_anal = (from row in db.Muestra_Analisis
+                                                              where row.Codigo == muestra.Codigo && row.Estado == 0
+                                                              select row).ToList();
 
-                                        });
+                                            for (int x = 0; x < muest_anal.Count(); x++)
+                                            {
+                                                Analisis tmpAnalysis = db.Analisis.Find(muest_anal[x].IdAnalisis);
+                                                string nomAnal = tmpAnalysis.Nombre;
+                                                int idAnal = tmpAnalysis.IdAnalisis;
 
+                                                if (nomAnal.Equals(nomAnalysis)) {
+                                                    /*
+                                                    var ra = from row in db.Resultado_Analisis
+                                                             where row.IdMuestraAnalisis == muest_anal.ElementAt(x).IdMuestraAnalisis
+                                                             select row.IdResultadoAnalisis;
+                                                    */
+                                                    Resultado_Analisis resAnalisis = new Resultado_Analisis();
+                                                    resAnalisis.IdMuestraAnalisis = muest_anal[x].IdMuestraAnalisis;
+                                                    
+                                                    muest_anal[x].Estado = 1;
+                                                    db.SaveChanges();
+                                                    resAnalisis.IdReporte = -1;
+                                                    resAnalisis.Estado = 1;
+
+                                                    db.Resultado_Analisis.Add(resAnalisis);
+                                                    db.SaveChanges();
+
+                                                    var datos = (from row in db.Analisis_Dato
+                                                                 where row.IdAnalisis == idAnal
+                                                                 select row).ToList();
+
+                                                    List<string> columns = new List<string>();
+                                                    foreach (var col in analysis.columnas)
+                                                    {
+                                                        columns.Add(col.nombre.ToString());
+                                                    }
+
+                                                    for (int i = 0; i < datos.Count(); i++)
+                                                    {
+                                                        Resultado_Dato analisis_dato = new Resultado_Dato();
+                                                        analisis_dato.IdDato = ((Analisis_Dato)datos[i]).IdDato;
+                                                        double value = Convert.ToDouble(analisis[columns[i]]);
+                                                        analisis_dato.Resultado = value.ToString("#.##");
+                                                        analisis_dato.IdResultadoAnalisis = resAnalisis.IdResultadoAnalisis;
+                                                        db.Resultado_Dato.Add(analisis_dato);
+                                                        db.SaveChanges();
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
-                                     
                                 }
-                                dc.SaveChanges();
                             }
-                            PopulateData();
-                            lblMessage.Text = "Successfully data import done!";
-                            
                         }
-                        
-                        
-                        
-
-                       
-
-                    }
-                    catch (Exception ex)
-                    {
-                        lblMessage.Text = ex.Message;
                     }
                 }
             }
-            */
-               
             return RedirectToAction("Index");
         }
     }

@@ -34,14 +34,14 @@
         <AssociationConnector Association="AGRONOMICOSDBModel.IdMuestraAnalisis" />
         <AssociationConnector Association="AGRONOMICOSDBModel.idResultadoAnalisis" />
 <<<<<<< HEAD
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Canton" Width="1.5" PointX="12.625" PointY="5.875" />
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Distrito" Width="1.5" PointX="14.875" PointY="6" />
-        <EntityTypeShape EntityType="AGRONOMICOSDBModel.Provincia" Width="1.5" PointX="10.375" PointY="6" />
-        <AssociationConnector Association="AGRONOMICOSDBModel.FK_Canton" />
-        <AssociationConnector Association="AGRONOMICOSDBModel.FK_Provincia" />
-        <AssociationConnector Association="AGRONOMICOSDBModel.FK_Provincias" />
+        
+        
+        
+        
+        
+        
 =======
->>>>>>> nspinozam
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; nspinozam
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
