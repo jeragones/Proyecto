@@ -397,6 +397,7 @@
     <Content Include="Scripts\custom\Analisis\MultiplesDatos.js" />
     <Content Include="Scripts\custom\costo.js" />
     <Content Include="Scripts\custom\index.js" />
+    <Content Include="Scripts\custom\Reportes\reporte.js" />
     <Content Include="Scripts\custom\ResultadosDatos\MultiplesDatos.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
