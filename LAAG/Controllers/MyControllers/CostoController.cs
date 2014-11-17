@@ -179,10 +179,7 @@ namespace LAAG.Controllers
             String codigo = "";
             DateTime dt = DateTime.Now;
             String[] temp = categoria.Split(' ');
-            int num = 1;
-            /*
-            var consult = from row in db.Muestra
-                          select row;*/
+
             var consult = db.Muestra.ToList();
 
             for (int i = 0; i < temp.Length; i++)
@@ -190,16 +187,21 @@ namespace LAAG.Controllers
                 codigo += temp[i][0];
             }
 
-            foreach (var item in consult)
+            codigo += (dt.Year.ToString()).Substring(2);
+
+            for (int i = consult.Count-1; i >= 0; i--) 
             {
-                if (codigo.Equals(item.Codigo.Split('-')[0]))
-                    num++;
+                string[] tmp = consult[i].Codigo.Split('_');
+                if (codigo.Equals(tmp[0]))
+                {
+                    codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
+                    break;
+                }
+                else if (i == 0)
+                    codigo += "_1";
             }
-
-            codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
             
-            num = Convert.ToInt32(id);
-
+            int num = Convert.ToInt32(id);
             var analisis = from row in db.Analisis
                            where row.IdAnalisis == num
                            select new { id,
@@ -268,11 +270,8 @@ namespace LAAG.Controllers
             Factura factura = new Factura();
             Muestra muestra = new Muestra();
             Muestra_Analisis muestraAnalisis = new Muestra_Analisis();
-            
-            String codigo = "";
             Decimal costo = 0;
-            DateTime dt = DateTime.Now;
-
+            
              //Obtener los laboratios
             dynamic json = JsonConvert.DeserializeObject(jsonDatos);
             //String tmp1 = ;
@@ -280,15 +279,10 @@ namespace LAAG.Controllers
             if (!"[]".Equals(json.id.ToString())) 
             {
                 Analisis analisis = db.Analisis.Find(Convert.ToInt32(json.id[0].ToString()));
-
+                String codigo = "";
+                DateTime dt = DateTime.Now;
                 Categoria categoria = db.Categoria.Find(analisis.IdCategoria);
-
                 var consult = db.Muestra.ToList();
-                /*
-                var consult = from row in db.Muestra
-                              select row;*/
-
-                int num = 1;
 
                 String[] temp = categoria.Nombre.Split(' ');
 
@@ -297,13 +291,19 @@ namespace LAAG.Controllers
                     codigo += temp[i][0];
                 }
 
-                foreach (var item in consult)
-                {
-                    if (codigo.Equals(item.Codigo.Split('-')[0]))
-                        num++;
-                }
+                codigo += (dt.Year.ToString()).Substring(2);
 
-                codigo += '-' + dt.Year.ToString() + '-' + num.ToString();
+                for (int i = consult.Count - 1; i >= 0; i--)
+                {
+                    string[] tmp = consult[i].Codigo.Split('_');
+                    if (codigo.Equals(tmp[0]))
+                    {
+                        codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
+                        break;
+                    }
+                    else if (i == 0)
+                        codigo += "_1";
+                }
 
                 // creacion de la muestra
                 muestra.Codigo = codigo;
@@ -404,9 +404,9 @@ namespace LAAG.Controllers
         // GET: /Costo/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id = 1) 
+        public ActionResult DeleteConfirmed(String id) 
         {
-            int ids = 1;
+            int idFact = -1;
             Muestra muestra = db.Muestra.Find(id);
             db.Muestra.Remove(muestra);
             db.SaveChanges();
@@ -417,14 +417,16 @@ namespace LAAG.Controllers
 
             foreach (var item in lstAnalisis) 
             {
-                ids = item.IdFactura;
+                idFact = item.IdFactura;
                 db.Muestra_Analisis.Remove(item);
                 db.SaveChanges();
             }
-
-            Factura factura = db.Factura.Find(ids);
-            db.Factura.Remove(factura);
-            db.SaveChanges();
+            if (idFact != -1) {
+                Factura factura = db.Factura.Find(idFact);
+                db.Factura.Remove(factura);
+                db.SaveChanges();
+            }
+            
 
             return RedirectToAction("Index");
         }

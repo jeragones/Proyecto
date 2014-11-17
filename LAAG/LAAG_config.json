@@ -1,0 +1,41 @@
+[ { "nombre": "Bromatológicos", 
+    "analisis": [
+	{ "nombre": "Materia Seca",
+	  "hoja": "MS 105",
+	  "codigo": "ID Muestra",
+	  "columnas": [
+		{ "nombre": "PROMEDIO"}
+	  ]
+	},
+	{ "nombre": "Fibra detergente neutro",
+	  "hoja": "Neutra",
+	  "codigo": "ID",
+	  "columnas": [
+		{ "nombre": "Promedio"}
+	  ]
+	},
+	{ "nombre": "Fibra detergente acido",
+	  "hoja": "ácida",
+	  "codigo": "ID",
+	  "columnas": [
+		{ "nombre": "Promedio"}
+	  ]
+	},
+	{ "nombre": "Nitrogeno Total",
+	  "hoja": "samples",
+	  "codigo": "Name",
+	  "columnas": [ 
+		{ "nombre": "Percent1" }
+	  ] 
+	},
+	{ "nombre": "Digestibilidad in vitro",
+	  "hoja": "digestibilidad",
+	  "codigo": "Codigo",
+	  "columnas": [
+		{ "nombre": "PROMEDIO"}] }
+      ]
+  },
+  { "nombre": "Foliares",
+      "analisis": []
+  }
+]

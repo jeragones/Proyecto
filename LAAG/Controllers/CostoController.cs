@@ -101,7 +101,7 @@ namespace LAAG.Controllers
                 
                 ViewBag.Canton = db.Canton.Find(item.Canton).nombre;
                 ViewBag.Distrito = db.Distrito.Find(item.Distrito).nombre;
-                fact.Direccion = fact.Direccion;
+                fact.Direccion = item.Direccion;
                 var muestAnal = from row in db.Muestra_Analisis
                                 where row.Codigo == item.Codigo
                                 select row;

@@ -17,6 +17,15 @@ namespace LAAG.Controllers
         // GET: Resultado
         public ActionResult Index()
         {
+            List<Muestra_Analisis> resP = new List<Muestra_Analisis>();
+            Persona persona = (Persona)Session["CurrentSession"];
+            if(persona.Tipo==2){
+                foreach (Muestra m in persona.Muestra)
+                {
+                    resP.AddRange(m.Muestra_Analisis.ToList());
+                }
+                return View(resP);
+            }
             var res = db.Muestra_Analisis.ToList();
             return View(res);
         }

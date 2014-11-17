@@ -244,6 +244,7 @@
     <Compile Include="App_Code\LoadFileService.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Controllers\MyControllers\ResultadoController.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\ResultadoController.cs" />
     <Compile Include="Dato.cs">
       <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
@@ -398,6 +399,7 @@
     <Content Include="Scripts\custom\Analisis\MultiplesDatos.js" />
     <Content Include="Scripts\custom\costo.js" />
     <Content Include="Scripts\custom\index.js" />
+    <Content Include="Scripts\custom\Reportes\reporte.js" />
     <Content Include="Scripts\custom\ResultadosDatos\MultiplesDatos.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -522,6 +524,12 @@
     <Content Include="Views\Costo\_ViewStart.cshtml" />
     <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Details.cshtml" />
+    <Content Include="Views\Reporte\Create.cshtml" />
+    <Content Include="Views\Reporte\Delete.cshtml" />
+    <Content Include="Views\Reporte\Details.cshtml" />
+    <Content Include="Views\Reporte\Edit.cshtml" />
+    <Content Include="Views\Reporte\Index.cshtml" />
+    <Content Include="Views\Reporte\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -548,7 +556,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63714</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
