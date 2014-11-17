@@ -103,6 +103,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -243,6 +244,7 @@
     <Compile Include="App_Code\LoadFileService.cs" />
     <Compile Include="Controllers\MyControllers\PersonaController.cs" />
     <Compile Include="Controllers\MyControllers\ResultadoController.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\ResultadoController.cs" />
     <Compile Include="Dato.cs">
       <DependentUpon>AGRONOMICOSDBEntities.tt</DependentUpon>
@@ -522,6 +524,12 @@
     <Content Include="Views\Costo\_ViewStart.cshtml" />
     <Content Include="Views\Resultado\Edit.cshtml" />
     <Content Include="Views\Resultado\Details.cshtml" />
+    <Content Include="Views\Reporte\Create.cshtml" />
+    <Content Include="Views\Reporte\Delete.cshtml" />
+    <Content Include="Views\Reporte\Details.cshtml" />
+    <Content Include="Views\Reporte\Edit.cshtml" />
+    <Content Include="Views\Reporte\Index.cshtml" />
+    <Content Include="Views\Reporte\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -548,7 +556,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63714</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

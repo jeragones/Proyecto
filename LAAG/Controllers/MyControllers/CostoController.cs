@@ -189,16 +189,23 @@ namespace LAAG.Controllers
 
             codigo += (dt.Year.ToString()).Substring(2);
 
-            for (int i = consult.Count-1; i >= 0; i--) 
+            if (consult.Count == 0)
             {
-                string[] tmp = consult[i].Codigo.Split('_');
-                if (codigo.Equals(tmp[0]))
+                codigo += "_1";
+            }
+            else 
+            {
+                for (int i = consult.Count - 1; i >= 0; i--)
                 {
-                    codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
-                    break;
+                    string[] tmp = consult[i].Codigo.Split('_');
+                    if (codigo.Equals(tmp[0]))
+                    {
+                        codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
+                        break;
+                    }
+                    else if (i == 0)
+                        codigo += "_1";
                 }
-                else if (i == 0)
-                    codigo += "_1";
             }
             
             int num = Convert.ToInt32(id);
@@ -293,16 +300,23 @@ namespace LAAG.Controllers
 
                 codigo += (dt.Year.ToString()).Substring(2);
 
-                for (int i = consult.Count - 1; i >= 0; i--)
+                if (consult.Count == 0)
                 {
-                    string[] tmp = consult[i].Codigo.Split('_');
-                    if (codigo.Equals(tmp[0]))
+                    codigo += "_1";
+                }
+                else
+                {
+                    for (int i = consult.Count - 1; i >= 0; i--)
                     {
-                        codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
-                        break;
+                        string[] tmp = consult[i].Codigo.Split('_');
+                        if (codigo.Equals(tmp[0]))
+                        {
+                            codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
+                            break;
+                        }
+                        else if (i == 0)
+                            codigo += "_1";
                     }
-                    else if (i == 0)
-                        codigo += "_1";
                 }
 
                 // creacion de la muestra
@@ -386,19 +400,19 @@ namespace LAAG.Controllers
         //
         // POST: /Costo/Edit/5
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Factura factura)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(factura).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdPersona = new SelectList(db.Persona, "ID_Persona", "Nombre", factura.IdPersona);
-            return View(factura);
-        }
+        /* [HttpPost]
+         [ValidateAntiForgeryToken]
+         public ActionResult Edit(Factura factura)
+         {
+             if (ModelState.IsValid)
+             {
+                 db.Entry(factura).State = EntityState.Modified;
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
+             }
+             ViewBag.IdPersona = new SelectList(db.Persona, "ID_Persona", "Nombre", factura.IdPersona);
+             return View(factura);
+         }*/
 
         //
         // GET: /Costo/Delete/
