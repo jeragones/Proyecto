@@ -161,7 +161,7 @@ namespace LAAG.Controllers
                                                     */
                                                     Resultado_Analisis resAnalisis = new Resultado_Analisis();
                                                     resAnalisis.IdMuestraAnalisis = muest_anal[x].IdMuestraAnalisis;
-                                                    
+                                                     
                                                     muest_anal[x].Estado = 1;
                                                     db.SaveChanges();
                                                     resAnalisis.IdReporte = -1;
