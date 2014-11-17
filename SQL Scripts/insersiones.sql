@@ -16,16 +16,15 @@ insert into Dato values('Promedio', 'Pro')
 
 insert into Analisis_Dato values(3,9)
 
-
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Materia Seca', 2000, 1, null)
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Nitrógeno Total', 6000, 1, 'desc')
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Digestibilidad in vitro', 6200, 1, 'desc')
-INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Fibra detergente neutro', 1, 5000, 'desc')
-/*INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Fibra detergente ácido', 1, 5000, 'desc')
-INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Cenizas', 1, 3500, 'desc')*/
+INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Fibra detergente neutro', 5000, 1, 'desc')
+INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Fibra detergente ácido', 5000, 1, 'desc')
+INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Cenizas', 3500, 1, 'desc')
 
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Humedad Muestra Húmeda', 1500, 2, null)
-/*INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Nitrógeno Total', 2, 6000, 'desc')*/
+INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Nitrógeno Total', 6000, 2, 'desc')
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Densidad de  Volumen', 1500, 2, 'desc')
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Humedad Muestra Seca', 1500, 2, 'desc')
 INSERT INTO Analisis(Nombre, Costo, IdCategoria, Descripcion) VALUES ('Materia Orgánica', 1500, 2, 'desc')

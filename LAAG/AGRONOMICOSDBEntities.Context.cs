@@ -30,23 +30,14 @@ namespace LAAG
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
         public virtual DbSet<Reporte> Reporte { get; set; }
-<<<<<<< HEAD
-        public virtual DbSet<Resultado_Analisis> Resultado_Analisis { get; set; }
-        public virtual DbSet<Resultado_Dato> Resultado_Dato { get; set; }
-=======
         public virtual DbSet<Analisis_Dato> Analisis_Dato { get; set; }
->>>>>>> nspinozam
         public virtual DbSet<Canton> Canton { get; set; }
         public virtual DbSet<Dato> Dato { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
-<<<<<<< HEAD
-        public virtual DbSet<Provincia> Provincia { get; set; }
-=======
         public virtual DbSet<Muestra> Muestra { get; set; }
         public virtual DbSet<Muestra_Analisis> Muestra_Analisis { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Resultado_Analisis> Resultado_Analisis { get; set; }
         public virtual DbSet<Resultado_Dato> Resultado_Dato { get; set; }
->>>>>>> nspinozam
     }
 }
