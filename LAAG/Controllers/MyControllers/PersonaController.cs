@@ -21,11 +21,23 @@ namespace LAAG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Persona persona)
         {
-            persona.Clave = insFunction.codeGenerator();
-            db.Persona.Add(persona);
-            db.SaveChanges();
-            insMail.registrationEmail(persona.Correo, persona.NombreUsuario, persona.Clave);
-            return RedirectToAction("Index", "Home");
+            string error = "El nombre de usuario o correo ya existe";
+            
+                var consult = (from row in db.Persona
+                              where row.Correo == persona.Correo ||
+                                    row.NombreUsuario == persona.NombreUsuario
+                              select row).ToList();
+                if (consult.Count == 0) 
+                {
+                    persona.Clave = insFunction.codeGenerator();
+                    db.Persona.Add(persona);
+                    db.SaveChanges();
+                    insMail.registrationEmail(persona.Correo, persona.NombreUsuario, persona.Clave);
+                    return RedirectToAction("Index", "Home");
+                }
+            
+            ModelState.AddModelError("", error);
+            return View(persona);
         }
 
 

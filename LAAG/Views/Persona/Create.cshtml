@@ -20,7 +20,15 @@
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-
+    if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
+                {
+                <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert">×</a>
+                    <h5 class="alert-heading"><strong>Error!</strong></h5>
+                    @Html.ValidationSummary(true)
+                </div>
+                }
+    
 <section id="RegisterForm">
 <div class="container">
     <div class="row">
@@ -109,7 +117,7 @@
                 </div>
 
                 @Html.HiddenFor(model => model.PasswordChange,new { @Value=true})
-
+                
                 <p>
                     <input type="submit" value="Guardar" class="btn btn-primary pull-right"/>
                 </p>
