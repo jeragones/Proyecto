@@ -50,8 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\AccountControllerTests.cs" />
-    <Compile Include="Controllers\MyControllers\PersonaControllerTests.cs" />
+    <Compile Include="Controllers\MyControllers\CategoriaControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,24 +8,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LAAG.Controllers.Tests
 {
     [TestClass()]
-    public class PersonaControllerTests
+    public class CategoriaControllerTests
     {
         [TestMethod()]
-        public void CreateTest()
+        public void CreateTest(Categoria categoria)
         {
             Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void EditTest()
-        {
-
-        }
-
-        [TestMethod()]
-        public void DeleteConfirmedTest()
-        {
-
         }
     }
 }
