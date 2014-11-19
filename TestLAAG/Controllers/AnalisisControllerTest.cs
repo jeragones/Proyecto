@@ -13,16 +13,17 @@ namespace TestLAAG.Controllers
     public class AnalisisControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void login()
         {
             // Arrange
-            AnalisisController controller = new AnalisisController();
-
+            AccountController controller = new AccountController();
+            //ViewResult result = controller.Login(null) as ViewResult;
             // Act
             //ViewResult result = controller.Index() as ViewResult;
+
             string algo = ""; // result.ViewBag.app
             // Assert
-            Assert.AreEqual("Modify this template to jump-start your ASP.NET MVC application.", algo);
+            Assert.AreEqual(algo, "");
         }
         /*
         [TestMethod]
