@@ -26,6 +26,9 @@ namespace LAAG.Controllers
 
         public ActionResult Clientes(int tipoP = 2)
         {
+            if(!canView()){
+                return RedirectToAction("Login", "Account");
+            }
             var query = db.Persona.Where(p => p.Tipo == tipoP).ToList();
             return View("Index",query);
         }
@@ -35,6 +38,10 @@ namespace LAAG.Controllers
 
         public ActionResult Empleados(int tipoP = 1)
         {
+            if (!canView())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var query = db.Persona.Where(p => p.Tipo == tipoP).ToList();
             return View("Index",query);
         }
@@ -44,6 +51,10 @@ namespace LAAG.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            if (!canView())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Persona persona = db.Persona.Find(id);
             if (persona == null)
             {
@@ -57,6 +68,10 @@ namespace LAAG.Controllers
 
         public ActionResult Create()
         {
+            if (!canView())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
@@ -66,6 +81,10 @@ namespace LAAG.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            if (!canView())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Persona persona = db.Persona.Find(id);
             if (persona == null)
             {
@@ -80,6 +99,10 @@ namespace LAAG.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            if (!canView())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Persona persona = db.Persona.Find(id);
             if (persona == null)
             {
@@ -92,6 +115,16 @@ namespace LAAG.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public Boolean canView() {
+            if (Session["CurrentSession"] != null)
+            {
+                return true;
+            }
+            else { 
+                return false;
+            }
         }
     }
 }
