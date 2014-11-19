@@ -179,6 +179,7 @@ namespace LAAG.Controllers
 
                                     for (int i = 0; i < datos.Count(); i++) 
                                     {
+/*
 <<<<<<< HEAD
                                         string column = analysis.codigo.ToString();
                                         Muestra muestra = db.Muestra.Find((analisis[column]).ToString());
@@ -195,11 +196,7 @@ namespace LAAG.Controllers
                                                 int idAnal = tmpAnalysis.IdAnalisis;
 
                                                 if (nomAnal.Equals(nomAnalysis)) {
-                                                    /*
-                                                    var ra = from row in db.Resultado_Analisis
-                                                             where row.IdMuestraAnalisis == muest_anal.ElementAt(x).IdMuestraAnalisis
-                                                             select row.IdResultadoAnalisis;
-                                                    */
+                                                    
                                                     Resultado_Analisis resAnalisis = new Resultado_Analisis();
                                                     resAnalisis.IdMuestraAnalisis = muest_anal[x].IdMuestraAnalisis;
                                                      
@@ -235,13 +232,14 @@ namespace LAAG.Controllers
                                             }
                                         }
 =======
+    */
                                         Resultado_Dato analisis_dato = new Resultado_Dato();
                                         analisis_dato.IdDato = ((Analisis_Dato)datos[i]).IdDato;
                                         analisis_dato.Resultado = analisis[columns[i]].ToString();
                                         analisis_dato.IdResultadoAnalisis = resAnalisis.IdResultadoAnalisis;
                                         db.Resultado_Dato.Add(analisis_dato);
                                         db.SaveChanges();
->>>>>>> 230c506a5211f36492f1e99dbd890ef8ae342ed4
+//>>>>>>> 230c506a5211f36492f1e99dbd890ef8ae342ed4
                                     }
 
                                 }
