@@ -6,24 +6,26 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LAAG;
 using LAAG.Controllers;
+using LAAG.Models;
+using WebMatrix.WebData;
 
 namespace TestLAAG.Controllers
 {
     [TestClass]
-    public class AnalisisControllerTest
+    public class AccountControllerTest
     {
         [TestMethod]
         public void login()
         {
             // Arrange
             AccountController controller = new AccountController();
-            //ViewResult result = controller.Login(null) as ViewResult;
-            // Act
-            //ViewResult result = controller.Index() as ViewResult;
-
-            string algo = ""; // result.ViewBag.app
-            // Assert
-            Assert.AreEqual(algo, "");
+            LoginModel model = new LoginModel();
+            model.Password = "12345";
+            model.UserName = "jeragones";
+            //WebSecurity.Logout();
+            //ActionResult result = controller.Login(model,"");
+            //string algo = result.ToString();
+            Assert.AreEqual("", "");
         }
         /*
         [TestMethod]
