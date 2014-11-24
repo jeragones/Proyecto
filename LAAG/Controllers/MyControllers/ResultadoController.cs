@@ -108,8 +108,6 @@ namespace LAAG.Controllers
         //public ActionResult Muestras(HttpPostedFileBase file)
         public ActionResult Muestras()
         {
-            
-
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
@@ -125,72 +123,81 @@ namespace LAAG.Controllers
                         var path = Path.Combine(Server.MapPath("~/TempFiles/"), fileName);
                         file.SaveAs(path);
                         LoadFileService insLoadFile = new LoadFileService();
-                        
-                        string page = "samples";
-                        List<DataRow> data = insLoadFile.loadFile(path, page);
-                        foreach (DataRow analisis in data) 
+                        var configFile = Path.Combine(Server.MapPath("~/"), "LAAG_config.json");
+
+                        StreamReader r = new StreamReader(configFile);
+                        string json = r.ReadToEnd();
+                        dynamic categories = JsonConvert.DeserializeObject(json);
+
+                        foreach (var category in categories)
                         {
-                            Muestra muestra = db.Muestra.Find((analisis.ItemArray[3]).ToString()); // TIESO
-                            if (muestra != null) 
+                            foreach (var analysis in category.analisis)
                             {
-                                var muest_anal = (from row in db.Muestra_Analisis
-                                               where row.Codigo == muestra.Codigo && row.Estado == 0
-                                               select row).ToList();
-                                //muest_anal.ToList();
-                                for (int x=0; x<muest_anal.Count(); x++) 
+                                var nomAnalysis = analysis.nombre.ToString();
+                                List<DataRow> data = insLoadFile.loadFile(path, analysis.hoja.ToString());
+                                if (data.Count > 0)
                                 {
-                                    int idAnal = db.Analisis.Find(muest_anal[x].IdAnalisis).IdAnalisis;
-                                    List<string> columns = new List<string>();
-                                    switch(idAnal) {                                               // TIESO
-                                        case 2:
-                                            columns.Add("Percent1");
-                                            break;
-                                    }
-                                        
-                                    var ra= from row in db.Resultado_Analisis
-                                            where row.IdMuestraAnalisis == muest_anal.ElementAt(x).IdMuestraAnalisis
-                                            select row.IdResultadoAnalisis;
-                                    
-                                    /*var rd = (from row in db.Resultado_Dato
-                                                     where row.IdResultadoDato == Convert.ToInt32(ra.ToString())
-                                                     select row).ToList();
-
-                                    for(int i=0; i < rd.Count(); i++) 
+                                    foreach (DataRow analisis in data)
                                     {
-                                        rd[i].Resultado = analisis[columns[i]].ToString();
+                                        string column = analysis.codigo.ToString();
+                                        Muestra muestra = db.Muestra.Find((analisis[column]).ToString());
+                                        if (muestra != null)
+                                        {
+                                            var muest_anal = (from row in db.Muestra_Analisis
+                                                              where row.Codigo == muestra.Codigo && row.Estado == 0
+                                                              select row).ToList();
+
+                                            for (int x = 0; x < muest_anal.Count(); x++)
+                                            {
+                                                Analisis tmpAnalysis = db.Analisis.Find(muest_anal[x].IdAnalisis);
+                                                string nomAnal = tmpAnalysis.Nombre;
+                                                int idAnal = tmpAnalysis.IdAnalisis;
+
+                                                if (nomAnal.Equals(nomAnalysis))
+                                                {
+                                                    /*
+                                                    var ra = from row in db.Resultado_Analisis
+                                                             where row.IdMuestraAnalisis == muest_anal.ElementAt(x).IdMuestraAnalisis
+                                                             select row.IdResultadoAnalisis;
+                                                    */
+                                                    Resultado_Analisis resAnalisis = new Resultado_Analisis();
+                                                    resAnalisis.IdMuestraAnalisis = muest_anal[x].IdMuestraAnalisis;
+
+                                                    muest_anal[x].Estado = 1;
+                                                    db.SaveChanges();
+                                                    resAnalisis.IdReporte = -1;
+                                                    resAnalisis.Estado = 1;
+
+                                                    db.Resultado_Analisis.Add(resAnalisis);
+                                                    db.SaveChanges();
+
+                                                    var datos = (from row in db.Analisis_Dato
+                                                                 where row.IdAnalisis == idAnal
+                                                                 select row).ToList();
+
+                                                    List<string> columns = new List<string>();
+                                                    foreach (var col in analysis.columnas)
+                                                    {
+                                                        columns.Add(col.nombre.ToString());
+                                                    }
+
+                                                    for (int i = 0; i < datos.Count(); i++)
+                                                    {
+                                                        Resultado_Dato analisis_dato = new Resultado_Dato();
+                                                        analisis_dato.IdDato = ((Analisis_Dato)datos[i]).IdDato;
+                                                        double value = Convert.ToDouble(analisis[columns[i]]);
+                                                        analisis_dato.Resultado = value.ToString("#.##");
+                                                        analisis_dato.IdResultadoAnalisis = resAnalisis.IdResultadoAnalisis;
+                                                        db.Resultado_Dato.Add(analisis_dato);
+                                                        db.SaveChanges();
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
-                                    */
-
-                                    Resultado_Analisis resAnalisis = new Resultado_Analisis();
-                                    resAnalisis.IdMuestraAnalisis = idAnal;
-
-                                    Muestra_Analisis mAnalisis = db.Muestra_Analisis.Find(resAnalisis.IdMuestraAnalisis);
-                                    mAnalisis.Estado = 1;
-                                    db.SaveChanges();
-                                    resAnalisis.IdReporte = 1;
-                                    resAnalisis.Estado = 1;
-
-                                    db.Resultado_Analisis.Add(resAnalisis);
-                                    db.SaveChanges();
-
-                                    var datos = (from row in db.Analisis_Dato
-                                                where row.IdAnalisis == idAnal
-                                                select row).ToList();
-
-                                    for (int i = 0; i < datos.Count(); i++) 
-                                    {
-                                        Resultado_Dato analisis_dato = new Resultado_Dato();
-                                        analisis_dato.IdDato = ((Analisis_Dato)datos[i]).IdDato;
-                                        analisis_dato.Resultado = analisis[columns[i]].ToString();
-                                        analisis_dato.IdResultadoAnalisis = resAnalisis.IdResultadoAnalisis;
-                                        db.Resultado_Dato.Add(analisis_dato);
-                                        db.SaveChanges();
-                                    }
-
                                 }
                             }
                         }
-
                     }
                 }
             }
