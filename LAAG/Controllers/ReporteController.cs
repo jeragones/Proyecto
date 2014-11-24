@@ -84,8 +84,8 @@ namespace LAAG.Controllers
                 reporte.Fecha = DateTime.Today;
                 reporte.IdCliente = report.IdCliente;
                 reporte.IdUsuario = persona.ID_Persona;
-                reporte.Metodologia = "";// report.Metodologia;
-                reporte.Observaciones = "";//report.Observaciones;
+                reporte.Metodologia = report.Metodologia;
+                reporte.Observaciones = report.Observaciones;
                 
                 db.Reporte.Add(reporte);
                 db.SaveChanges();
