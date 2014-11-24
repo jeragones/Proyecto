@@ -153,7 +153,7 @@ namespace LAAG.Controllers
                                                 string nomAnal = tmpAnalysis.Nombre;
                                                 int idAnal = tmpAnalysis.IdAnalisis;
 
-                                                if (nomAnal.Equals(nomAnalysis))
+                                                if (nomAnal.Equals("Nitrógeno Total"/*nomAnalysis*/))
                                                 {
                                                     Resultado_Analisis resAnalisis = new Resultado_Analisis();
                                                     resAnalisis.IdMuestraAnalisis = muest_anal[x].IdMuestraAnalisis;

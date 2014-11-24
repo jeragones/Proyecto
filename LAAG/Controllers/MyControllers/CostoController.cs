@@ -202,11 +202,10 @@ namespace LAAG.Controllers
                     {
                         codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
                         break;
-                    }
-                    else if (i == 0)
-                        codigo += "_1";
+                    }  
                 }
             }
+            
             
             int num = Convert.ToInt32(id);
             var analisis = from row in db.Analisis
@@ -304,9 +303,7 @@ namespace LAAG.Controllers
                 {
                     codigo += "_1";
                 }
-
                 else
-
                 {
                     for (int i = consult.Count - 1; i >= 0; i--)
                     {
@@ -316,8 +313,6 @@ namespace LAAG.Controllers
                             codigo += "_" + (Convert.ToInt32(tmp[1]) + 1).ToString();
                             break;
                         }
-                        else if (i == 0)
-                            codigo += "_1";
                     }
                 }
 

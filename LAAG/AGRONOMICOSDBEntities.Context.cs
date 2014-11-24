@@ -24,7 +24,7 @@ namespace LAAG
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+   
         public DbSet<Analisis> Analisis { get; set; }
         public DbSet<Analisis_Dato> Analisis_Dato { get; set; }
         public DbSet<Canton> Canton { get; set; }

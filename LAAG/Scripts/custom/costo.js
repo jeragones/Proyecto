@@ -52,6 +52,13 @@ function eliminar(id) {
         },
         success: function (data) {
             var json = $.parseJSON(data);
+            var t = lstAnalysis;
+            var ii = lstAnalysis.indexOf(""+id);
+            alert(ii);
+            if (ii != -1) {
+                lstAnalysis.splice(ii, 1);
+            }
+            alert(t+'                  '+lstAnalysis)
             $(".cmbAnalysis").append("<option value='" + json[0] + "'>" + json[1] + "</option>");
             $('#tblAnalisis tr#' + id).remove();
             $(".lblCost").val(parseInt($(".lblCost").val()) - parseInt(json[2]));
@@ -209,7 +216,6 @@ $(document).ready(function () {
             success: function (data) {
                 var json = $.parseJSON(data);
                 lstAnalysis.push(json[0].id);
-                
                 var fila = '<tr id="' + json[0].id + '">' +
                                '<td>' + json[0].codigo + '</td> ' +
                                '<td>' + json[0].Nombre + '</td> ' +
