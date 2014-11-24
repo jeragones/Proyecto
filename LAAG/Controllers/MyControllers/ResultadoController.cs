@@ -195,8 +195,6 @@ namespace LAAG.Controllers
                                             }
                                         }
                                     }
-<<<<<<< HEAD
-=======
                                     */
 
                                     Resultado_Analisis resAnalisis = new Resultado_Analisis();
