@@ -52,13 +52,10 @@ function eliminar(id) {
         },
         success: function (data) {
             var json = $.parseJSON(data);
-            var t = lstAnalysis;
-            var ii = lstAnalysis.indexOf(""+id);
-            alert(ii);
-            if (ii != -1) {
-                lstAnalysis.splice(ii, 1);
+            var i = lstAnalysis.indexOf(""+id);
+            if (i != -1) {
+                lstAnalysis.splice(i, 1);
             }
-            alert(t+'                  '+lstAnalysis)
             $(".cmbAnalysis").append("<option value='" + json[0] + "'>" + json[1] + "</option>");
             $('#tblAnalisis tr#' + id).remove();
             $(".lblCost").val(parseInt($(".lblCost").val()) - parseInt(json[2]));
