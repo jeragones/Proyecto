@@ -39,7 +39,34 @@ namespace LAAG.Controllers
         // GET: Reporte/Create
         public ActionResult Create()
         {
-            ViewBag.IdCliente = new SelectList(db.Persona, "ID_Persona", "Nombre");
+            var res_ana = (from row in db.Resultado_Analisis
+                          where row.IdReporte == -1
+                          select row).ToList();
+            
+            List<Muestra_Analisis> analisis = new List<Muestra_Analisis>();
+            foreach (var item in res_ana) 
+            {
+                Muestra_Analisis temp = db.Muestra_Analisis.Find(item.IdMuestraAnalisis);
+                analisis.Add(temp);
+            }
+
+            List<Muestra> muestras = new List<Muestra>();
+            foreach (var item in analisis) 
+            {
+                Muestra temp = db.Muestra.Find(item.Codigo);
+                muestras.Add(temp);
+            }
+
+            List<Persona> clientes = new List<Persona>();
+            for (int i = 0; i < muestras.Count; i++)
+            {
+                Persona temp = db.Persona.Find(muestras[i].IdPersona);
+                //temp.Nombre = temp.Nombre + " " + temp.Apellido1 + " " + temp.Apellido2;
+                clientes.Add(temp);
+            }
+
+            ViewBag.IdCliente = new SelectList(clientes.Distinct().ToList(), "ID_Persona", "Nombre");
+            ViewBag.Muestras = muestras;
             return View();
         }
 
@@ -61,7 +88,37 @@ namespace LAAG.Controllers
                 reporte.Observaciones = report.Observaciones;
                     
                 db.Reporte.Add(reporte);
-                db.SaveChanges();
+                //db.SaveChanges();
+
+                List<Reporte> reportes = db.Reporte.ToList();
+
+                var muestras = db.Persona.Find(reporte.IdCliente).Muestra;
+                List<Muestra_Analisis> mue_ana = new List<Muestra_Analisis>();
+                foreach (var item in muestras) 
+                {
+                    foreach (var item1 in item.Muestra_Analisis) 
+                    {
+                        mue_ana.Add(item1);
+                    }
+                }
+
+                var res_ana = (from row in db.Resultado_Analisis
+                               where row.IdReporte == -1
+                               select row).ToList();
+
+                foreach (var item in res_ana) 
+                {
+                    for (int i = 0; i < mue_ana.Count; i++) 
+                    {
+                        if (mue_ana[i].IdMuestraAnalisis == item.IdMuestraAnalisis) 
+                        {
+                            Resultado_Analisis analisis = db.Resultado_Analisis.Find(item.IdResultadoAnalisis);
+                            analisis.IdReporte = reportes[reportes.Count - 1].IdReporte;
+                            break;
+                        }
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
